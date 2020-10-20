@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="46" width="62.07472428673282">
+  <defs>
+    <path id="path-1" opacity="1" fill-rule="evenodd" d="M36.86589119970757 2.3325770421026366C47.98975925376058 -4.2736951639811736 62.07472428673245 3.7430754988140755 62.07472428673245 16.68074425886728L62.07472428673245 16.68074425886727C62.07472428673245 32.87332208108384 48.94804636781623 46.00000000000007 32.75546854559966 46.000000000000064L12.705954406640743 46.00000000000006C-1.0735887112347964 46.00000000000006 -6.0630320046526105 27.82731959244602 5.78468355610282 20.791166912975175L36.86589119970757 2.3325770421026366Z"/>
+    <mask id="mask-2" maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse" x="0" y="0">
+      <rect opacity="1" x="0" y="0" width="62.07472428673282" height="46" fill="black"/>
+      <use xlink:href="#path-1" fill="white"/>
+    </mask>
+  </defs>
+  <g opacity="1">
+    <use xlink:href="#path-1" fill="rgb(210,165,158)" fill-opacity="1"/>
+    <use xlink:href="#path-1" fill-opacity="0" stroke="rgb(149,106,100)" stroke-opacity="1" stroke-width="4" stroke-linecap="butt" stroke-linejoin="miter" mask="url(#mask-2)"/>
+  </g>
+</svg>

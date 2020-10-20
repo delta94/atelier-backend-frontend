@@ -1,0 +1,89 @@
+.customers-module{
+	flex: 0 0 20%;
+    max-width: 20%;
+	ul{
+		margin: 0;
+		padding: 0;
+		display: block;
+		list-style: none;
+	}
+	ul>li{
+		margin-bottom: 8px;
+	}
+	ul>li.first-parent{
+		@include backend-list-customer-style;
+	}
+	ul>li.first-parent>a{
+		text-transform: uppercase;
+		padding-top:5px;
+		padding-bottom:5px;
+	}
+	.child-list{
+		list-style:none;
+		margin: 20px 0 0;
+		padding: 0;
+		li{
+			padding-left: 15px;
+			margin-bottom: 15px;
+			position:relative;
+			&:before{
+				content:"";
+				width:5px;
+				height:5px;
+				border-radius: 100%;
+				background-color: $bodyadminclr;
+				position: absolute;
+				left: 0;
+				top:5px;
+			}
+		}
+		a{
+			position:relative;
+	    	padding-right: 25px;
+		    &:after{
+		      @include active-state; 
+		      background-image: url(../images/active-shape-green.svg);
+		      width:22px;
+		      height: 22px;
+		      right:0px;
+		      top:-2px;
+		    }
+		    &:hover:after, &:focus:after{
+		    	opacity: 1;
+		    	visibility: visible;
+		    }
+		    &.active{
+		      &:after{
+		        opacity:1;
+		        visibility: visible;
+		      }
+		    }
+		}
+	}
+	&.product-admin-detail ul>li.first-parent>a{
+		position:relative;
+    	padding-right: 25px;
+	    &:after{
+	      @include active-state; 
+	      background-image: url(../images/active-shape-green.svg);
+	      width:22px;
+	      height: 22px;
+	      right:0px;
+	      top:4px;
+	    }
+	    &:hover:after, &:focus:after{
+	    	opacity: 1;
+	    	visibility: visible;
+	    }
+	    &.active{
+	      &:after{
+	        opacity:1;
+	        visibility: visible;
+	      }
+	    }
+	}
+}
+
+.btn-new-product{
+	margin-bottom: 20px;
+}

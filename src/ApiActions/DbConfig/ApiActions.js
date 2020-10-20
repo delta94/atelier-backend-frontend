@@ -1,0 +1,38 @@
+import { apiBaseUrl } from './ApiBaseUrl';
+export const api = {
+    // SIGNUP: `${apiBaseUrl}/api/User/Add`,
+    LOGIN: `${apiBaseUrl}/admins/login`,
+    SIGNUP: `${apiBaseUrl}/users`,
+    IMAGE_UPLOAD: `${apiBaseUrl}/s3upload/image-upload`,
+    USER_LIST: `${apiBaseUrl}/users/userList`,
+    REFRESHTOKEN: `${apiBaseUrl}/token`,
+    USER_DETAIL: `${apiBaseUrl}/users`,
+    UPDATE_USER_INFO: `${apiBaseUrl}/users`,
+    UPDATE_COMP_INFO: `${apiBaseUrl}/company`,
+    UPDATE_SHIPPING_DETAIL: `${apiBaseUrl}/shipping`,
+    // UPDATE_USER_ADDRESS: `${apiBaseUrl}/api/User/UpdateAddress`,
+    // CHANGE_PASSWORD: `${apiBaseUrl}/api/Account/ChangePassword`,
+    // GET_ALL_SERVICES: `${apiBaseUrl}/api/ServiceManagement/GetAll`,
+    // BOOK_APPOINTMENT: `${apiBaseUrl}/api/Appointment/Add`,
+    // SUBSCRIBE_USER: `${apiBaseUrl}/api/Subscription/SubscribeUser?`,
+    // CONTACT_US: `${apiBaseUrl}/api/ContactUs/Add`,
+    FORGOT_PASSWORD: `${apiBaseUrl}/auth/forgotPassword`,
+    RESET_PASSWORD: `${apiBaseUrl}/auth/resetPassword`,
+    // GET_ALL_APPOINTMENT: `${apiBaseUrl}/api/Appointment/GetAll`,
+    // GET_ALL_SERVICE_IMAGES: `${apiBaseUrl}/api/ServiceResult/GetAllServices`,
+    ADD_PRODUCT: `${apiBaseUrl}/product`,
+    GET_PRODUCT: `${apiBaseUrl}/product`,
+    GET_MANUFACTURER: `${apiBaseUrl}/manufacturer`,
+    GET_CART: `${apiBaseUrl}/cart/admin`,
+    GET_USER_CART: `${apiBaseUrl}/cart`,
+    UPDATE_PRODUCTION: `${apiBaseUrl}/production`,
+    UPDATE_DELAY: `${apiBaseUrl}/recordDelay`,
+    UPDATE_MANUFACTUR: `${apiBaseUrl}/manufacturer`,
+    GET_PRODUCTION: `${apiBaseUrl}/production`,
+    GET_COUNT: `${apiBaseUrl}/users/cartCount`,
+    PRODUCT_ORDER: `${apiBaseUrl}/cart`,
+    GET_ORDER: `${apiBaseUrl}/cart`,
+    // GALLERY_IMAGES: `${apiBaseUrl}/api/ServiceResult/GetAll`
+
+}
+export default api;

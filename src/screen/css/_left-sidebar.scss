@@ -1,0 +1,102 @@
+/* homescreen left sidebar */
+
+/* left sidebar */
+.left-content{
+  max-width: 300px;
+  border:2px solid $borderclr;
+  padding: 20px 25px 20px 30px;
+  .admin-panel &{
+    border-color:$bodyadminclr;
+  }
+  .user-data{
+    padding-bottom: 20px;
+    border-bottom: 2px solid $borderclr;
+    .admin-panel &{
+      border-bottom-color:$bodyadminclr;
+    }
+    .user-thumb{
+      img{
+        max-width: 71px;
+        border-radius: 100%;
+        overflow: hidden;
+      }
+    }
+    .profile-name{
+      padding-left: 25px;
+    }
+  }
+  .platform-nav{
+    padding-top: 20px;
+    ul{
+      padding: 0 0 0 15px;
+      margin: 0;
+      li{
+        padding-left: 10px;
+        a{
+          font-size: 18px;
+          color:$bodyclr;
+          padding-top: 12px;
+          padding-bottom: 12px;
+          padding-right:55px;
+          display: block;
+          position:relative;
+          .admin-panel &{
+            color:$bodyadminclr;
+          }
+          .admin-panel &:after{
+            @include active-state;
+              background-image: url(../images/active-shape-green.svg);
+          }
+          &:hover:after, &:focus:after, &.active:after{
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+      }
+    }
+  }
+
+  .left-content-footer{
+    position: relative;
+    padding-right: 30px;
+    .nav-link{
+      padding:.4rem 0;
+      color:$black;
+      transition: all 300ms ease-in-out;
+      padding-right: 50px;
+      position: relative;
+      &:after{
+        @include active-state;
+        top:-2px;
+        right: calc(50% - 40px);
+        .admin-panel &{
+          background-image: url(../images/active-shape-green.svg);
+        }
+      }
+      &.active{
+        &:after{
+          opacity:1;
+          visibility: visible;
+        }
+      }
+      &:hover, &:focus, &.active{
+        color:$bodyclr;
+        .admin-panel &{
+          color:$bodyadminclr;
+        }
+        &:after{
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+    .sidebar-logo{
+      position:absolute;
+      right: 0;
+      bottom: 0;
+      img{
+        max-width:30px;
+      }
+    }
+  }
+}

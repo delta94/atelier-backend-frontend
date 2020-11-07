@@ -122,12 +122,12 @@ class customer extends Component {
                                       ? user.profilePic
                                       : demothumb
                                   }
-                                  alt={user.company[0].name}
+                                  alt="{/*{user.company[0].name}*/}"
                                   width="50"
                                 />
                               </div>
                               <div className="customername">
-                                <span>{user.company[0].name}</span>
+                                <span>Bear Co{/*{user.company[0].name}*/}</span>
                                 <span className="del">
                                   <i className="icon-del"></i>
                                 </span>
@@ -135,7 +135,7 @@ class customer extends Component {
                             </a>
 
                             <div className="total-product-counter">
-                              <span>{user.productData.length}</span>
+                              <span>10{/*{user.productData.length}*/}</span>
                             </div>
                           </li>
                         ))}

@@ -1,0 +1,103 @@
+/* sidebar css only */
+@import "../../global-var.scss";
+
+@mixin platformnav(){
+	ul{
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		li{
+			&:not(:last-child){
+				margin-bottom: 5px;
+			}
+			a{
+				@include menutext();
+				border:1px solid $purple;
+				text-transform: uppercase;
+				line-height: 28px;
+				border-radius: 28px;
+				letter-spacing: 0.6px;
+				display: block;
+				padding:0 17px;
+				transition: all 300ms ease-in-out;
+				position: relative;
+
+				&:hover, &:focus, &.active{
+					background-color: $purple;
+					color:$white;
+				}
+
+				.number{
+					border-radius: 100%;
+					width: 23px;
+					height: 23px;
+					background-color: $purple;
+					color: $white;
+					position: absolute;
+					right: -10px;
+					top: 50%;
+					transform:translateY(-50%);
+					letter-spacing: 0.5px;
+					@include bodycopy1bold();
+					line-height: 20px;
+					text-align: center;
+					display: inline-block;
+				}
+			}
+		}
+	}
+}
+
+.left-content{
+	flex:1;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+	padding-top: 53px;
+	padding-bottom: 35px;
+	padding-left: 32px;
+	padding-right: 32px;
+	height: 100vh;
+
+	@media (max-width:1920px){
+		max-width: 214px;
+		width: 100%;
+	}
+	@media (min-width:1921px){
+		width: 100%;
+		max-width: 250px;
+	}
+
+	.user-data{
+		margin-bottom: 34px;
+	}
+	.user-thumb{
+		margin-bottom: 15px;
+		img{
+			//max-width: 60px;
+			max-width: 40%;
+			border-radius: 100%;
+			height: auto;
+		}
+	}
+
+	.profile-name{
+		@include fsize12();
+		font-family: $aktiex;
+		color:$black;
+		letter-spacing: -0.36px;
+
+		span{
+			display: block;
+			&:first-child{
+				margin-bottom:5px;
+			}
+		}
+	}
+}
+
+.platform-nav{
+	@include platformnav();
+}
+
+.left-content-footer{
+	@extend .platform-nav;
+}

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 // redux
 import { connect } from "react-redux";
-// Dispatch
-// import '../css/style-main.css'
+
+// stylesheet
+import "./sidebar.scss";
+
 // Dispatch
 import { apiCommonParams } from "../../ApiActions/DbConfig/ApiBaseUrl";
 
@@ -44,63 +46,52 @@ class SideBar extends Component {
     // const { userInfo } = this.state;
     let active = window.location.pathname;
     return (
-      <div className="col-sm-4 col-md-4 col-lg-4 left-content account-panel d-flex flex-column justify-content-between">
+      <div className="col-sm-3 col-md-3 col-lg-2 left-content d-flex flex-column justify-content-between">
         <div className="left-content-header">
-          <div className="user-data d-flex align-items-center">
+          <div className="user-data text-center">
             <div className="user-thumb">
               <img src="images/admin-thumb.png" alt="admin-thumb" />
             </div>
             <div className="profile-name d-flex flex-column">
-              <span className="user-name">John Doe</span>
+              <span className="user-name">Cat Tsang</span>
               <span className="company-name">
-                <strong>Big Dog</strong>
+                <strong>Atelier</strong>
               </span>
             </div>
           </div>
           <div className="platform-nav">
             <ul>
-              {/* <a className={active == "/productList" ? "active" : ""} href="productList"> */}
               <li>
                 <a className={active === "/company" ? "active" : ""} href="company">
-                  Customers
+                  Your Customers
                 </a>
               </li>
+              
               <li>
-                <a className={active === "/production" ? "active" : ""} href="production">
-                  In Production
-                </a>
+                <a href="#">Dashboard</a>
+              </li>
+
+              <li>
+                <a href="#">All Products</a>
               </li>
               <li>
-                <a href="#">Current Orders</a>
+                <a href="#">In Production</a>
               </li>
               <li>
-                <a href="#">Manufacturers</a>
+                <a href="#">Customer Orders</a>
               </li>
+              
             </ul>
           </div>
         </div>
         <div className="left-content-footer">
           <ul className="nav flex-column">
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                Account
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                Settings
-              </a>
-            </li>
-            <li className="nav-item">
               <a onClick={this.logout} className="nav-link" href="login">
                 Log Out
               </a>
             </li>
           </ul>
-
-          <div className="sidebar-logo">
-            <img src="images/Ateli-yay-logo.png" alt="Ateli-yay-logo" />
-          </div>
         </div>
       </div>
     );

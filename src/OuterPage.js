@@ -3,10 +3,7 @@ import { Route } from 'react-router-dom';
 
 const OuterLayout = ({ children, ...rest }) => {
   return (
-    <div className="page page-dashboard">
       <div className="main">{children}</div>
-
-    </div>
   )
 }
 

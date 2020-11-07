@@ -257,7 +257,7 @@ class product extends Component {
             // secondaryManufacturerId: "",
             // formulationManufacturerId: ""
         }
-        console.log("data :" + JSON.stringify(productData))
+        console.log("aad  data :" + JSON.stringify(productData))
         this.props.showHideLoding(true)
         AddProduct(productData, this.state.token).then(res => {
             console.log("res :", JSON.stringify(res))

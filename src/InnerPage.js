@@ -10,11 +10,13 @@ const InnerLayout = ({ children, ...rest }) => {
         //   <div className="main">{children}</div>  
 
         // </div>  
-        <div className="main d-flex flex-column">
-            <div className="container-fluid d-flex flex-column">
+        <div className="dashboard-main-wrap d-flex flex-column">
+            <div className="container-fluid dashboard-inner-wrapper d-flex flex-column">
                 <div className="row">
                     <SideBar />
-                    {children}
+                    <div className="col-sm-12 col-md-9 col-lg-10 right-content d-flex">
+                        {children}
+                    </div>
                 </div>
             </div>
         </div >

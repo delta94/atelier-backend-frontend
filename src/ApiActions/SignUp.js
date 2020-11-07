@@ -26,7 +26,7 @@ export const GetUser = (token) => {
         // }
         apiGetMethod(url, token)
             .then(response => {
-                debugger
+                // debugger
                 resolve(response)
                 // resolve(response.data.Data)
             }).catch(err => {

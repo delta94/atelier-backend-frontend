@@ -1,0 +1,266 @@
+/* global site variables */
+
+/* color pallet */
+$white : #fff;
+$black : #000;
+$purple : #7C0AFF;
+$blue : $purple;
+$blue1 : #0069F1;
+$greenfr : #35D263;
+$orange : #FF960F;
+$greenbtn : #35D264;
+$red : #EC5A24;
+
+/* old color pallet */
+$redborder : #5E1010;
+$redbg : #BB4448;
+$pink : #EFC9C3;
+$greybg : #eee;
+$greytext : #7e7e7e;
+
+/* font variables */
+$orelosemiwidebold : 'orelo_semiwidebold';
+$orelosemiwidereg : 'orelo_semiwideregular';
+$aktiex : 'aktiv-grotesk-extended', sans-serif;
+$aktireg : "aktiv-grotesk";
+$newscycle : 'news_cyclebold';
+$newscycleregular : 'news_cycleregular';
+$neuemont : 'neue_montrealregular', sans-serif;
+
+/* frontend variables */
+$bodyfont : $aktireg;
+$bodyclr : $blue;
+$borderclr : $bodyclr;
+
+/* backend dashboard variable */
+$green : #BFCEC8;
+$borderadminclr : #3D6857;
+$bodyadminclr : $borderadminclr;
+
+$font12 : 12px;
+$font14 : 14px;
+
+
+/* global mixins */
+@mixin h2title (){
+  font-size: 80px;
+  font-family: $orelosemiwidereg;
+  line-height: 1;
+  margin:0;
+  padding: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+@mixin fsize32 (){
+  font-size: 32px;
+  font-family: $aktireg;
+  line-height: 30px;
+}
+
+@mixin fsize24 (){
+  font-size: 24px;
+  font-family: $aktireg;
+  line-height: 27px;
+}
+
+@mixin fsize16 (){
+  font-size: 16px;
+  font-family: $aktireg;
+  line-height: 19px;
+}
+
+@mixin fsize16newcycle (){
+  font-size: 16px;
+  font-family: $newscycle;
+  line-height: 19px;
+}
+
+@mixin fsize12 (){
+  font-size: 12px;
+  font-family: $aktireg;
+  line-height: 15px;
+}
+
+@mixin bodycopy1(){
+  font-size: 10px;
+  line-height: 13px;
+  font-family: $newscycleregular;
+}
+
+@mixin bodycopy1bold(){
+  font-size: 10px;
+  line-height: 13px;
+  font-family: $newscycle;
+}
+
+@mixin menutext(){
+  font-size: 12px;
+  line-height: 15px;
+  font-family: $newscycle;
+}
+
+@mixin bodycopy2(){
+  font-size: 10px;
+  line-height: 13px;
+  font-family: $aktireg;
+  font-weight: 400;
+}
+
+@mixin bodycopy2bold(){
+  font-size: 10px;
+  line-height: 13px;
+  font-family: $aktireg;
+  font-weight: 700;
+}
+
+@mixin statuscomplete(){
+  background-color: $blue;
+  color:$white;
+  border-radius: 28px;
+  letter-spacing: 0.36px;
+  @include bodycopy1bold();
+  display: block;
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 3px;
+  padding-bottom: 4px;
+}
+
+@mixin statuspending(){
+  background-color: $orange;
+  color:$white;
+  border-radius: 28px;
+  letter-spacing: 0.36px;
+  @include bodycopy1bold();
+  display: block;
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 3px;
+  padding-bottom: 4px;
+}
+
+@mixin statusinproduction(){
+  background-color: $greenbtn;
+  color:$white;
+  border-radius: 28px;
+  letter-spacing: 0.36px;
+  @include bodycopy1bold();
+  display: block;
+  text-transform: uppercase;
+  text-align: center;
+  padding-top: 3px;
+  padding-bottom: 4px;
+}
+
+@mixin bluearea(){
+  max-width:272px;
+  flex:0 0 272px;
+  width: 100%;
+  background-color: $blue;
+  padding:35px 25px;
+  color:#fff;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+@mixin btnsolidwhite(){
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $black;
+  @include fsize16newcycle();
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: 60px;
+  border:none;
+  background-color: $white;
+  color:$black;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+@mixin btnoutline(){
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $blue;
+  @include bodycopy1bold();
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: 60px;
+  border:none;
+  background-color: $white;
+  color:$black;
+  padding-left: 10px;
+  padding-right: 10px;
+  border:1px solid $blue;
+  -webkit-transition:all 300ms ease-in-out;
+  -moz-transition:all 300ms ease-in-out;
+  -ms-transition:all 300ms ease-in-out;
+  -o-transition:all 300ms ease-in-out;
+  transition:all 300ms ease-in-out;
+  min-width: 150px;
+
+  &:hover, &:focus{
+    background-color:$blue;
+    color:$white;
+    border-color: $blue;
+  }
+}
+
+@mixin starttrigger(){
+  width: 128px;
+  height: 165px;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $white;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.2);
+  padding: 15px;
+  @include bodycopy1bold();
+  text-transform: uppercase;
+  color: $black;
+  text-align: center;
+}
+
+@mixin triggerplus(){
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border:1px solid $purple;
+  background-image: url('./images/icon-plus-purple.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 12px;
+  display: inline-block;
+}
+
+.add-fresh-trigger{
+    @include starttrigger();
+    &:hover, &:focus{
+      color:$black;
+      outline:none;
+    }
+}
+
+.trigger-btn-icon{
+  @include triggerplus();
+}
+
+
+@mixin dragdrop(){
+  border:1px solid rgba(0,0,0,0.3);
+  border-radius: 10px;
+  height: 101px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-field label{
+  @include dragdrop();
+}

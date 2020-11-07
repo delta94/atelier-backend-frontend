@@ -3,6 +3,14 @@ import React, { Component } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import logoawhite from "../../img-new/icon-a-purple.svg";
+
+// dummy image
+import demothumb from "../../images/customer-thumb.png";
+
+import "../userdashboard.scss";
+import "./customers.scss";
+
 import Error from "../../utils/Error";
 // redux
 import { connect } from "react-redux";
@@ -63,107 +71,159 @@ class customer extends Component {
     // alert(showProduct);
     return (
       <React.Fragment>
-        <div class="col-sm-12 col-md-8 col-lg-8 right-content account-panel">
-          <div class="row">
-            <div className="col-sm-12 col-md-2 col-lg-2 customers-module">
-              <div className="btn-new-product">
-                <a
-                  onClick={() =>
-                    this.setState({
-                      showAddCustomer: !this.state.showAddCustomer,
-                      showProduct: false,
-                      userOrder: false,
-                      userProduction: false,
-                    })
-                  }
-                  className="btn-module-black"
-                  href="#"
-                >
-                  New Customer
-                </a>
-              </div>
-              <div className="customers-listing">
-                <ul>
-                  {userList.map((user) => (
-                    <li className="first-parent">
-                      <a
-                        onClick={() =>
-                          this.setState({
-                            companyDetails: !this.state.companyDetails,
-                            active: user.userId,
-                            showProduct: false,
-                            userOrder: false,
-                            userProduction: false,
-                            shippingData: user.shippingData,
-                          })
-                        }
-                        href="#"
-                      >
-                        {user.company[0].name}
-                      </a>
-                      {companyDetails && user.userId == active ? (
-                        <ul className="child-list">
-                          <li>
+        <div className="row justify-content-between">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 loggedin-user-dashboard full-width d-flex flex-column">
+          <div className="titlearea">
+            <h3>
+              Hey <span>Rick!</span>
+              <br />
+              :( Looks like you don’t have any customers yet.
+            </h3>
+          </div>
+
+          <div className="bodyarea d-flex flex-column">
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="row">
+                <div className="col-sm-12 col-md-12 col-lg-12 customers-module">
+                  <h4>Your Customers</h4>
+
+                  <div className="customers-listing">
+                    <ul className="customer-lists d-flex flex-wrap">
+                      {userList.map((user) => (
+                        <li className="customer-wrap">
+                          <a
+                            onClick={() =>
+                              this.setState({
+                                companyDetails: !this.state.companyDetails,
+                                active: user.userId,
+                                showProduct: false,
+                                userOrder: false,
+                                userProduction: false,
+                                shippingData: user.shippingData,
+                              })
+                            }
+                            href="#"
+                          >
+                            <div className="customer-thumb">
+                              <img src={demothumb} alt="{user.company[0].name}" />
+                            </div>
+                            <div className="customername">
+                              <span>{user.company[0].name}</span>
+                              <span className="del"><i className="icon-del"></i></span>
+                            </div>
+                          </a>
+
+                          <div className="total-product-counter">
+                            <span>3</span>
+                          </div>
+                        </li>
+                      ))}
+
+                        <li>
+                          <div className="btn-new-product">
                             <a
-                              className={showProduct ? "active" : ""}
-                              onClick={() =>
+                              onClick={() => 
                                 this.setState({
-                                  showProduct: !this.state.showProduct,
-                                  showAddCustomer: false,
+                                  showAddCustomer: !this.state.showAddCustomer,
+                                  showProduct: false,
                                   userOrder: false,
                                   userProduction: false,
                                 })
                               }
+                              className="add-fresh-trigger"
                               href="#"
                             >
-                              Products
+                              Click here to start adding a customer
                             </a>
-                          </li>
-                          <li>
+                          </div>
+                          
+                          <div className="btn-new-icon">
                             <a
-                              className={userProduction ? "active" : ""}
                               onClick={() =>
                                 this.setState({
-                                  userProduction: !this.state.userProduction,
-                                  showAddCustomer: false,
+                                  showAddCustomer: !this.state.showAddCustomer,
                                   showProduct: false,
                                   userOrder: false,
-                                })
-                              }
-                              href="#"
-                            >
-                              In Production
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className={userOrder ? "active" : ""}
-                              onClick={() =>
-                                this.setState({
-                                  userOrder: !this.state.userOrder,
-                                  showAddCustomer: false,
-                                  showProduct: false,
                                   userProduction: false,
                                 })
                               }
+                              className="trigger-btn-icon"
                               href="#"
-                            >
-                              Orders
-                            </a>
-                          </li>
-                        </ul>
-                      ) : null}
-                    </li>
-                  ))}
-                </ul>
+                            ></a>
+                          </div>
+                        </li>
+                    </ul>
+                  </div>
+                </div>
+
+                {userList.map((user) => (
+                  <div>
+                    {companyDetails && user.userId == active ? (
+                            <ul className="child-list">
+                              <li>
+                                <a
+                                  className={showProduct ? "active" : ""}
+                                  onClick={() =>
+                                    this.setState({
+                                      showProduct: !this.state.showProduct,
+                                      showAddCustomer: false,
+                                      userOrder: false,
+                                      userProduction: false,
+                                    })
+                                  }
+                                  href="#"
+                                >
+                                  Products
+                                </a>
+                              </li>
+                              <li>
+                                <a
+                                  className={userProduction ? "active" : ""}
+                                  onClick={() =>
+                                    this.setState({
+                                      userProduction: !this.state.userProduction,
+                                      showAddCustomer: false,
+                                      showProduct: false,
+                                      userOrder: false,
+                                    })
+                                  }
+                                  href="#"
+                                >
+                                  In Production
+                                </a>
+                              </li>
+                              <li>
+                                <a
+                                  className={userOrder ? "active" : ""}
+                                  onClick={() =>
+                                    this.setState({
+                                      userOrder: !this.state.userOrder,
+                                      showAddCustomer: false,
+                                      showProduct: false,
+                                      userProduction: false,
+                                    })
+                                  }
+                                  href="#"
+                                >
+                                  Orders
+                                </a>
+                              </li>
+                            </ul>
+                          ) : null}
+                          </div>
+                      ))}
+
+
+                {showAddCustomer ? <AddCustomer /> : null}
+                {showProduct ? <Product userId={active} shippingData={shippingData} /> : null}
+                {userOrder ? <UserOrderList userId={active} shippingData={shippingData} /> : null}
+                {userProduction ? <UserProductionList userId={active} /> : null}
               </div>
             </div>
-            {showAddCustomer ? <AddCustomer /> : null}
-            {showProduct ? <Product userId={active} shippingData={shippingData} /> : null}
-            {userOrder ? <UserOrderList userId={active} shippingData={shippingData} /> : null}
-            {userProduction ? <UserProductionList userId={active} /> : null}
           </div>
+
         </div>
+      </div>
       </React.Fragment>
     );
   }

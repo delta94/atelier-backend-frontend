@@ -1,0 +1,122 @@
+/* variables */
+@import "../../global-var.scss";
+
+.loggedin-user-dashboard{
+    &.full-width{
+        max-width: 100%;
+        flex-basis: 100%;
+    }
+}
+.customers-module{
+    padding: 0;
+
+    .customer-lists{
+        margin-right: 35px;
+        padding: 0px;
+        list-style: none;
+        li{
+            &:not(:last-child){
+                margin-bottom: 35px;
+                @include starttrigger();
+                margin-right: 35px;
+                position:relative;
+            }
+            &:last-child{
+                display: flex;
+            }
+            &.customer-wrap{
+                display: block;
+                a{
+                    display: flex;
+                    width: 100%;
+                    height: 100%;
+                    flex-direction: column;
+                    justify-content: space-between;
+
+                    &:hover, &:focus{
+                        color:$purple;
+                        outline:none;
+                    }
+                    .customer-thumb{
+                        flex: 1;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                    .customername{
+                        text-align: left;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        .del{
+                            width: 18px;
+                            min-width: 18px;
+                            height: 18px;
+                            display: inline-block;
+                            border:1px solid $purple;
+                            border-radius: 3px;
+                            background-image: url('../../img-new/small-cross-icon.svg');
+                            background-repeat: no-repeat;
+                            background-position: center;
+                            background-size: 8px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .total-product-counter{
+            position: absolute;
+            right: -5px;
+            top: -5px;
+            span{
+                width: 20px;
+                height: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                line-height: 1;
+                @include bodycopy1bold();
+                color:$white;
+                background-color: $purple;
+                border-radius: 100%;
+            }
+        }
+    }
+    .btn-new-product{
+        display: inline-block;
+        margin-right: 25px;
+        width: 128px;
+        flex:0 0 128px;
+    }
+    .btn-new-icon{
+        padding: 0;
+        width: 20px;
+        flex: 0 0 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.popup-module.edit-payment-popup .popup-form-area{
+    height:auto !important;
+    overflow: initial !important;
+}
+
+.add-customer{
+    .detail-info{
+        margin-bottom: 30px;
+    }
+    .btn-module{
+        @include btnoutline();
+        color:$purple;
+        display: inline-block;
+        &:hover, &:focus{
+            color:$white;
+        }
+    }
+    .add-product-submit{
+        text-align: right;
+    }
+}

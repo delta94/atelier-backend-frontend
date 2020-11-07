@@ -14,9 +14,15 @@ import { saveLoginUserInfo } from '../../Redux/Action/Login'
 import { showHideLoding } from '../../Redux/Action/Loading'
 //api 
 import { login } from '../../ApiActions/Login'
+
+// atelier logo
+import atelierlogo from "../../img-new/atelier-logo.svg"; 
+
+// alogo header only
+import Alogo from "../Component/header/header";
+
+// style
 import './login.scss'
-import '../../style.css'
-// import '../css/style-main.css'
 
 const validationSchema = Yup.object().shape({
     password: Yup.string()
@@ -60,47 +66,55 @@ class loginUser extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="login-screen">
+                <Alogo />
+
                 <ToastContainer />
                 <Formik initialValues={{ password: "", email: "" }} validationSchema={validationSchema} onSubmit={(values, { resetForm }) => { this.loginUser(values); resetForm(); }}>
                     {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
 
-                        <div className="welcome-screen d-flex align-items-center">
+                        <div className="login-wrapper">
                             <div className="container">
                                 <div className="row">
-                                    <div className="col-xs-12 col-sm-12 col-md-12 form-login">
-                                        <form onSubmit={handleSubmit}>
-                                            <div className="field-groups d-flex align-items-center">
-                                                <div className="login-fields">
-                                                    <div className="input-group">
-                                                        <input type="text" name="email" id="email" placeholder="Username"
-                                                            onChange={handleChange}
-                                                            onBlur={handleBlur}
-                                                            value={values.email}
-                                                            className={touched.email && errors.email ? "form-control has-error" : "form-control"} />
-                                                        <Error touched={touched.email} message={errors.email} />
-                                                    </div>
-                                                    <div className="input-group">
-                                                        <input type="password" name="password" id="password" placeholder="Password"
-                                                            onChange={handleChange}
-                                                            onBlur={handleBlur}
-                                                            value={values.password}
-                                                            className={touched.password && errors.password ? "form-control has-error" : "form-control"} />
-                                                        <Error touched={touched.password} message={errors.password} />
+                                    <div className="col-xs-12 col-sm-12 col-md-8 login-content">
+                                        <h5 className="text-uppercase">Welcome to</h5>
+                                        <h1 className="atelier-logo">
+                                            <img src={atelierlogo} alt="atelier-logo" />
+                                        </h1>
+                                        <h2>The future of manufacturing</h2>
+                                    </div>
+
+                                    <div className="col-xs-12 col-sm-12 col-md-4 form-login">
+                                        <div className="formarea d-flex flex-column justify-content-between">
+                                            <h3>Sign In</h3>
+                                            <form onSubmit={handleSubmit}>
+                                                <div className="field-groups">
+                                                    <div className="login-fields">
+                                                        <div className="input-field">
+                                                            <input type="text" name="email" id="email" placeholder="Username"
+                                                                onChange={handleChange}
+                                                                onBlur={handleBlur}
+                                                                value={values.email}
+                                                                className={touched.email && errors.email ? "form-control has-error" : "form-control"} />
+                                                            <Error touched={touched.email} message={errors.email} />
+                                                        </div>
+                                                        <div className="input-field">
+                                                            <input type="password" name="password" id="password" placeholder="Password"
+                                                                onChange={handleChange}
+                                                                onBlur={handleBlur}
+                                                                value={values.password}
+                                                                className={touched.password && errors.password ? "form-control has-error" : "form-control"} />
+                                                            <Error touched={touched.password} message={errors.password} />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div className="logo">
-                                                    <img className="fluid-image" src="images/Ateli-yay-logo.png" alt="Ateli-yay-logo" />
+                                                
+                                                <div className="form-submit">
+                                                    <input className="btn-module" type="submit" name="" value="Log In" />
+                                                    <a className="link-forgotpw" href="forgotPassword">Forgot Password?</a>
                                                 </div>
-                                            </div>
-                                            {/* <div className="input-row">
-                                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>Submit</button>
-                            </div> */}
-                                            <div className="form-submit d-flex align-items-center">
-                                                <input className="btn-module" type="submit" name="" value="Log In" />
-                                                <a className="link-forgotpw" href="forgotPassword">Forgot Your Password?</a>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

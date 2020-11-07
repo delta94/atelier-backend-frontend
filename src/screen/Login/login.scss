@@ -1,30 +1,143 @@
-$pink : #EFC9C3;
+@import "../../global-var.scss";
 
-body{
-    background:$pink;
-    font-family: CircularStd;
-}
+.login-wrapper{
+    padding-top:145px;
 
-.welcome-screen{
-    min-height: 100vh;
-    .welcome-content{
-        border:3px solid #D2A59E;
-        box-shadow:0 0 4px rgba(0,0,0,0.2);
-        color:#956A64;
-        min-height:337px;
-        max-width:854px;
-        padding:70px 100px;
-        width:100%;
-        p{
-            font-family:Arial, Helvetica, sans-serif;
-            font-size:20px;
-            line-height: 25px;
-            &:last-child{
-                margin-bottom: 0;
-            }
+    .login-content{
+      color:$blue1;
+      h3, h5{
+        margin:0;
+      }
+      h1{
+        margin:0;
+      }
+      .atelier-logo{
+        padding-top: 5px;
+        //margin-bottom: 102px;
+        margin-bottom: 13.4%;
+
+        img{
+          max-width: 200px;
+          height: auto;
+          width: 100%;
         }
+      }
     }
-    .loginBtn{
+
+    .formarea{
+      padding-top:45px;
+      padding-left: 25px;
+      padding-right: 25px;
+      border-radius: 25px;
+      padding-bottom: 25px;
+      background-color: $blue1;
+      color:$white;
+      min-height: 325px;
+
+      .text-success{
+        color:$white !important;
+        text-transform: capitalize;
+      }
+      .text-danger{
+        color:$white !important;
+      }
+
+      input:not([type="submit"]){
+        border-radius: 22px;
+        border:1px solid $white !important;
+        background: transparent !important;
+        font-size: 14px;
+        color:$white !important;
+        text-shadow: none !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px !important;
+
+        &:focus, &:active, &:focus-within{
+          background: transparent !important;
+        }
+      }
+
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover, 
+      input:-webkit-autofill:focus{
+        border: 1px solid $white;
+        -webkit-text-fill-color: $white;
+        color: $white !important;
+        text-transform: uppercase !important;
+        -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+        transition: background-color 5000s ease-in-out 0s;
+        letter-spacing: 0.5px !important;
+        font-size: $font14 !important;
+      }
+
+      input::-webkit-input-placeholder {
+        color: $white !important;
+        text-transform: uppercase !important;
+        opacity: 1;
+        alpha:100;
+        letter-spacing: 0.5px !important;
+      }
+
+
+      input:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: $white !important;
+        text-transform: uppercase !important;
+        opacity: 1;
+        alpha:100;
+        letter-spacing: 0.5px !important;
+      }
+
+      input::placeholder {
+        color: $white !important;
+        text-transform: uppercase !important;
+        opacity: 1;
+        alpha:100;
+        letter-spacing: 0.5px !important;
+      }
+
+      .form-message{
+        font-size: $font12;
+        &.display-none{
+          font-size: 0;
+        }
+      }
+
+      input+.form-message{
+        margin:5px 0;
+      }
+    }
+
+      .btn-module{
+        border-radius: 22px;
+        background-color: $white;
+        display: block;
+        width: 100%;
+        text-transform: uppercase;
+        font-size: 16px;
+        margin:0;
+        padding:5px 15px;
+        font-family: $newscycle;
+        letter-spacing: 1px;
+        transition: all 300ms ease-in-out;
+        border:1px solid $white;
+        text-align: center;
+        &:hover, &:focus{
+          background-color:transparent;
+          color:$white;
+          outline:none !important;
+        }
+      }
+
+      .link-forgotpw{
+        color:$white;
+        margin-top: 10px;
+        display: inline-block;
+        padding-left: 15px;
+        font-size: $font14;
+      }
+    }
+    
+    /*.loginBtn{
         width:100%;
         padding-top: 40px;
         a{
@@ -40,5 +153,4 @@ body{
           transition: all 300ms ease-in-out;
           font-family:Arial, Helvetica, sans-serif;
         }
-    }
-}
+    }*/

@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+
+/* global style */
+import './global.scss';
+
 import * as serviceWorker from './serviceWorker';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 

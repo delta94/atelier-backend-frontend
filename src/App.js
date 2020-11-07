@@ -10,8 +10,9 @@ import { saveLoginUserInfo } from './Redux/Action/Login'
 
 import InnerLayoutRoute from "./InnerPage";
 import Login from './screen/Login/login';
-// import Welcome from './screen/login/welcome';
+import ForgotPassword from './screen/Login/forgotPassword';
 // import ResetPassword from './screen/login/resetPassword';
+// import Welcome from './screen/login/welcome';
 import Company from './screen/Company/companyList';
 // import Products from './screen/Product/productList';
 import Production from './screen/Production/productionList';
@@ -50,8 +51,8 @@ class App extends Component {
             </Route>
             {/* <OuterPageLayout path="/welcome" component={Welcome} /> */}
             <OuterPageLayout path="/login" component={Login} />
-            {/* <OuterPageLayout path="/forgotPassword" component={ForgotPassword} />
-            <OuterPageLayout path="/resetPassword" component={ResetPassword} />*/}
+            <OuterPageLayout path="/forgotPassword" component={ForgotPassword} />
+            {/*<OuterPageLayout path="/resetPassword" component={ResetPassword} />*/}
             <InnerLayoutRoute path="/home" component={Home} />
             <InnerLayoutRoute path="/company" component={Company} />
             <InnerLayoutRoute path="/production" component={Production} />

@@ -23,6 +23,7 @@ import UserOrderList from "../Product/userOrderList";
 import UserProductionList from "../Production/userProductionList";
 //api
 import { GetUser } from "../../ApiActions/SignUp";
+import { Link } from "react-router-dom";
 
 class customer extends Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class customer extends Component {
       showAddCustomer: false,
       active: "",
       userList: [],
-      shippingData: [],
+      shippingData: []
     };
   }
   componentWillMount() {
@@ -47,16 +48,26 @@ class customer extends Component {
     // this.props.showHideLoader(false)
     this.props.showHideLoding(true);
     GetUser(this.state.token)
-      .then((response) => {
+      .then(response => {
         this.props.showHideLoding(false);
         this.setState({ userList: response.data.data.userList });
         console.log("userList :" + JSON.stringify(this.state.userList));
       })
-      .catch((err) => {
+      .catch(err => {
         this.props.showHideLoding(false);
         //  this.props.showHideLoader(false)
       });
   };
+
+  createCustomer = () => {
+    this.setState({
+      showAddCustomer: !this.state.showAddCustomer,
+      showProduct: false,
+      userOrder: false,
+      userProduction: false
+    });
+  };
+
   render() {
     const {
       userList,
@@ -66,179 +77,181 @@ class customer extends Component {
       userOrder,
       userProduction,
       showAddCustomer,
-      shippingData,
+      shippingData
     } = this.state;
     // alert(showProduct);
     return (
       <React.Fragment>
         <div className="row justify-content-between">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 loggedin-user-dashboard full-width d-flex flex-column">
-          <div className="titlearea">
-            <h3>
-              Hey <span>Rick!</span>
-              <br />
-              :( Looks like you don’t have any customers yet.
-            </h3>
-          </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 loggedin-user-dashboard full-width d-flex flex-column">
+            <div className="titlearea">
+              <h3>
+                Hey <span>Rick!</span>
+                <br />
+                :( Looks like you don’t have any customers yet.
+              </h3>
+            </div>
 
-          <div className="bodyarea d-flex flex-column">
-            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <div class="row">
-                <div className="col-sm-12 col-md-12 col-lg-12 customers-module">
-                  <h4>Your Customers</h4>
+            <div className="bodyarea d-flex flex-column">
+              <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="row">
+                  <div className="col-sm-12 col-md-12 col-lg-12 customers-module">
+                    <h4>Your Customers</h4>
 
-                  <div className="customers-listing">
-                    <ul className="customer-lists d-flex flex-wrap">
-                      {userList.map((user) => (
-                        <li className="customer-wrap">
-                          <a
-                            onClick={() =>
-                              this.setState({
-                                companyDetails: !this.state.companyDetails,
-                                active: user.userId,
-                                showProduct: false,
-                                userOrder: false,
-                                userProduction: false,
-                                shippingData: user.shippingData,
-                              })
-                            }
-                            href="#"
-                          >
-                            <div className="customer-thumb">
-                              <img src={demothumb} alt="{user.company[0].name}" />
+                    <div className="customers-listing">
+                      <ul className="customer-lists d-flex flex-wrap">
+                        {userList.map(user => (
+                          <li className="customer-wrap">
+                            <a
+                              onClick={() =>
+                                this.setState({
+                                  companyDetails: !this.state.companyDetails,
+                                  active: user.userId,
+                                  showProduct: false,
+                                  userOrder: false,
+                                  userProduction: false,
+                                  shippingData: user.shippingData
+                                })
+                              }
+                              href="#"
+                            >
+                              <div className="customer-thumb">
+                                <img
+                                  src={
+                                    user.profilePic
+                                      ? user.profilePic
+                                      : demothumb
+                                  }
+                                  alt={user.company[0].name}
+                                  width="50"
+                                />
+                              </div>
+                              <div className="customername">
+                                <span>{user.company[0].name}</span>
+                                <span className="del">
+                                  <i className="icon-del"></i>
+                                </span>
+                              </div>
+                            </a>
+
+                            <div className="total-product-counter">
+                              <span>{user.productData.length}</span>
                             </div>
-                            <div className="customername">
-                              <span>{user.company[0].name}</span>
-                              <span className="del"><i className="icon-del"></i></span>
-                            </div>
-                          </a>
-
-                          <div className="total-product-counter">
-                            <span>3</span>
-                          </div>
-                        </li>
-                      ))}
+                          </li>
+                        ))}
 
                         <li>
                           <div className="btn-new-product">
                             <a
-                              onClick={() => 
-                                this.setState({
-                                  showAddCustomer: !this.state.showAddCustomer,
-                                  showProduct: false,
-                                  userOrder: false,
-                                  userProduction: false,
-                                })
-                              }
+                              onClick={this.createCustomer}
                               className="add-fresh-trigger"
                               href="#"
                             >
                               Click here to start adding a customer
                             </a>
                           </div>
-                          
+
                           <div className="btn-new-icon">
-                            <a
-                              onClick={() =>
-                                this.setState({
-                                  showAddCustomer: !this.state.showAddCustomer,
-                                  showProduct: false,
-                                  userOrder: false,
-                                  userProduction: false,
-                                })
-                              }
+                            <Link
+                              to="#"
+                              onClick={this.createCustomer}
                               className="trigger-btn-icon"
-                              href="#"
-                            ></a>
+                            ></Link>
                           </div>
                         </li>
-                    </ul>
+                      </ul>
+                    </div>
                   </div>
+
+                  {userList.map(user => (
+                    <div>
+                      {companyDetails && user.userId == active ? (
+                        <ul className="child-list">
+                          <li>
+                            <Link
+                              to="#"
+                              className={showProduct ? "active" : ""}
+                              onClick={() =>
+                                this.setState({
+                                  showProduct: !this.state.showProduct,
+                                  showAddCustomer: false,
+                                  userOrder: false,
+                                  userProduction: false
+                                })
+                              }
+                            >
+                              Products
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="#"
+                              className={userProduction ? "active" : ""}
+                              onClick={() =>
+                                this.setState({
+                                  userProduction: !this.state.userProduction,
+                                  showAddCustomer: false,
+                                  showProduct: false,
+                                  userOrder: false
+                                })
+                              }
+                            >
+                              In Production
+                            </Link>
+                          </li>
+                          <li>
+                            <Link
+                              to="#"
+                              className={userOrder ? "active" : ""}
+                              onClick={() =>
+                                this.setState({
+                                  userOrder: !this.state.userOrder,
+                                  showAddCustomer: false,
+                                  showProduct: false,
+                                  userProduction: false
+                                })
+                              }
+                            >
+                              Orders
+                            </Link>
+                          </li>
+                        </ul>
+                      ) : null}
+                    </div>
+                  ))}
+
+                  {showAddCustomer ? <AddCustomer /> : null}
+                  {showProduct ? (
+                    <Product userId={active} shippingData={shippingData} />
+                  ) : null}
+                  {userOrder ? (
+                    <UserOrderList
+                      userId={active}
+                      shippingData={shippingData}
+                    />
+                  ) : null}
+                  {userProduction ? (
+                    <UserProductionList userId={active} />
+                  ) : null}
                 </div>
-
-                
-                {userList.map((user) => (
-                  <div>
-                    {companyDetails && user.userId == active ? (
-                            <ul className="child-list">
-                              <li>
-                                <a
-                                  className={showProduct ? "active" : ""}
-                                  onClick={() =>
-                                    this.setState({
-                                      showProduct: !this.state.showProduct,
-                                      showAddCustomer: false,
-                                      userOrder: false,
-                                      userProduction: false,
-                                    })
-                                  }
-                                  href="#"
-                                >
-                                  Products
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  className={userProduction ? "active" : ""}
-                                  onClick={() =>
-                                    this.setState({
-                                      userProduction: !this.state.userProduction,
-                                      showAddCustomer: false,
-                                      showProduct: false,
-                                      userOrder: false,
-                                    })
-                                  }
-                                  href="#"
-                                >
-                                  In Production
-                                </a>
-                              </li>
-                              <li>
-                                <a
-                                  className={userOrder ? "active" : ""}
-                                  onClick={() =>
-                                    this.setState({
-                                      userOrder: !this.state.userOrder,
-                                      showAddCustomer: false,
-                                      showProduct: false,
-                                      userProduction: false,
-                                    })
-                                  }
-                                  href="#"
-                                >
-                                  Orders
-                                </a>
-                              </li>
-                            </ul>
-                          ) : null}
-                          </div>
-                      ))}
-
-
-                {showAddCustomer ? <AddCustomer /> : null}
-                {showProduct ? <Product userId={active} shippingData={shippingData} /> : null}
-                {userOrder ? <UserOrderList userId={active} shippingData={shippingData} /> : null}
-                {userProduction ? <UserProductionList userId={active} /> : null}
               </div>
             </div>
           </div>
-
         </div>
-      </div>
       </React.Fragment>
     );
   }
 }
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    loginUserInfo: state.login,
+    loginUserInfo: state.login
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    saveLoginUserInfo: (data) => dispatch(saveLoginUserInfo(data)),
-    showHideLoding: (data) => dispatch(showHideLoding(data)),
+    saveLoginUserInfo: data => dispatch(saveLoginUserInfo(data)),
+    showHideLoding: data => dispatch(showHideLoding(data))
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(customer);

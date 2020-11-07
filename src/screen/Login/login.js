@@ -55,7 +55,7 @@ class loginUser extends Component {
                     reduxData.login = JSON.stringify(authReducer);
                     // alert(JSON.stringify(authReducer))
                     localStorage.setItem(`persist:${apiCommonParams.REDUX_STORE_KEY}`, JSON.stringify(reduxData));
-                    this.props.history.push('/home')
+                    this.props.history.push('/company')
                 }, 100);
             }
         }).catch(err => {

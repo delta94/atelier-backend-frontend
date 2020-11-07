@@ -7,7 +7,7 @@ import "./sidebar.scss";
 
 // Dispatch
 import { apiCommonParams } from "../../ApiActions/DbConfig/ApiBaseUrl";
-
+import { Link } from "react-router-dom";
 // import { GetCount } from '../../ApiActions/Product';
 // import { saveOrderCount, saveProductioCount } from '../../Redux/Action/Product'
 import { saveLoginUserInfo } from "../../Redux/Action/Login";
@@ -62,40 +62,41 @@ class SideBar extends Component {
           <div className="platform-nav">
             <ul>
               <li>
-                <a className={active === "/company" ? "active" : ""} href="company">
-                  Your Customers
-                </a>
-              </li>
-              
-              <li>
-                <a className={active == "/dashboard" ? "active" : ""} href="dashboard">dashboard</a>
+              <Link className={active === "/company" ? "active" : ""} to={{ pathname: "/company", }} >
+                Your Customers
+              </Link>
               </li>
 
               <li>
-                <a className={active == "/productList" ? "active" : ""} href="productList">
+                <Link to={{ pathname: "/dashboard", }} >
+                  Dashboard
+                </Link>
+              </li>
+
+              <li>
+                <Link to={{ pathname: "/productList", }} >
                   All Products
-                </a>
-
+                </Link>
               </li>
               <li>
-                <a className={active == "/production" ? "active" : ""} href="production">
+                <Link to={{ pathname: "/production", }} >
                   In Production{" "}
                   {this.props.product && this.props.product.inProductionCount > 0 ? (
                       <span className="number">{this.props.product.inProductionCount}</span>
                   ) : (
                       ""
                   )}
-                </a>
+                </Link>
               </li>
               <li>
-                <a className={active == "/oderDetails" ? "active" : ""} href="oderDetails">
+                <Link to={{ pathname: "/oderDetails", }} >
                   Your Orders{" "}
                   {this.props.product && this.props.product.saveOrderCount > 0 ? (
                       <span className="number">{this.props.product.saveOrderCount}</span>
                   ) : (
                       ""
                   )}
-                </a>
+                </Link>
               </li>
               
             </ul>

@@ -79,6 +79,10 @@ class customer extends Component {
       showAddCustomer,
       shippingData
     } = this.state;
+
+    if(companyDetails){
+      window.location.href = "dashboard";
+    }
     // alert(showProduct);
     return (
       <React.Fragment>

@@ -14,12 +14,16 @@ import ForgotPassword from './screen/Login/forgotPassword';
 // import ResetPassword from './screen/login/resetPassword';
 // import Welcome from './screen/login/welcome';
 import Company from './screen/Company/companyList';
-// import Products from './screen/Product/productList';
+
 import Production from './screen/Production/productionList';
-// import OderDetails from './screen/Orders/orderDetails';
+import Dashboard from "./screen/userdashboard/dashboard";
+import Products from './screen/Product/productList';
+import OderDetails from './screen/Orders/orderDetails';
 // import Accounts from './screen/Accounts/AccountsDetails';
 import Home from './screen/Home/home';
 import OuterPageLayout from './OuterPage';
+
+
 
 
 class App extends Component {
@@ -55,7 +59,10 @@ class App extends Component {
             {/*<OuterPageLayout path="/resetPassword" component={ResetPassword} />*/}
             <InnerLayoutRoute path="/home" component={Home} />
             <InnerLayoutRoute path="/company" component={Company} />
+            <InnerLayoutRoute path="/dashboard" component={Dashboard} />
+            <InnerLayoutRoute path="/productList" component={Products} />
             <InnerLayoutRoute path="/production" component={Production} />
+            <InnerLayoutRoute path="/oderDetails" component={OderDetails} />
             {/*<InnerLayoutRoute path="/oderDetails" component={OderDetails} />
             <InnerLayoutRoute path="/accounts" component={Accounts} />  */}
           </Switch>

@@ -68,17 +68,34 @@ class SideBar extends Component {
               </li>
               
               <li>
-                <a href="#">Dashboard</a>
+                <a className={active == "/dashboard" ? "active" : ""} href="dashboard">dashboard</a>
               </li>
 
               <li>
-                <a href="#">All Products</a>
+                <a className={active == "/productList" ? "active" : ""} href="productList">
+                  All Products
+                </a>
+
               </li>
               <li>
-                <a href="#">In Production</a>
+                <a className={active == "/production" ? "active" : ""} href="production">
+                  In Production{" "}
+                  {this.props.product && this.props.product.inProductionCount > 0 ? (
+                      <span className="number">{this.props.product.inProductionCount}</span>
+                  ) : (
+                      ""
+                  )}
+                </a>
               </li>
               <li>
-                <a href="#">Customer Orders</a>
+                <a className={active == "/oderDetails" ? "active" : ""} href="oderDetails">
+                  Your Orders{" "}
+                  {this.props.product && this.props.product.saveOrderCount > 0 ? (
+                      <span className="number">{this.props.product.saveOrderCount}</span>
+                  ) : (
+                      ""
+                  )}
+                </a>
               </li>
               
             </ul>

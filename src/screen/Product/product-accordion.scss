@@ -1,0 +1,152 @@
+/* variables */
+@import "../../global-var.scss";
+
+/* product accordion */
+.product-details-wrap{
+	padding:0 15px;
+	margin-right:-15px;
+	width: 100%;
+	padding-right: 0px;
+}
+
+.product-detail-accordion{
+	ul{
+		list-style:none;
+		margin:0;
+		padding:0;
+		li{
+			&:not(:last-child){
+				margin-bottom:8px;
+			}
+			button{
+				outline:none;
+				background:transparent;
+				color:$blue;
+				border-radius: 40px;
+				border:1px solid $blue;
+				display: block;
+				width:100%;
+				text-align:left;
+				padding:12px 22px;
+				//letter-spacing: -0.5px;
+				@include fsize12();
+				position:relative;
+				transition: all 300ms ease-in-out;
+
+				&:before{
+					content:"";
+					width:15px;
+					height: 15px;
+					position: absolute;
+					right:22px;
+					top:49%;
+					transform:translateY(-50%);
+					background-repeat: no-repeat;
+					background-position: center center;
+					background-size: contain;
+				}
+
+				&:hover, &[aria-expanded="true"]{
+					background-color:$blue;
+					color:$white;
+
+					&:before{
+						background-image:url(../../img-new/icon-minus-white.svg) !important;
+					}
+				}
+				&[aria-expanded="true"]{
+					border-top-left-radius: 10px;
+					border-top-right-radius: 10px;
+					border-bottom-left-radius: 0px;
+					border-bottom-right-radius: 0px;
+				}
+				&[aria-expanded="false"]:before{
+					background-image:url(../../img-new/icon-plus.svg);
+				}
+				&.opened:not(.collapsed){
+					background-color:$blue;
+					color:$white;
+					&:before{
+						background-image:url(../../img-new/icon-minus-white.svg) !important;
+					}
+				}
+			}
+
+			.card{
+				border:1px solid $blue;
+				border-top-left-radius: 0;
+				border-top-right-radius: 0;
+				border-bottom-left-radius: 10px;
+				border-bottom-right-radius: 10px;
+				padding-top: 15px;
+				text-transform: uppercase;
+				color:$black;
+				@include bodycopy1();
+				letter-spacing: 0.5px;
+			}
+
+			.details-header{
+				border-bottom: 1px solid rgba(0,0,0,0.30);
+				padding-bottom: 12px;
+				margin-bottom: 20px;
+			}
+			.details-body{
+				font-family: $newscycle;
+
+				&.formulation-text{
+					font-family: $aktireg
+				}
+
+				.repeater-row{
+					width: 100%;
+					&:not(:last-child){
+						margin-bottom: 17px;
+					}
+				}
+
+				.pic{
+					img{
+						min-height: 110px;
+						max-height: 110px;
+					    object-fit: contain;
+					    margin-bottom: 10px;
+					}
+					label{
+						text-align: center;
+						display: block;
+					}
+				}
+
+				.primary-package{
+					.pic{
+						margin-right: 10px;
+					}
+				}
+			}
+
+			.col{
+				padding-left: 0;
+				padding-right: 10px;
+			}
+
+			.formulation{
+				padding-top: 40px;
+			}
+		}
+	}
+
+	#productSpecification .card .details-body{
+		text-transform: initial;
+	}
+
+	#productdesign{
+		.col{
+			label{
+				padding-top: 12px;
+			}
+		}
+		.col-empty {
+		    flex: 0 0 calc(100% - 300px);
+		}
+	}
+}

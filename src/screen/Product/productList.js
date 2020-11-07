@@ -3,6 +3,11 @@ import React, { Component } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import logoawhite from "../../img-new/icon-a-white.svg";
+// dummy images
+import demothumb from "../../images/product-main-thumb.jpg";
+import "./product-reorder.scss";
+
 import Error from "../../utils/Error";
 // redux
 import { connect } from "react-redux";
@@ -67,26 +72,30 @@ class product extends Component {
             </a>
           </div>
 
-          <ul className="product-listing d-flex justify-content-between flex-column">
-            {productList.map((product) => (
-              <li className={product.productId == active ? "active" : ""}>
-                {/* <a onClick={() => this.setState({ showProductDetails: !this.state.showProductDetails, showAddProduct: false })} href="#"> */}
-                <a onClick={() => this.showProductDetail(product)} href="#">
-                  <div className="product-thumb d-flex align-items-center justify-content-center">
-                    <img
-                      src={product.heroImage ? product.heroImage : "images/face-serun-60ml.png"}
-                      alt="face-serun-60ml"
-                    />
-                    {/* <img src={product.heroImage.length > 0 ? product.heroImage[0].url : "images/face-serun-60ml.png"} alt="bottle-img" /> */}
-                  </div>
-                  <div className="product-title d-flex justify-content-between">
-                    <div className="product-name">{product.name}</div>
-                    <div className="product-qty">{product.volume}mL</div>
-                  </div>
-                </a>
-              </li>
-            ))}
-          </ul>
+          <div className="product-listing-dashboard">
+            <h4><span>Bear</span> Products</h4>
+            
+            <ul className="product-listing d-flex flex-column">
+              {productList.map((product) => (
+                <li className={product.productId == active ? "active" : ""}>
+                  {/* <a onClick={() => this.setState({ showProductDetails: !this.state.showProductDetails, showAddProduct: false })} href="#"> */}
+                  <a onClick={() => this.showProductDetail(product)} href="#">
+                    <div className="product-thumb d-flex align-items-center justify-content-center">
+                      <img
+                        src={product.heroImage ? product.heroImage : "images/face-serun-60ml.png"}
+                        alt="face-serun-60ml"
+                      />
+                      {/* <img src={product.heroImage.length > 0 ? product.heroImage[0].url : "images/face-serun-60ml.png"} alt="bottle-img" /> */}
+                    </div>
+                    <div className="product-title d-flex justify-content-between">
+                      <div className="product-name">{product.name}</div>
+                      <div className="product-qty">{product.volume}mL</div>
+                    </div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         {showAddProduct ? <AddProduct userId={userId} /> : null}
         {showProductDetails ? (

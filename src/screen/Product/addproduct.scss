@@ -1,0 +1,49 @@
+/* variables */
+@import "../../global-var.scss";
+
+.add-new-product{
+	label{
+        @include fsize12();
+      }
+      .field-group{
+        label{
+          @include bodycopy1();
+          text-transform: uppercase;
+          padding-left: 15px;
+        }
+      }
+      .form-group{
+        margin-bottom: 0;
+        label{
+          @include bodycopy1();
+          text-transform: uppercase;
+          padding-left: 15px;
+        }
+        .col-sm-6{
+          padding-left: 0;
+          padding-right: 2.5px;
+          &:last-child{
+            padding-left:2.5px;
+            padding-right: 0;
+          }
+        }
+      }
+      .form-control{
+        border-radius: 28px;
+        height: 35px;
+        background-color: #f7f7f7;
+        width: 100%;
+        border:none !important;
+        @include bodycopy1bold();
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color:$black;
+        margin-bottom: 5px;
+
+        &:focus{
+          outline:none;
+          box-shadow: 0 0 0 1px $blue inset;
+          background-color: $white;
+        }
+      }
+}

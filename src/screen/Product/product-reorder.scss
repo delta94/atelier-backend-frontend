@@ -1,0 +1,132 @@
+/* variables */
+@import "../../global-var.scss";
+
+/* product reorder */
+.product-main-thumb{
+	padding-top: 50px;
+	padding-bottom: 50px;
+	.product-thumb-wrap{
+		width: 130px;
+		height: 130px;
+		border-radius: 100%;
+		background-color: $white;
+		display: inline-block;
+		img{
+			max-height: 130px;
+			padding: 10px;
+			object-fit: contain;
+			width: 100%;
+			max-width: 100%;
+			height: auto;
+		}
+	}
+}
+
+.price-calculation-wrap{
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 35px;
+	padding-bottom: 40px;
+	border-bottom: 1px solid $white;
+	@include menutext();
+	line-height: 20px;
+	letter-spacing: 0.6px;
+	text-transform: uppercase;
+
+	.row-price{
+		&:first-child{
+			padding-bottom:25px;
+		}
+
+		.price-heading{
+			font-family: $newscycleregular;
+		}
+	}
+}
+
+.production-timeline{
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	@include menutext();
+	line-height: 20px;
+	letter-spacing: 0.6px;
+	text-transform: uppercase;
+
+	.col-wrap{
+		width: 100%;
+		&:first-child{
+			margin-bottom:40px;
+		}
+		&:last-child{
+			.col-12:first-child{
+				text-transform: none;
+				line-height: 15px;
+			}
+		}
+	}
+
+	.col-12:first-child{
+		font-family: $newscycleregular;
+		margin-bottom: 10px;
+	}
+	.col-12:last-child{
+		@include fsize16newcycle();
+		letter-spacing: 0.5px;
+	}
+}
+
+
+.product-qty{
+	p{
+		@include menutext();
+		letter-spacing: 0.5px;
+		text-transform: uppercase;
+	}
+	.order-product-cta{
+		p{
+			text-transform: initial;
+			margin-top: 20px;
+			a{
+				color:$white;
+			}
+		}
+
+		.order-product-btn{
+			@include btnsolidwhite();
+			min-width: 150px;
+			cursor: pointer;
+			-webkit-transition: all 300ms ease-in-out;
+			-moz-transition: all 300ms ease-in-out;
+			-ms-transition: all 300ms ease-in-out;
+			-o-transition: all 300ms ease-in-out;
+			transition: all 300ms ease-in-out;
+
+			&:hover, &:focus{
+				outline:none;
+				background-color: transparent;
+				color:$white;
+				box-shadow: 0 0 0 1px $white inset;
+			}
+		}
+	}
+}
+
+/* range slider css */
+.MuiSlider-thumb{
+	background-color: $white !important;
+}
+.MuiSlider-rail{
+	background-color: $white !important;
+	opacity: 1 !important;
+}
+.MuiSlider-track{
+	background-color: $black !important;
+}
+.MuiSlider-thumb.Mui-focusVisible, .MuiSlider-thumb:hover{
+	box-shadow: 0px 0px 0px 8px rgba(63, 81, 181, 0.30) !important;
+}
+.MuiSlider-thumb.MuiSlider-active {
+	box-shadow: 0px 0px 0px 14px rgba(63, 81, 181, 0.30) !important;
+}

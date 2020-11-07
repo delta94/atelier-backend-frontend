@@ -4,6 +4,8 @@ import Select from 'react-select';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import "./addproduct.scss";
+
 import Dropzone from 'react-dropzone'
 import Error from '../../utils/Error'
 
@@ -414,30 +416,56 @@ class product extends Component {
                 {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
                     <div className="col-sm-12 col-md-5 col-lg-5 product-detail-admin ml-15">
                         <div className="product-details-view d-flex flex-column">
+                            <h4>New Product Form</h4>
                             <form onSubmit={handleSubmit}>
                                 <div className="add-new-product">
-                                    <div className="prod-detail detail-block">
-                                        <p>1. Product Details</p>
-                                        <div className="field-grups">
-                                            <div className="input-groups">
-                                                <div className="col-md-6">
-                                                    <label>Product Name</label>
-                                                    {/* <input name="firstName" onChange={e => setFirstName(e.target.value)} /> */}
-                                                    <input type="text" name="name" id="name"
+                                    <div className="detail-info">
+                                        <div className="row">
+                                            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 product-detail">
+                                                <div className="field-group">
+                                                    <label>Product Details</label>
+                                                    <input type="text" name="name" id="name" placeholder="Insert Product Name" 
                                                         onChange={e => this.setState({name: e.target.value})}
                                                         onBlur={handleBlur}
                                                         value={values.name}
-                                                        className={touched.name && errors.name ? "has-error" : ""} />
+                                                        className={touched.name && errors.name ? "form-control has-error" : "form-control"} />
                                                     <Error touched={touched.name} message={errors.name} />
                                                 </div>
-                                                <div className="col-md-6">
-                                                    <label>Product Volume</label>
-                                                    <input type="number" name="volume"
+                                                <div className="field-group">
+                                                    <input type="number" name="volume" placeholder="Product Volume" 
                                                         onChange={e => this.setState({volume: e.target.value})}
                                                         onBlur={handleBlur}
                                                         value={values.volume}
-                                                        className={touched.volume && errors.volume ? "has-error" : ""} />
+                                                        className={touched.volume && errors.volume ? "form-control has-error" : "form-control"} />
                                                     <Error touched={touched.volume} message={errors.volume} />
+                                                </div>
+
+                                                <div className="field-group">
+                                                    <select className="form-control">
+                                                        <option>Place of Manufacture</option>
+                                                        <option>List of all Countries</option>
+                                                        <option>Australia</option>
+                                                        <option>USA</option>
+                                                        <option>India</option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 product-img"></div>
+                                        </div>
+                                    </div>
+
+                                    <div className="prod-detail detail-block">
+                                        <p>1. </p>
+                                        <div className="field-grups">
+                                            <div className="input-groups">
+                                                <div className="col-md-6">
+                                                    
+                                                    
+                                                </div>
+                                                <div className="col-md-6">
+                                                    <label>Product Volume</label>
+                                                    
                                                 </div>
                                             </div>
 

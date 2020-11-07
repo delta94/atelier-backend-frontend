@@ -7,7 +7,7 @@ import "./sidebar.scss";
 
 // Dispatch
 import { apiCommonParams } from "../../ApiActions/DbConfig/ApiBaseUrl";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 // import { GetCount } from '../../ApiActions/Product';
 // import { saveOrderCount, saveProductioCount } from '../../Redux/Action/Product'
 import { saveLoginUserInfo } from "../../Redux/Action/Login";
@@ -16,11 +16,17 @@ class SideBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      checkUrl:false,
       // userInfo: props.loginUserInfo,
     };
   }
+
   componentWillReceiveProps(nextProps) {
-    // alert(nextProps)
+    console.log(nextProps);
+    if(window.location.pathname !== '/company'){
+      this.setState({checkUrl:true,active:false});
+    }
+
   }
   logout = () => {
     // alert(JSON.stringify(this.props.loginUserInfo))
@@ -42,7 +48,9 @@ class SideBar extends Component {
     window.location.href = "productList";
   };
   render() {
-    console.log(window.location.pathname);
+    console.log(this.state.checkUrl, window.location.pathname)
+
+
     // const { userInfo } = this.state;
     let active = window.location.pathname;
     return (
@@ -61,24 +69,28 @@ class SideBar extends Component {
           </div>
           <div className="platform-nav">
             <ul>
-              <li>
-              <Link className={active === "/company" ? "active" : ""} to={{ pathname: "/company", }} >
+              <li onClick={() =>
+                  this.setState({
+                    checkUrl: !this.state.checkUrl,
+                  })
+              } >
+              <Link className={active === "/company" ? "active" : ""}  to={{ pathname: "/company", }} >
                 Your Customers
               </Link>
               </li>
-
-              <li>
+              {this.state.checkUrl === true && <li>
                 <Link to={{ pathname: "/dashboard", }} >
                   Dashboard
                 </Link>
-              </li>
+              </li> }
 
-              <li>
+
+              {this.state.checkUrl === true && <li>
                 <Link to={{ pathname: "/productList", }} >
                   All Products
                 </Link>
-              </li>
-              <li>
+              </li>}
+              {this.state.checkUrl === true &&<li>
                 <Link to={{ pathname: "/production", }} >
                   In Production{" "}
                   {this.props.product && this.props.product.inProductionCount > 0 ? (
@@ -87,8 +99,8 @@ class SideBar extends Component {
                       ""
                   )}
                 </Link>
-              </li>
-              <li>
+              </li>}
+              {this.state.checkUrl === true &&<li>
                 <Link to={{ pathname: "/oderDetails", }} >
                   Your Orders{" "}
                   {this.props.product && this.props.product.saveOrderCount > 0 ? (
@@ -97,7 +109,7 @@ class SideBar extends Component {
                       ""
                   )}
                 </Link>
-              </li>
+              </li>}
               
             </ul>
           </div>

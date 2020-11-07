@@ -11,34 +11,38 @@ import logoawhite from '../../img-new/icon-a-white.svg';
 
 
 import "./order-details.scss";
+import {GetCart} from "../../ApiActions/Product";
 
 class order extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showProductDetails: false,
-      showProductInfo: false,
       token: props.loginUserInfo ? props.loginUserInfo.access_token : "",
-      orerList: [],
-      productDetail: "",
-      orderDetails: "",
-      active: "",
-      modelOpen: false,
-      donationAmount: 0,
-      donationCard: "",
-      carbonAmount: 0,
+      companyDetails: false,
+      cartList: [],
+      showPop: false,
       discount: 0,
-      shippingModel:false,
-      submitModel:false,
-      confirmModelOk:false,
-
+      orderDetails: "",
     };
   }
   componentWillMount() {
-    //this.GetOrderList();
-    //this.setState({ confirmModelOk:false });
+    this.props.showHideLoding(false);
+    this.GetCartList();
   }
-
+  GetCartList = () => {
+    // this.props.showHideLoader(false)
+    this.props.showHideLoding(true);
+    GetCart(this.props.productId, this.state.token)
+        .then((response) => {
+          this.props.showHideLoding(false);
+          this.setState({ cartList: response.data.data.cartList });
+          console.log("productList :" + JSON.stringify(response.data.data.cartList));
+        })
+        .catch((err) => {
+          this.props.showHideLoding(false);
+          //  this.props.showHideLoader(false)
+        });
+  };
   addValue = (event) => {
     let eventValue = event;
     let temp = "";
@@ -61,41 +65,26 @@ class order extends Component {
     temp = nTemp + temp;
     return temp;
   };
-
-
-
-
-  onCarbon = (e, quantity) => {
-    let carbon = e * quantity;
-    this.setState({ carbonAmount: carbon });
-  };
-  getDiscount = (e) => {
-    let discount = parseFloat(e);
-    this.setState({ discount });
+  orderDetail = (orderDetails) => {
+    this.setState({
+      showPop: true,
+      orderDetails: orderDetails,
+      active: orderDetails.cartId,
+      discount: orderDetails.discount,
+    });
+    // let quantity = this.addValue(orderDetails.quantity);
+    // alert(quantity);
   };
   render() {
-    const { active, orerList, showProductInfo, orderDetails, discount } = this.state;
+    const { shippingData } = this.props;
+    const { cartList, companyDetails, showPop, orderDetails, active, discount } = this.state;
+    console.log("cartList :", JSON.stringify(cartList));
     let productionTime = 0;
     productionTime += parseInt(orderDetails.primaryPackaging ? orderDetails.primaryPackaging.productionTime : 0);
     productionTime += parseInt(orderDetails.secondaryPackaging ? orderDetails.secondaryPackaging.productionTime : 0);
     productionTime += parseInt(
-      orderDetails.formulationPackaging ? orderDetails.formulationPackaging.productionTime : 0
+        orderDetails.formulationPackaging ? orderDetails.formulationPackaging.productionTime : 0
     );
-    // var someDate = new Date();
-    // var numberOfDaysToAdd = 6;
-    // someDate.setDate(someDate.getDate() + numberOfDaysToAdd);
-    // var dd = someDate.getDate();
-    // var mm = someDate.getMonth() + 1;
-    // var y = someDate.getFullYear();
-    // var deliverDate = dd + '/' + mm + '/' + y;
-    // alert(deliverDate)
-    let oderDate = "";
-    var someDate = new Date();
-    var dd = someDate.getDate() + productionTime;
-    var mm = someDate.getMonth() + 1;
-    var y = someDate.getFullYear();
-    oderDate = dd + "/" + mm + "/" + y;
-    console.log("orderDetails :", JSON.stringify(orderDetails));
     return (
       // <div>
 
@@ -115,16 +104,53 @@ class order extends Component {
                 <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
                   <h4>Your Orders</h4>
                   <div className="products-order-module">
-                      <ul className="row flex-column">
-                        <li className="d-flex row-header">
-                          <div class="col">Order No.</div>
-                          <div class="col">Date</div>
-                          <div class="col product">Product</div>
-                          <div class="col amount">Amount</div>
-                          <div class="col status">Status</div>
-                        </li>
-
-                      </ul>
+                    <table className="table">
+                      <thead>
+                      <tr>
+                        <th>Order#</th>
+                        <th>Date Ordered</th>
+                        <th>Status</th>
+                        <th>Order Value</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      {cartList.map((order, index) => (
+                          <tr onClick={() => this.orderDetail(order)} className={order.cartId == active ? "active" : ""}>
+                            <td>
+                              <a href="#">
+                                {order.status == "pending" ? <span className="numbertime">1</span> : null}
+                                {order.orderId}
+                              </a>
+                            </td>
+                            <td>
+                              <a href="#">{order.insertDate}</a>
+                            </td>
+                            <td>
+                              <a href="#" className="status capitalize">
+                                {order.status}
+                              </a>
+                            </td>
+                            <td>
+                              <a href="#">
+                                $
+                                {this.addValue(
+                                    order.carbonAmount
+                                        ? order.carbonAmount + order.totalAmount - order.discount
+                                        : order.discount
+                                        ? order.totalAmount - order.discount
+                                        : order.totalAmount
+                                )}{" "}
+                                AUD
+                              </a>
+                            </td>
+                            {/* <td><a href="#"><span className="numbertime">1</span>01435</a></td> */}
+                            {/* <td><a href="#">14 March 2019</a></td>
+                                <td><a href="#" className="status">Pending</a></td>
+                                <td><a href="#">39,050 AUD</a></td> */}
+                          </tr>
+                      ))}
+                      </tbody>
+                    </table>
                     </div>
                 </div>
               </div>

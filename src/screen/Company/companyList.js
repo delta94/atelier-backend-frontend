@@ -51,7 +51,7 @@ class customer extends Component {
       .then(response => {
         this.props.showHideLoding(false);
         this.setState({ userList: response.data.data.userList });
-        console.log("userList :" + JSON.stringify(this.state.userList));
+        //console.log("userList :" + JSON.stringify(this.state.userList));
       })
       .catch(err => {
         this.props.showHideLoding(false);

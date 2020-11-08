@@ -45,7 +45,7 @@ class production extends Component {
     super(props);
     // this.child = React.createRef();
     this.state = {
-      token: props.loginUserInfo ? props.loginUserInfo.access_token : "",
+      token: props.token ? props.token.token : "",
       showProductionDetails: false,
       productionList: [],
       productionId: "",
@@ -1230,6 +1230,7 @@ class production extends Component {
 const mapStateToProps = (state) => {
   return {
     loginUserInfo: state.login,
+    token: state.login.token
   };
 };
 

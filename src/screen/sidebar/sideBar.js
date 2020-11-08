@@ -99,14 +99,12 @@ class SideBar extends Component {
   }
 }
 
-// export default SideBar
+// export default SideBar dasda
 const mapStateToProps = state => {
   return {
     loginUserInfo: state.login
   };
 };
-
-
 
 const mapDispatchToProps = dispatch => {
   return {

@@ -34,7 +34,7 @@ class addCustomer extends Component {
     super(props);
     this.state = {
       showAddProduct: false,
-      token: props.loginUserInfo ? props.loginUserInfo.access_token : "",
+      token: props.token ? props.token.token : "",
       imageName: "",
       uploadImage: {}
     };
@@ -319,7 +319,8 @@ class addCustomer extends Component {
 }
 const mapStateToProps = state => {
   return {
-    loginUserInfo: state.login
+    loginUserInfo: state.login,
+    token: state.login.token
   };
 };
 

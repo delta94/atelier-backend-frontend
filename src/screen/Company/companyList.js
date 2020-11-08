@@ -29,7 +29,7 @@ class customer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      token: props.loginUserInfo ? props.loginUserInfo.access_token : "",
+      token: props.token ? props.token.token : "",
       companyDetails: false,
       showProduct: false,
       userOrder: false,
@@ -248,7 +248,8 @@ class customer extends Component {
 }
 const mapStateToProps = state => {
   return {
-    loginUserInfo: state.login
+    loginUserInfo: state.login,
+    token: state.login.token
   };
 };
 

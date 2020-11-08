@@ -10,7 +10,7 @@ import { apiCommonParams } from "../../ApiActions/DbConfig/ApiBaseUrl";
 import { Link, useLocation } from "react-router-dom";
 // import { GetCount } from '../../ApiActions/Product';
 // import { saveOrderCount, saveProductioCount } from '../../Redux/Action/Product'
-import { saveLoginUserInfo } from "../../Redux/Action/Login";
+import { saveLoginUserInfo, saveToken } from "../../Redux/Action/Login";
 // import { saveLoginUserInfo } from '../../Redux/Action/Login'
 class SideBar extends Component {
   constructor(props) {
@@ -34,6 +34,7 @@ class SideBar extends Component {
     // this.props.saveLoginUserInfo(data);
     let data = {};
     this.props.saveLoginUserInfo(data);
+    this.props.saveToken(data);
     let reduxData = JSON.parse(localStorage.getItem(`persist:${apiCommonParams.REDUX_STORE_KEY}`));
     debugger;
     let authReducer = JSON.parse(reduxData.login);
@@ -137,7 +138,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    saveLoginUserInfo: data => dispatch(saveLoginUserInfo(data))
+    saveLoginUserInfo: data => dispatch(saveLoginUserInfo(data)),
+    saveToken: data => dispatch(saveToken(data))
     // showHideLoding: (data) => dispatch(showHideLoding(data))
   };
 };

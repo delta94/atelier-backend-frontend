@@ -1,17 +1,10 @@
 import React, { Component } from "react";
-// redux
 import { connect } from "react-redux";
-
-// stylesheet
+import { Link } from "react-router-dom";
 import "./sidebar.scss";
-
-// Dispatch
 import { apiCommonParams } from "../../ApiActions/DbConfig/ApiBaseUrl";
-
-// import { GetCount } from '../../ApiActions/Product';
-// import { saveOrderCount, saveProductioCount } from '../../Redux/Action/Product'
 import { saveLoginUserInfo } from "../../Redux/Action/Login";
-// import { saveLoginUserInfo } from '../../Redux/Action/Login'
+
 class SideBar extends Component {
   constructor(props) {
     super(props);
@@ -20,31 +13,27 @@ class SideBar extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    // alert(nextProps)
   }
+
   logout = () => {
-    // alert(JSON.stringify(this.props.loginUserInfo))
-    // let data = {}
-    // this.props.saveLoginUserInfo(data);
     let data = {};
     this.props.saveLoginUserInfo(data);
     let reduxData = JSON.parse(localStorage.getItem(`persist:${apiCommonParams.REDUX_STORE_KEY}`));
-    debugger;
     let authReducer = JSON.parse(reduxData.login);
     authReducer.loginUserInfo.access_token = "";
     authReducer.access_token = "";
-    // authReducer = ""
-    console.log(JSON.stringify(authReducer));
+    // console.log(JSON.stringify(authReducer));
     reduxData.login = JSON.stringify(authReducer);
     localStorage.setItem(`persist:${apiCommonParams.REDUX_STORE_KEY}`, JSON.stringify(reduxData));
   };
+
   handleClick = link => {
     window.location.href = "productList";
   };
+
   render() {
-    console.log(window.location.pathname);
-    // const { userInfo } = this.state;
     let active = window.location.pathname;
+
     return (
       <div className="col-sm-3 col-md-3 col-lg-2 left-content d-flex flex-column justify-content-between">
         <div className="left-content-header">
@@ -62,23 +51,16 @@ class SideBar extends Component {
           <div className="platform-nav">
             <ul>
               <li>
-                <a className={active === "/company" ? "active" : ""} href="company">
-                  Your Customers
-                </a>
-              </li>
-              
-              <li>
-                <a href="#">Dashboard</a>
-              </li>
-
-              <li>
-                <a href="#">All Products</a>
+                <Link to="/company">Your Customers</Link>
               </li>
               <li>
-                <a href="#">In Production</a>
+                <Link to="/products">All Products</Link>
               </li>
               <li>
-                <a href="#">Customer Orders</a>
+                <Link to="/production">In Production</Link>
+              </li>
+              <li>
+                <Link to="/orders">Customer Orders</Link>
               </li>
               
             </ul>

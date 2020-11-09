@@ -1,27 +1,18 @@
 import React, { Component } from "react";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import logoawhite from "../../img-new/icon-a-purple.svg";
-
-// dummy image
 import demothumb from "../../images/customer-thumb.png";
-
 import "../userdashboard.scss";
 import "./customers.scss";
-
 import Error from "../../utils/Error";
-// redux
 import { connect } from "react-redux";
-// Dispatch
 import { saveLoginUserInfo } from "../../Redux/Action/Login";
 import { showHideLoding } from "../../Redux/Action/Loading";
 import Product from "../Product/productList";
 import AddCustomer from "./addCustomer";
 import UserOrderList from "../Product/userOrderList";
 import UserProductionList from "../Production/userProductionList";
-//api
 import { GetUser } from "../../ApiActions/SignUp";
 import { Link } from "react-router-dom";
 
@@ -44,8 +35,8 @@ class customer extends Component {
     this.props.showHideLoding(false);
     this.GetUserList();
   }
+
   GetUserList = () => {
-    // this.props.showHideLoader(false)
     this.props.showHideLoding(true);
     GetUser(this.state.token)
       .then(response => {
@@ -83,7 +74,7 @@ class customer extends Component {
     return (
       <React.Fragment>
         <div className="row justify-content-between">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 loggedin-user-dashboard full-width d-flex flex-column">
+          <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 loggedin-user-dashboard full-width d-flex flex-column">
             <div className="titlearea">
               <h3>
                 Hey <span>Rick!</span>
@@ -91,13 +82,11 @@ class customer extends Component {
                 :( Looks like you don’t have any customers yet.
               </h3>
             </div>
-
             <div className="bodyarea d-flex flex-column">
               <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <div class="row">
+                <div className="row">
                   <div className="col-sm-12 col-md-12 col-lg-12 customers-module">
                     <h4>Your Customers</h4>
-
                     <div className="customers-listing">
                       <ul className="customer-lists d-flex flex-wrap">
                         {userList.map(user => (
@@ -133,7 +122,6 @@ class customer extends Component {
                                 </span>
                               </div>
                             </a>
-
                             <div className="total-product-counter">
                               <span>10{/*{user.productData.length}*/}</span>
                             </div>

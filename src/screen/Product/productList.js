@@ -1,23 +1,17 @@
 import React, { Component } from "react";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import logoawhite from "../../img-new/icon-a-white.svg";
-// dummy images
 import demothumb from "../../images/product-main-thumb.jpg";
 import "./product-reorder.scss";
-
 import Error from "../../utils/Error";
-// redux
 import { connect } from "react-redux";
-// Dispatch
 import { saveLoginUserInfo } from "../../Redux/Action/Login";
 import { showHideLoding } from "../../Redux/Action/Loading";
 import ProductDetails from "./productDetails";
 import AddProduct from "./addProduct";
-//api
 import { GetProduct } from "../../ApiActions/Product";
+
 class product extends Component {
   constructor(props) {
     super(props);
@@ -30,10 +24,12 @@ class product extends Component {
       active: "",
     };
   }
+
   componentWillMount() {
     // this.props.showHideLoding(false)
     this.GetProductList();
   }
+
   GetProductList = () => {
     // this.props.showHideLoader(false)
     this.props.showHideLoding(true);
@@ -48,6 +44,7 @@ class product extends Component {
         //  this.props.showHideLoader(false)
       });
   };
+
   showProductDetail = (productDetail) => {
     this.setState({
       showProductDetails: true,
@@ -56,6 +53,7 @@ class product extends Component {
       active: productDetail.productId,
     });
   };
+
   render() {
     const { userId, shippingData } = this.props;
     const { productList, showAddProduct, showProductDetails, productDetail, active } = this.state;
@@ -105,6 +103,7 @@ class product extends Component {
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     loginUserInfo: state.login,
@@ -117,4 +116,5 @@ const mapDispatchToProps = (dispatch) => {
     showHideLoding: (data) => dispatch(showHideLoding(data)),
   };
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(product);

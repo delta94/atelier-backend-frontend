@@ -17,7 +17,7 @@ export const ForgotPassword = (data, token) => {
 }
 
 export const updateAccount = (data, token) => {
-    debugger
+    // debugger
     return new Promise((resolve, reject) => {
         let url = Api.UPDATE_USER_INFO,
             headers = {};
@@ -29,7 +29,7 @@ export const updateAccount = (data, token) => {
     })
 }
 export const updateCompany = (data, token) => {
-    debugger
+    // debugger
     return new Promise((resolve, reject) => {
         let url = Api.UPDATE_COMP_INFO,
             headers = {};
@@ -41,7 +41,7 @@ export const updateCompany = (data, token) => {
     })
 }
 export const updateShippingDetail = (data, token) => {
-    debugger
+    // debugger
     return new Promise((resolve, reject) => {
         let url = Api.UPDATE_SHIPPING_DETAIL,
             headers = {};
@@ -53,7 +53,7 @@ export const updateShippingDetail = (data, token) => {
     })
 }
 export const getUserDetails = (token) => {
-    debugger
+    // debugger
     return new Promise((resolve, reject) => {
         let url = Api.USER_DETAIL,
             headers = {};

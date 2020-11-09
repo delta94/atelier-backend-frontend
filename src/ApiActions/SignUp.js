@@ -19,7 +19,7 @@ export const GetUser = (token) => {
 
         console.log(JSON.stringify(token))
         let url = Api.USER_LIST,
-            headers = {};
+        headers = {};
         // if (token) {
         //     // headers = { authorization: `${'Bearer ' + token}` }
         //     headers = { authorization: token }

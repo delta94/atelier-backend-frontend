@@ -11,7 +11,7 @@ export const AddProduct = (productData, token) => {
             headers = {};
         apiPostMethod(url, productData, token)
             .then(response => {
-                debugger
+                // debugger
                 resolve(response)
             }).catch(err => {
                 reject(err)
@@ -19,7 +19,7 @@ export const AddProduct = (productData, token) => {
     })
 }
 export const updateProduct = (data, token) => {
-    debugger
+    // debugger
     return new Promise((resolve, reject) => {
         let url = Api.ADD_PRODUCT,
             headers = {};
@@ -43,7 +43,7 @@ export const GetProduct = (userId, token) => {
         // apiGetMethod(`${url}?userId=${userId}`, "").then(res => {
         apiGetMethod(`${url}?userId=${userId}`, token)
             .then(response => {
-                debugger
+                // debugger
                 // alert(response)
                 resolve(response)
                 // resolve(response.data.Data)
@@ -60,7 +60,7 @@ export const GetManufacturer = (token) => {
             headers = {};
         apiGetMethod(`${url}`, token)
             .then(response => {
-                debugger
+                // debugger
                 // alert(response)
                 resolve(response)
                 // resolve(response.data.Data)
@@ -81,7 +81,7 @@ export const GetCart = (productId, token) => {
         // }
         apiGetMethod(`${url}/${productId}`, token)
             .then(response => {
-                debugger
+                // debugger
                 // alert(response)
                 resolve(response)
                 // resolve(response.data.Data)
@@ -102,7 +102,7 @@ export const GetCartUserList = (userId, token) => {
         // }
         apiGetMethod(`${url}/?userId=${userId}`, token)
             .then(response => {
-                debugger
+                // debugger
                 // alert(response)
                 resolve(response)
                 // resolve(response.data.Data)
@@ -143,7 +143,7 @@ export const ConfirmOrder = (token, data) => {
             headers = {};
         apiPostMethod(url, data, token)
             .then(response => {
-                debugger
+                // debugger
                 // alert(response)
                 resolve(response)
                 // resolve(response.data.Data)
@@ -164,7 +164,7 @@ export const GetOrder = (token) => {
         // }
         apiGetMethod(url, token)
             .then(response => {
-                debugger
+                // debugger
                 // alert(response)
                 resolve(response)
                 // resolve(response.data.Data)
@@ -180,7 +180,7 @@ export const GetProduction = (token) => {
         let url = Api.GET_PRODUCTION
         apiGetMethod(url, token)
             .then(response => {
-                debugger
+                // debugger
                 // alert(response)
                 resolve(response)
                 // resolve(response.data.Data)
@@ -197,7 +197,7 @@ export const GetCount = (token) => {
             headers = {};
         apiGetMethod(url, token)
             .then(response => {
-                debugger
+                // debugger
                 resolve(response)
             }).catch(err => {
                 reject(err)
@@ -205,7 +205,7 @@ export const GetCount = (token) => {
     })
 }
 export const updateManufacturer = (data, token) => {
-    debugger
+    // debugger
     return new Promise((resolve, reject) => {
         let url = Api.UPDATE_MANUFACTUR,
             headers = {};

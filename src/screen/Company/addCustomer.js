@@ -1,25 +1,17 @@
 import React, { Component } from "react";
-// import { useDropzone } from 'react-dropzone';
-
 import Dropzone from "react-dropzone";
-// import Dropzone from 'react-dropzone';
-// import Dropzone from '../Component/imageUpload.js';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import "../Component/model.scss";
 import popcross from '../../img-new/small-cross-icon.svg';
-
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Error from "../../utils/Error";
-// redux
 import { connect } from "react-redux";
-// Dispatch
 import { saveLoginUserInfo } from "../../Redux/Action/Login";
 import { showHideLoding } from "../../Redux/Action/Loading";
-//api
 import { signUp } from "../../ApiActions/SignUp";
+
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Must enter product name."),
   company: Yup.string().required("Must enter company."),
@@ -39,9 +31,11 @@ class addCustomer extends Component {
       uploadImage: {}
     };
   }
+
   componentWillMount() {
     this.props.showHideLoding(false);
   }
+  
   addUser = values => {
     // alert(JSON.stringify(values))
     // name: "", company: "", email: "", password: ""
@@ -136,8 +130,8 @@ class addCustomer extends Component {
                               <form onSubmit={handleSubmit}>
                                 <div className="add-customer">
                                   <div className="detail-info business-detail">
-                                    <div class="row">
-                                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 customer-detail">
+                                    <div className="row">
+                                      <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 customer-detail">
                                         <div className="field-group">
                                           <label>Business</label>
                                           <input
@@ -161,7 +155,7 @@ class addCustomer extends Component {
                                         </div>
                                       </div>
 
-                                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 customer-logo">
+                                      <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 customer-logo">
                                         <label>Client Logo</label>
                                         <div className="upload-field">
                                           <div className="Dropzone">

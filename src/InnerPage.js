@@ -3,7 +3,8 @@ import { Route } from 'react-router-dom';
 // Dispatch 
 import SideBar from './screen/sidebar/sideBar'
 // import '../css/style-main.css'
-import './screen/css/style-main.css'
+import './screen/css/style-main.css';
+
 const InnerLayout = ({ children, ...rest }) => {
     return (
         // <div className="page page-dashboard">  

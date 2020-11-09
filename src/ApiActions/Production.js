@@ -80,7 +80,7 @@ export const GetProduction = (token) => {
     let url = Api.GET_PRODUCTION;
     apiGetMethod(url, token)
       .then((response) => {
-        debugger;
+        // debugger;
         // alert(response)
         resolve(response);
         // resolve(response.data.Data)
@@ -96,7 +96,7 @@ export const GetProductionDetails = (productionId, token) => {
     let url = Api.GET_PRODUCTION;
     apiGetMethod(`${url}/${productionId}`, token)
       .then((response) => {
-        debugger;
+        // debugger;
         resolve(response);
       })
       .catch((err) => {
@@ -111,7 +111,7 @@ export const GetUserProduction = (userId, token) => {
     apiGetMethod(`${url}/?userId=${userId}`, token)
       // apiGetMethod(url, token)
       .then((response) => {
-        debugger;
+        // debugger;
         // alert(response)
         resolve(response);
         // resolve(response.data.Data)

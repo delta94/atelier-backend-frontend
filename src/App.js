@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import LoadingOverlay from 'react-loading-overlay';
-
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
-// import logo from './logo.svg';
-// import './App.css';
 import { connect } from 'react-redux';
-// Dispatch 
 import { saveLoginUserInfo } from './Redux/Action/Login'
-
 import InnerLayoutRoute from "./InnerPage";
 import Login from './screen/Login/login';
 import ForgotPassword from './screen/Login/forgotPassword';
-// import ResetPassword from './screen/login/resetPassword';
-// import Welcome from './screen/login/welcome';
 import Company from './screen/Company/companyList';
+<<<<<<< HEAD
 
 import Production from './screen/Production/productionList';
 import Dashboard from "./screen/userdashboard/dashboard";
@@ -21,8 +15,12 @@ import Products from './screen/Product/productList';
 import OderDetails from './screen/Orders/orderDetails';
 // import Accounts from './screen/Accounts/AccountsDetails';
 import Home from './screen/Home/home';
+=======
+import Production from './screen/Production/productionList';
+>>>>>>> 432eb99e9778c378443f7003da7c8ae90ddf0224
 import OuterPageLayout from './OuterPage';
-
+import ProductList from './screen/Product/productList';
+import UserOrderList from './screen/Product/userOrderList';
 
 
 
@@ -33,14 +31,16 @@ class App extends Component {
       showPageLoader: false
     }
   }
+
   componentWillUpdate() {
-    // alert(JSON.stringify("lllll :" + this.props.isLoading))
   }
+
   showHideLoader = (isShowHide) => {
     this.setState({
       showPageLoader: isShowHide
     })
   }
+
   render() {
     return (
       <LoadingOverlay
@@ -50,35 +50,37 @@ class App extends Component {
       >
         <Router>
           <Switch>
-            <Route exact path="/">
-              <Redirect to="login" />
-            </Route>
-            {/* <OuterPageLayout path="/welcome" component={Welcome} /> */}
             <OuterPageLayout path="/login" component={Login} />
             <OuterPageLayout path="/forgotPassword" component={ForgotPassword} />
-            {/*<OuterPageLayout path="/resetPassword" component={ResetPassword} />*/}
-            <InnerLayoutRoute path="/home" component={Home} />
             <InnerLayoutRoute path="/company" component={Company} />
+<<<<<<< HEAD
             <InnerLayoutRoute path="/dashboard" component={Dashboard} />
             <InnerLayoutRoute path="/productList" component={Products} />
             <InnerLayoutRoute path="/production" component={Production} />
             <InnerLayoutRoute path="/oderDetails" component={OderDetails} />
             {/*<InnerLayoutRoute path="/oderDetails" component={OderDetails} />
             <InnerLayoutRoute path="/accounts" component={Accounts} />  */}
+=======
+            <InnerLayoutRoute path="/products" component={ProductList} />
+            <InnerLayoutRoute path="/production" component={Production} />
+            <InnerLayoutRoute path="/orders" component={UserOrderList} />
+>>>>>>> 432eb99e9778c378443f7003da7c8ae90ddf0224
           </Switch>
         </Router>
       </LoadingOverlay>
     );
   }
 }
+
 const mapStateToProps = (state) => {
   return {
     loginUserInfo: state.login.loginUserInfo,
     isLoading: state.loading
   }
 }
+
 const mapDispatchToProps = (dispatch) => ({
   saveLoginUserInfo: (actionType, data) => dispatch(saveLoginUserInfo(actionType, data))
 })
-// export default App;
+
 export default connect(mapStateToProps, mapDispatchToProps)(App);

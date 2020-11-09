@@ -1,0 +1,288 @@
+/* sidebar css only */
+@import "../../global-var.scss";
+
+.order-settings{
+	padding-top: 70px;
+	@include bodycopy1();
+
+	label{
+		@include bodycopy1bold();
+		text-transform: uppercase;
+		margin-bottom: 15px;
+	}
+}
+
+.orderid{
+	padding-bottom: 20px;
+	@include fsize16();
+	letter-spacing: normal;
+}
+
+.details-section{
+	border-bottom:1px solid $white;
+	padding-bottom: 35px;
+	margin-bottom: 35px;
+	
+	.detail-row{
+		&:first-child{
+			text-transform: uppercase;
+		}
+
+		&:last-child{
+			padding-top: 20px;
+		}
+	}
+
+	.product-meta-thumb{
+	    flex: 0 0 135px;
+	    max-width: 135px;
+	    padding-right: 0;
+
+	    .thumb{
+	    	width: 120px;
+	    	height: 120px;
+	    	border-radius: 100%;
+	    	background-color: $white;
+	    	display: inline-block;
+	    	position: relative;
+	    	img{
+	    		width: 100%;
+	    		height: auto;
+	    		max-height: 120px;
+	    		object-fit: contain;
+	    		position: absolute;
+	    		margin: 0 auto;
+	    		padding: 10px;
+	    	}
+	    }
+	}
+	.product-meta-details{
+		flex: 0 0 calc(100% - 135px);
+	    max-width: calc(100% - 135px);
+	    padding-left: 30px;
+	}
+}
+
+.carbon-offset{
+	border-radius: 10px;
+	background-color: $white;
+	color:$blue;
+	padding: 15px 18px;
+	margin-bottom: 15px;
+
+	.offset-text{
+		padding-right: 12px;
+		width: 288px;
+	}
+
+	p{
+		margin: 0;
+	}
+
+	.offset-price{
+		font-family: $newscycle;
+		font-size: 12px;
+		line-height: 15px;
+		text-transform: uppercase;
+		span{
+			display: block;
+			@include fsize32();
+		}
+	}
+}
+
+.checkbox-field{
+	label{
+		display: flex;
+		position: relative;
+		margin: 0;
+
+		input{
+			position: absolute;
+			left: 0;
+			top: 0;
+			opacity: 0;
+		}
+
+		input:checked~span:before{
+			background-image:url(../../img-new/input-check.svg);
+			background-repeat: no-repeat;
+			background-position: center center;
+			background-size: 18px;
+		}
+
+		span{
+			display: block;
+			width: 100%;
+
+			&:before{
+				content:"";
+				width: 25px;
+				height: 25px;
+				display: inline-block;
+				border-radius: 100%;
+				background-color: $white;
+				position: absolute;
+			}
+
+			em{
+				font-style: normal;
+				margin-left: 35px;
+				width: calc(100% - 35px);
+				border-radius: 50px;
+				background-color: $white;
+				display: flex;
+				padding: 7px 15px;
+				height: 25px;
+				justify-content: space-between;
+				color: $blue;
+				line-height: 1;
+
+				&:before{
+					content:"";
+					width: 60px;
+					height: 8px;
+					display: inline-block;
+					background-image: url(../../img-new/left-arrow.svg);
+					background-repeat: no-repeat;
+					background-position: center center;
+					background-size: contain;
+				}
+			}
+		}
+	}
+}
+
+.timeline-section{
+	text-transform: uppercase;
+	border-bottom:1px solid $white;
+	padding-bottom: 15px;
+	margin-bottom: 35px;
+
+	.timeline-detail{
+		padding-right: 0;
+		max-width: 222px;
+		flex:0 0 222px;
+	}
+	.timeline-with-checkout{
+		max-width: calc(100% - 222px - 60px);
+		flex:0 0 calc(100% - 222px - 60px);
+	}
+
+	.title-timeline{
+		margin-bottom: 20px;
+		label{
+			margin: 0;
+		}
+	}
+	.primary-packaging{
+		border-bottom: 2px solid $white;
+		padding-bottom: 10px;
+		margin-bottom: 30px;
+	}
+	.secondary-packaging, .labelling, .formulation{
+		margin-bottom: 30px;
+		span{
+			&:first-child{
+				border-bottom: 2px solid $white;
+				padding-bottom: 10px;
+				min-width: 100px;
+			}
+			&:last-child{
+				font-family: $newscycle;
+			}
+		}
+	}
+	.info-tooltip{
+		padding-bottom: 15px;
+	}
+	.order-timeline{
+		text-transform: initial;
+		@include bodycopy2();
+		padding-bottom: 20px;
+	}
+	.timeline-meta-text{
+		width: 175px;
+		span{
+			font-family: $newscycle;
+			display: block;
+			padding-top: 3px;
+		}
+	}
+	.timeline-meta-date{
+		font-family: $newscycle;
+		span{
+			@include fsize32();
+			display: block;
+		}
+	}
+	.shipping-order-details{
+		span{
+			display: block;
+			text-transform: initial;
+			@include bodycopy2();
+			img{
+				margin-right: 5px;
+			}
+		}
+	}
+	.edit-payment-method{
+		padding-top: 25px;
+		a{
+			display: block;
+			@include btnoutline();
+			background-color: transparent;
+			color:$white;
+			border:1px solid $white;
+
+			&:hover, &:focus{
+				background-color:$white;
+				color:$black;
+			}
+		}
+	}
+}
+
+.payment-terms-section{
+	.select-payment-term{
+		width: calc(100% - 170px);
+	    padding-left: 15px;
+	    .checkbox-field{
+	    	&:first-child{
+	    		margin-bottom:5px;
+	    	}
+	    	em{
+	    		justify-content: flex-start;
+	    		&:before{
+	    			margin-right:5px;
+	    		}
+	    	}
+	    }
+	}
+	.payment-saving{
+		padding-left: 15px;
+		padding-right: 15px;
+		text-transform: uppercase;
+		@include bodycopy1bold();
+		span{
+			@include fsize32();
+			display: block;
+			padding-bottom: 5px;
+		}
+	}
+}
+
+.plant_tress{
+	display: none;
+}
+
+.complete-order{
+	padding-top: 28px;
+	a{
+		@include btnoutline();
+		font-size: 12px;
+		&:hover, &:focus{
+			border-color:$white;
+		}
+	}
+}

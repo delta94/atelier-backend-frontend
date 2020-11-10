@@ -21,6 +21,16 @@
 	overflow-y: auto;
 	height: 100%;
 
+    .titlearea{
+        label{
+            display: block;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            color:$black;
+            @include bodycopy1bold();
+        }
+    }
+
 	.bodyarea{
 		padding-top: 40px;
 		padding-bottom: 40px;
@@ -55,11 +65,12 @@
     padding: 0;
     list-style: none;
     min-height: 100%;
-    overflow-y: auto;
+    /*overflow-y: auto;*/
 
     li{
     	display: block;
     	width: 100%;
+        position:relative;
     	&:not(:last-child){
     		margin-bottom: 5px;
     	}

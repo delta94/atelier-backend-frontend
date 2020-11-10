@@ -3,7 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
 
-import logoawhite from "../../img-new/icon-a-white.svg";
+import logoawhite from "../../img-new/icon-a-admin-white.svg";
 import "./product-reorder.scss";
 import "./product-accordion.scss";
 
@@ -75,6 +75,7 @@ class product extends Component {
         <div className="row justify-content-between">
           <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9 loggedin-user-dashboard d-flex flex-column">
             <div className="titlearea">
+              <label>Customer: <span>Bear</span></label>
               <h3>
                 Here’s an overview of your Bear’s. Click the drop <br/>down for more details.
               </h3>
@@ -90,6 +91,10 @@ class product extends Component {
                       <ul className="product-listing d-flex flex-column all-products">
                         {productList.map((product) => (
                           <li className={product.productId == active ? "active" : ""}>
+                            
+                            {/* Delete Product on click del-product */}
+                            <div className="del-product"><span className="delicon"></span></div>
+
                             <a onClick={() => this.showProductDetail(product)} href="#">
                               <div className="product-thumb d-flex align-items-center justify-content-center">
                                 <img
@@ -105,6 +110,24 @@ class product extends Component {
                             </a>
                           </li>
                         ))}
+
+                        {/* Active class will be add on click to specific li only */}
+                        <li className="active">
+                            {/* Delete Product on click del-product */}
+                            <div className="del-product"><span className="delicon"></span></div>
+
+                            <a href="#">
+                              <div className="product-thumb d-flex align-items-center justify-content-center">
+                                <img
+                                  src="images/face-serun-60ml.png" alt="face-serun-60ml"
+                                />
+                              </div>
+                              <div className="product-title d-flex justify-content-between">
+                                <div className="product-name">Wonder</div>
+                                <div className="product-qty">60mL</div>
+                              </div>
+                            </a>
+                          </li>
                         <li>
                           <div className="btn-new-product">
                             <a onClick={() => this.setState({ showAddProduct: !this.state.showAddProduct, showProductDetails: false })} className="add-fresh-trigger" href="#">
@@ -387,12 +410,14 @@ class product extends Component {
                 <p>Quantity</p>
                 <div className="qty-range">
                   <div className="qty-range">
-                    <label htmlFor="customRange1" style={{ display: "none" }}>
-                      Example range
-                    </label>
-                    <input type="range" className="custom-range" id="customRange1" min="5000" max="50000" value="5000" />
+                    {/*<input type="range" className="custom-range" id="customRange1" min="5000" max="50000" value="5000" />*/}
+                      <Slider 
+                      onChange={this.handleSliderChange}
+                      aria-labelledby="input-slider"
+                      max="100000"
+                      min="5000"
+                    />
                   </div>
-                  {/* <h5>Add Product Range slider here</h5> */}
                 </div>
 
                 <div className="price-calculation-wrap">
@@ -434,35 +459,6 @@ class product extends Component {
                       16th, August 2020
                     </div>
                   </div>
-                </div>
-                <div className="order-product-cta d-flex flex-wrap justify-content-center">
-                  {this.state.popupConfirmText ? (
-                    ""
-                  ) : (
-                    <button
-                      onClick={() =>
-                        this.submitOrder(
-                          productDetail.productId,
-                          this.state.qty,
-                          this.state.price
-                        )
-                      }
-                      className="order-product-btn"
-                      type="submit"
-                    >
-                      Submit
-                    </button>
-                  )}
-                  {this.state.popupConfirmText && (
-                    <p>
-                      Your order has now been placed. Head over to{" "}
-                      <Link onClick={this.redirectOrder}>
-                        {/* <Link href="#" onClick={this.redirectOrder}> */}
-                        “Your Orders”
-                      </Link>
-                      for more information
-                    </p>
-                  )}
                 </div>
               </div>
             </div>

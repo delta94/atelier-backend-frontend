@@ -106,15 +106,10 @@ export const GetProductionDetails = (productionId, token) => {
 };
 export const GetUserProduction = (userId, token) => {
   return new Promise((resolve, reject) => {
-    console.log(JSON.stringify(token));
     let url = Api.GET_PRODUCTION;
     apiGetMethod(`${url}/?userId=${userId}`, token)
-      // apiGetMethod(url, token)
       .then((response) => {
-        // debugger;
-        // alert(response)
         resolve(response);
-        // resolve(response.data.Data)
       })
       .catch((err) => {
         reject(err);

@@ -34,17 +34,10 @@ export const GetProduct = (userId, token) => {
     return new Promise((resolve, reject) => {
 
         console.log(JSON.stringify(token))
-        let url = Api.GET_PRODUCT,
-            headers = {};
-        // if (token) {
-        //     // headers = { authorization: `${'Bearer ' + token}` }
-        //     headers = { authorization: token }
-        // }
-        // apiGetMethod(`${url}?userId=${userId}`, "").then(res => {
+        let url = Api.GET_PRODUCT;
+        debugger
         apiGetMethod(`${url}?userId=${userId}`, token)
             .then(response => {
-                // debugger
-                // alert(response)
                 resolve(response)
                 // resolve(response.data.Data)
             }).catch(err => {
@@ -73,12 +66,7 @@ export const GetCart = (productId, token) => {
     return new Promise((resolve, reject) => {
 
         console.log(JSON.stringify(token))
-        let url = Api.GET_CART,
-            headers = {};
-        // if (token) {
-        //     // headers = { authorization: `${'Bearer ' + token}` }
-        //     headers = { authorization: token }
-        // }
+        let url = Api.GET_CART;
         apiGetMethod(`${url}/${productId}`, token)
             .then(response => {
                 // debugger

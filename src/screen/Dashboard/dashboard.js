@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 
 import "../userdashboard.scss";
 import "../activity-feed.scss";
-
+import { showHideLoding } from "../../Redux/Action/Loading";
 import logoawhite from "../../img-new/icon-a-white.svg";
 
 // dummy images
 import demothumb from "../../images/product-main-thumb.jpg";
+import { GetProduct, GetCartUserList, GetOrder } from "../../ApiActions/Product";
+import { GetUserProduction } from "../../ApiActions/Production";
+import { saveLoginUserInfo } from "../../Redux/Action/Login";
 
 
 class Dashboard extends Component {
@@ -16,11 +19,82 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       // userInfo: props.loginUserInfo,
+      token: props.token ? props.token.token : "",
+      productList: [],
+      orerList: [],
+      productionList: [],
+      orerList: []
     };
   }
 
-  render() {
+  UNSAFE_componentWillMount() {
+    if (this.props.location.state !== null) {
+      const { user, id } = this.props.location.state.params;
+      this.GetProductList(id);
+      this.GetOrderList(id);
+      this.GetProductionList(id);
+      // this.productDetail(productDetail, id);
+    }
+  }
+  GetProductList = (id) => {
+    this.props.showHideLoding(true);
+    GetProduct(id, this.state.token)
+      .then(response => {
+        this.props.showHideLoding(false);
+        this.setState({ productList: response.data.data.productsList });
+      })
+      .catch(err => {
+        this.props.showHideLoding(false);
+      });
+  };
 
+  GetProductionList = (id) => {
+    this.props.showHideLoding(true);
+    GetUserProduction(id, this.state.token)
+      .then(response => {
+        this.props.showHideLoding(false);
+        this.setState({ productionList: response.data.data.productionList });
+      })
+      .catch(err => {
+        this.props.showHideLoding(false);
+      });
+  };
+
+  GetOrderList = (id) => {
+    this.props.showHideLoding(true);
+    GetCartUserList(id, this.state.token)
+      .then(response => {
+        this.props.showHideLoding(false);
+        this.setState({ orerList: response.data.data.cartList });
+      })
+      .catch(err => {
+        this.props.showHideLoding(false);
+      });
+  };
+  addValue = event => {
+    let eventValue = event;
+    let temp = "";
+    let nTemp = parseInt(eventValue);
+    let count = 0;
+    while (nTemp >= 1000) {
+      count++;
+      let val = nTemp % 1000;
+      if (val === 0) {
+        temp = ",000" + temp;
+      } else if (val < 10) {
+        temp = ",00" + val + temp;
+      } else if (val < 100) {
+        temp = ",0" + val + temp;
+      } else {
+        temp = "," + val + temp;
+      }
+      nTemp = parseInt(nTemp / 1000);
+    }
+    temp = nTemp + temp;
+    return temp;
+  };
+  render() {
+    const { productList, productionList, orerList } = this.state;
     return (
       <div className="row justify-content-between">
         <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9 loggedin-user-dashboard d-flex flex-column">
@@ -37,18 +111,17 @@ class Dashboard extends Component {
                 <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 product-listing-dashboard">
                   <h4><span>Bear</span> Products</h4>
                   <ul className="product-listing d-flex flex-column">
-                      <li className="active">
+                  {productList.map(product => (<li key={product.productId} className="active">
                         <a href="/products">
                           <div className="product-thumb d-flex align-items-center justify-content-center">
-                            <img
-                              src="images/face-serun-60ml.png" alt="bottle-img" />
+                            <img src={ product.heroImage ? product.heroImage : "images/face-serun-60ml.png" } alt="bottle-img" />
                           </div>
                           <div className="product-title d-flex justify-content-between">
-                            <div className="product-name">Wonder</div>
-                            <div className="product-qty">60mL</div>
+                            <div className="product-name">{product.name}</div>
+                            <div className="product-qty">{product.volume}mL</div>
                           </div>
                         </a>
-                      </li>
+                      </li>))}
                       <li>
                         <div className="btn-new-product">
                           <a className="add-fresh-trigger" href="/products">
@@ -78,14 +151,30 @@ class Dashboard extends Component {
                         <div className="col amount">Amount</div>
                         <div className="col status">Status</div>
                       </li>
-                      <li className="d-flex row-content">
-                          <div className="col">00001</div>
-                          <div className="col">22/06/20</div>
-                          <div className="col product">Wonder</div>
-                          <div className="col amount">$36,700</div>
-                          <div className="col status"><span className="status-pending">Pending</span></div>
+                      {orerList.map(order => (<li key={order.orderId} className="d-flex row-content">
+                          <div className="col">{order.orderId}</div>
+                          <div className="col">{order.insertDate}</div>
+                          <div className="col product">{order.name}</div>
+                          <div className="col amount">$
+                            {this.addValue(
+                              order.carbonAmount
+                                ? order.carbonAmount +
+                                    order.totalAmount -
+                                    order.discount
+                                : order.discount
+                                ? order.totalAmount - order.discount
+                                : order.totalAmount
+                            )}{" "}</div>
+                          <div className="col status"><span className={
+                                order.status === "pending"
+                                  ? "status-pending"
+                                  : order.status === "inProduction"
+                                  ? "status-inproduction"
+                                  : "status-complete"
+                              }>{order.status}</span></div>
                         </li>
-                        <li className="d-flex row-content">
+                        ))}
+                        {/* <li className="d-flex row-content">
                           <div className="col">00002</div>
                           <div className="col">22/06/20</div>
                           <div className="col product">Wonder</div>
@@ -98,7 +187,7 @@ class Dashboard extends Component {
                           <div className="col product">Wonder</div>
                           <div className="col amount">$36,700</div>
                           <div className="col status"><span className="status-inproduction">In Production</span></div>
-                        </li>
+                        </li> */}
                     </ul>
                   </div>
                 </div>
@@ -106,21 +195,21 @@ class Dashboard extends Component {
                 <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 product-listing-dashboard">
                   <h4>In Production</h4>
                   <ul className="product-listing">
-                      <li className="active">
+                  {productionList.map(product => (<li key={product.productionId} className="active">
                         <a href="/production">
                           <div className="product-thumb d-flex align-items-center justify-content-center">
                             <img src="images/face-serun-60ml.png" alt="face-serun-60ml" />
                           </div>
                           <div className="product-title d-flex justify-content-between">
                             <div className="product-name">
-                              Face Serum
+                            {product.name}
                             </div>
                             <div className="product-qty">
-                              60mL
+                            {product.volume}mL
                             </div>
                           </div>
                         </a>
-                      </li>
+                      </li>))}
                   </ul>
                 </div>
               </div>
@@ -270,4 +359,17 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+const mapStateToProps = state => {
+  return {
+    loginUserInfo: state.login,
+    token: state.login.token
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    saveLoginUserInfo: data => dispatch(saveLoginUserInfo(data)),
+    showHideLoding: data => dispatch(showHideLoding(data))
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

@@ -53,16 +53,8 @@ class addCustomer extends Component {
         this.props.showHideLoding(false);
         toast.success("Customer add successfully.");
         setTimeout(() => {
-          window.location.reload();
         }, 1000);
         if (res.data.statusCode === 200) {
-          // let reduxData = JSON.parse(localStorage.getItem(`persist:${apiCommonParams.REDUX_STORE_KEY}`));
-          // let authReducer = JSON.parse(reduxData.login);
-          // // // headers['Authorization'] = `bearer ${res.data.access_token}`;
-          // authReducer.access_token = res.headers.authorization
-          // reduxData.login = JSON.stringify(authReducer);
-          // localStorage.setItem(`persist:${apiCommonParams.REDUX_STORE_KEY}`, JSON.stringify(reduxData));
-          // setTimeout(() => { this.props.history.push('/home') }, 1000);
         }
       })
       .catch(err => {
@@ -296,7 +288,7 @@ class addCustomer extends Component {
 
                                   <div className="add-product-submit">
                                     {/* <input type="submit" className="btn-module" Done /> */}
-                                    <input type="submit" className="btn-module" name="" value="Done" />
+                                    <input onClick={() => this.addUser(values)} type="submit" className="btn-module" name="" value="Done" />
                                   </div>
                                 </div>
                               </form>

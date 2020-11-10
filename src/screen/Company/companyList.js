@@ -79,17 +79,8 @@ class customer extends Component {
   }
 
   render() {
-    const {
-      userList,
-      active,
-      companyDetails,
-      showProduct,
-      userOrder,
-      userProduction,
-      showAddCustomer,
-      shippingData
-    } = this.state;
-
+    const { userList, active, companyDetails, showProduct, userOrder, userProduction, showAddCustomer, shippingData } = this.state;
+console.log("userList :", userList)
     return (
       <React.Fragment>
         <div className="row justify-content-between">
@@ -110,10 +101,11 @@ class customer extends Component {
                       <ul className="customer-lists d-flex flex-wrap">
                         {userList.map(user => (
                           <li className="customer-wrap" key={user.userId}>
-                            <a
+                            {/* <a
                               onClick={() => this.selectCustomer(user)}
                               href="#"
-                            >
+                            > */}
+                            <Link to={{ state: { params: { user: user, id: user.userId } } }} onClick={() => this.selectCustomer(user)} >
                               <div className="customer-thumb">
                                 <img
                                   src={
@@ -126,12 +118,13 @@ class customer extends Component {
                                 />
                               </div>
                               <div className="customername">
-                                <span>Bear Co{/*{user.company[0].name}*/}</span>
+                                <span>{user.company.length > 0? user.company[0].name:''}</span>
                                 <span className="del">
                                   <i className="icon-del"></i>
                                 </span>
                               </div>
-                            </a>
+                              </Link>
+                            {/* </a> */}
                             <div className="total-product-counter">
                               <span>10{/*{user.productData.length}*/}</span>
                             </div>

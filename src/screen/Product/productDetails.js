@@ -119,7 +119,7 @@ class productDetails extends Component {
                 Manufacturers
               </a>
             </li>
-            <li class="first-parent">
+            <li className="first-parent">
               <a
                 className={showComplianceInfo ? "active" : ""}
                 onClick={() =>

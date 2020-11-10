@@ -1,4 +1,4 @@
-import { SAVE_LOGIN_USERINFO, UPDATE_USERINFO, ACCESS_TOKEN } from './ActionTypes';
+import { SAVE_CUSTOMER_INFO, SAVE_LOGIN_USERINFO, UPDATE_USERINFO, ACCESS_TOKEN } from './ActionTypes';
 
 export const saveLoginUserInfo = (loginUserInfo) => {
     return (dispatch) => {
@@ -7,6 +7,15 @@ export const saveLoginUserInfo = (loginUserInfo) => {
         })
     }
 }
+
+export const saveCustomerInfo = (isCustomerLoaded) => {
+    return (dispatch) => {
+        dispatch({
+            type: SAVE_CUSTOMER_INFO, payload: isCustomerLoaded
+        })
+    }
+}
+
 export const updateUserInfo = (userInfo) => {
     return (dispatch) => {
         dispatch({

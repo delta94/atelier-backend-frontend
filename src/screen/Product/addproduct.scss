@@ -1,6 +1,36 @@
 /* variables */
 @import "../../global-var.scss";
 
+.btn-new-product{
+    display: inline-block;
+    margin-bottom: 15px;
+    width: 128px;
+    flex:0 0 128px;
+    padding:4px;
+}
+.btn-new-icon{
+    padding: 0;
+    width: 100%;
+    flex: 0 0 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.all-products{
+  li:last-child{
+    .add-fresh-trigger{
+      border:none;
+      box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
+    }
+    .trigger-btn-icon{
+      border-color:$purple;
+      width:20px;
+      border-radius: 5px;
+      padding:0px;
+    }
+  }
+}
+
 .add-new-product{
 	label{
         @include fsize12();
@@ -46,4 +76,24 @@
           background-color: $white;
         }
       }
+}
+
+.del-product{
+  position: absolute;
+  left: -8px;
+  top: -2px;
+  .delicon{
+    width: 20px;
+    height: 20px;
+    border:1px solid $purple;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../../img-new/icon-minus-purple.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 7px;
+    background-color: $white;
+    border-radius: 5px;
+  }
 }

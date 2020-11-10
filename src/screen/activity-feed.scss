@@ -1,0 +1,101 @@
+/* sidebar css only */
+@import "../global-var.scss";
+
+.activity-feed{
+	@include bluearea();
+	
+	.activity-title{
+		display: flex;
+		justify-content: space-between;
+
+		img{
+			max-width: 35px;
+		}
+		span{
+			@include fsize16();
+			letter-spacing: -0.75px;
+			align-self: flex-end;
+		}
+	}
+
+	.feed-wrapper{
+		padding-top: 70px;
+
+		.activityfeed{
+			&:not(:last-child){
+				margin-bottom: 35px;
+			}
+		}
+
+		.meta-day{
+			padding-left: 57px;
+			text-transform: uppercase;
+			margin-bottom: 15px;
+		}
+		.meta-product-detail{
+			display: flex;
+			flex-wrap: wrap;
+		    align-items: flex-start;
+
+			label{
+				flex: 0 0 100%;
+			    padding-left: 57px;
+			    text-transform: uppercase;
+			    margin-bottom: 15px;
+			}
+
+			.mta-product-thumb{
+				width: 30px;
+				flex: 0 0 30px;
+				span{
+					background-color: $white;
+					border-radius: 100%;
+					display: flex;
+					width: 100%;
+					height: 100%;
+
+					img{
+						max-width: 100%;
+						max-height: 30px;
+						width: 100%;
+						object-fit: contain;
+						padding: 3px;
+					}
+				}
+			}
+			.mta-product-feed{
+				padding-left: 27px;
+				flex: 1;
+
+				.feed-track{
+					width: 100%;
+					a{
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						border-radius: 60px;
+						border:1px solid $white;
+						width: 100%;
+						height: 25px;
+						padding-left: 10px;
+						padding-right: 10px;
+						@include bodycopy1bold();
+						letter-spacing: 0.5px;
+						color:$white;
+						text-transform: uppercase;
+						-webkit-transition:all 300ms ease-in-out;
+						-moz-transition:all 300ms ease-in-out;
+						-ms-transition:all 300ms ease-in-out;
+						-o-transition:all 300ms ease-in-out;
+						transition:all 300ms ease-in-out;
+
+						&:hover, &:focus{
+							background-color:$white;
+							color:$blue;
+						}
+					}
+				}
+			}
+		}
+	}
+}

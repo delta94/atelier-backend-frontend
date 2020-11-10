@@ -17,6 +17,7 @@ export const api = {
     // SUBSCRIBE_USER: `${apiBaseUrl}/api/Subscription/SubscribeUser?`,
     // CONTACT_US: `${apiBaseUrl}/api/ContactUs/Add`,
     FORGOT_PASSWORD: `${apiBaseUrl}/auth/forgotPassword`,
+    FORGOT_ADMIN_PASSWORD: `${apiBaseUrl}/auth/admin/forgotPassword`,
     RESET_PASSWORD: `${apiBaseUrl}/auth/resetPassword`,
     // GET_ALL_APPOINTMENT: `${apiBaseUrl}/api/Appointment/GetAll`,
     // GET_ALL_SERVICE_IMAGES: `${apiBaseUrl}/api/ServiceResult/GetAllServices`,

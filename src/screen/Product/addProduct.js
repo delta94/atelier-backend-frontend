@@ -772,7 +772,7 @@ class product extends Component {
                                                         className={touched.pName && errors.pName ? "has-error" : ""} />
                                                     <Error touched={touched.pName} message={errors.pName} />
                                                     {checkPrimary?<div className="form-message text-danger">This name allearady exist Please select dropdown.</div>:null}
-                                                    {/* <div class="form-message text-danger">Please.</div> checkPrimary*/}
+                                                    {/* <div className="form-message text-danger">Please.</div> checkPrimary*/}
                                                 </div>
                                                 <div className="col-md-6">
                                                     <label>Contact Name</label>

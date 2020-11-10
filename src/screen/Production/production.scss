@@ -1,0 +1,172 @@
+/* variables */
+@import "../../global-var.scss";
+@import "./circle.scss"; 
+
+/* production list */
+.products-tracking{
+	width:100%;
+	padding-right:35px;
+	h4{ 
+		text-transform: capitalize;
+		width: 100%;
+		display: block;
+	}
+}
+
+.product-details-wrap{
+	padding:0 15px;
+	margin-right:-15px;
+	width: 100%;
+	padding-right: 0px;
+}
+
+.product-components{
+	width: 250px;
+	ul{
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		li{
+			position: relative;
+			&:not(:last-child){
+				margin-bottom: 5px;
+			}
+			a{
+				@include fsize12();
+				border:1px solid $blue;
+				color:$blue;
+				width: 100%;
+				display: block;
+				height: 40px;
+				display: flex;
+				align-items: center;
+				position:relative;
+				padding: 10px 20px;
+				border-radius: 50px;
+				-webkit-transition: all 300ms ease-in-out;
+				-moz-transition: all 300ms ease-in-out;
+				-ms-transition: all 300ms ease-in-out;
+				-o-transition: all 300ms ease-in-out;
+				&:hover, &:focus{
+					background-color:$blue;
+					color:$white;
+				}
+			}
+			.status-calculate{
+				position: absolute;
+				right: -10px;
+				top: 50%;
+				transform: translateY(-50%);
+				box-shadow: 0 0 0 3px $white;
+			}
+			&.active{
+				a{
+					background-color: $blue;
+					color:$white;
+				}
+			}
+		}
+	}
+}
+
+.product-track-status{
+	width:100%;
+	padding-left: 50px;
+
+	ul{
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		li{
+			border-radius:10px;
+			padding:15px 15px 15px 54px;
+			position:relative;
+			box-shadow: 1px 1px 5px rgba(0,0,0,0.13);
+			text-transform: uppercase;
+			&:not(:last-child){
+				margin-bottom: 5px;
+			}
+
+			label{
+				@include bodycopy1();
+				text-transform: uppercase;
+			}
+			.status-date{
+				label{
+					font-family: $newscycle;
+				}
+			}
+			.status-message{
+				padding-left: 40px;
+			}
+			.ordermeta{
+				padding-top: 10px;
+				color:$black;
+				@include bodycopy1();
+			}
+			
+			&.qa-begins, &.qa-begins ~ li{
+				color:$black;
+			}
+
+			&:before{
+				content: "";
+				width: 10px;
+				height: 10px;
+				border-radius: 100%;
+				background-color: $greybg;
+				position: absolute;
+				top: 17px;
+				left: 21px;
+			}
+			&:after{
+				content: "";
+			    top: 25px;
+			    left: 25px;
+			    position: absolute;
+			    display: inline-block;
+			    background: #000; 
+			    border-right: 1px solid $blue;
+			    -webkit-transition: all 300ms ease-in-out;
+			    -moz-transition: all 300ms ease-in-out;
+			    -ms-transition: all 300ms ease-in-out;
+			    -o-transition: all 300ms ease-in-out;
+			    transition: all 300ms ease-in-out;
+			}
+
+			&.status-done{
+				&:before{
+					background-color:$blue;
+				}
+				&:not(:last-child){
+					&:after{
+						bottom: -24px;
+					}
+				}
+			}
+
+			.order-thumbs{
+				a{
+					overflow: hidden;
+					width: 46px;
+					height: 46px;
+					border-radius: 100%;
+					border:1px solid $blue;
+					display: inline-block;
+					&:not(:last-child){
+						margin-right: 5px;
+					}
+				}
+			}
+
+			.shipping-thumb{
+				overflow: hidden;
+				border-radius: 10px;
+				img{
+					width: 100%;
+					height: auto;
+				}
+			}
+		}
+	}
+}

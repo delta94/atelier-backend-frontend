@@ -63,7 +63,8 @@ class production extends Component {
       reasonMessage: "",
       showPack:false,
       showLabel:'',
-      imgModel:false
+      imgModel:false,
+      postModel:false
     };
   }
   componentWillMount() {
@@ -235,9 +236,12 @@ class production extends Component {
   submitImage = () => {
     this.setState({ modelOpen: true, imgModel:true,  });
   };
+  submitPost = () => {
+    this.setState({ modelOpen: true, postModel:true,  });
+  };
 
   render() {
-    console.log('----check--- label',this.state.showPack, this.state.showLabel)
+
     const {
       productionList,
       showProductDetails,
@@ -494,6 +498,16 @@ class production extends Component {
                                         <label>labels shipped</label>
                                       </div>
                                     </li>
+                                    <li className="d-flex label-shipped status-done">
+                                      <div className="status-date">
+                                        <label>+</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <Link onClick={() => this.submitPost()}>
+                                          click to add post here
+                                        </Link>
+                                      </div>
+                                    </li>
                                   </ul>
                                   :''}
 
@@ -608,6 +622,13 @@ class production extends Component {
                             onPressCancelPass={() => this.setState({ modelOpen: false, imgModel:false, })}
                         />
                     )}
+                      {this.state.postModel && ''}
+                      {this.state.modelOpen && this.state.postModel && (
+                          <Model
+                              postModel={this.state.postModel}
+                              onPressCancelPass={() => this.setState({ modelOpen: false, postModel:false, })}
+                          />
+                      )}
 
                   </div>
 

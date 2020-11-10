@@ -12,6 +12,8 @@ import "./model.scss";
 import popcross from '../../img-new/small-cross-icon.svg';
 import Carousel from 'react-bootstrap/Carousel'
 
+import ProductionDetails from '../Production/ProductionDetails'
+
 const userValidationSchema = Yup.object().shape({
   name: Yup.string()
       .min(2, "Must have 2 character.")
@@ -254,7 +256,16 @@ class Model extends Component {
                                          </Carousel.Caption>
                                      </Carousel.Item>
                                  </Carousel>
+                                 :this.props.postModel ? <div>
+                                         <div className="popup-text">
+                                             <h3>product detail come here</h3>
+                                         </div>
+                                        {/*<ProductionDetails />*/}
+                                         <div className="popup-btns">
+                                             <a onClick={this.onPressCancel} href="#" className="not-ready">CANCEL</a>
+                                         </div>
 
+                                 </div>
                                  :<div className="header-content d-flex align-items-center justify-content-center flex-column">
                             <div className="popup-textarea d-flex align-items-center justify-content-between">
                                 <div className="popup-text">

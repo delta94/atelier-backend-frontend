@@ -9,7 +9,7 @@ import "../Product/product-reorder.scss";
 import "./production.scss";
 // dummy images
 import demothumb from '../../images/product-main-thumb.jpg';
-//import Model from "../../components/model.js";
+import Model from "../Component/model";
 
 import { Link } from "react-router-dom";
 
@@ -24,33 +24,7 @@ import { showHideLoding } from "../../Redux/Action/Loading";
 import Child from "./ProductionDetails";
 import { GetProduction, UpdateStatus, UpdateDelayStatus, GetProductionDetails } from "../../ApiActions/Production";
 import api from "../../ApiActions/DbConfig/ApiActions";
-// const customStyles = {
-//   option: (provided, state) => ({
-//     ...provided,
-//     margin: 6,
-//     background: "#000",
-//     padding: 15,
-//   }),
-// };
-// const customStyles = {
-//   menu: (provided, state) => ({
-//     ...provided,
-//     width: state.selectProps.width,
-//     borderBottom: "1px dotted pink",
-//     color: state.selectProps.menuColor,
-//   }),
 
-//   control: (_, { selectProps: { width } }) => ({
-//     width: width,
-//   }),
-
-//   singleValue: (provided, state) => {
-//     const opacity = state.isDisabled ? 0.5 : 1;
-//     const transition = "opacity 300ms";
-
-//     return { ...provided, opacity, transition };
-//   },
-// };
 class production extends Component {
   constructor(props) {
     super(props);
@@ -87,6 +61,10 @@ class production extends Component {
       reason: "",
       checkStatus: "",
       reasonMessage: "",
+      showPack:false,
+      showLabel:'',
+      imgModel:false,
+      postModel:false
     };
   }
   componentWillMount() {
@@ -118,6 +96,10 @@ class production extends Component {
       primarySelectedOption: data,
     });
   };
+  showPackg = (text) =>{
+    this.setState({ showPack: true,showLabel:text });
+  }
+
   onChange = (status, type, isStatus) => {
     if (this.state.showMessage) {
       return;
@@ -249,7 +231,17 @@ class production extends Component {
   handle = () => {
     alert(444);
   };
+
+
+  submitImage = () => {
+    this.setState({ modelOpen: true, imgModel:true,  });
+  };
+  submitPost = () => {
+    this.setState({ modelOpen: true, postModel:true,  });
+  };
+
   render() {
+
     const {
       productionList,
       showProductDetails,
@@ -315,83 +307,15 @@ class production extends Component {
     if (recordDelayFormulation) {
       shippedSecondObj = recordDelayFormulation.find((obj) => obj.productType == "shipped");
     }
+    console.log('----check--- label',this.state.showPack, this.state.showLabel)
+
+
 
     return (
 
 
       <React.Fragment>
         <ToastContainer />
-        {/* <div className="col-sm-12 col-md-8 col-lg-8 right-content account-panel d-flex production-list">
-          <div className="oneproduts d-flex">
-            <table className="table secoundtable">
-              <thead>
-                <tr>
-                  <th>
-                    Order
-                    <br />
-                    No.
-                  </th>
-                  <th>
-                    Product
-                    <br />
-                    Name
-                  </th>
-                  <th>
-                    Customer
-                    <br />
-                    ID
-                  </th>
-                  <th className="Status">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {productionList.map((product) => (
-                  <tr
-                    onClick={() => this.showProductDetail(product)}
-                    key={product.id}
-                    className={product.productionId == productionId ? "active" : ""}
-                  >
-                    <td className="perfect">
-                      <a href="#">{product.orderId}</a>
-                    </td>
-                    <td className="production-product-thumb">
-                      <a href="#">
-                        <img
-                          src={product.heroImage ? product.heroImage : "images/backend_Product_Image.svg"}
-                          height="60px"
-                          width="60px"
-                        />
-                        <p>{product.name}</p>
-                      </a>
-                    </td>
-                    <td className="perfect">
-                      <a href="#" className="status">
-                        {product.company}
-                      </a>
-                    </td>
-                    {product.productStatus === "inProduction" ? (
-                      <td className="perfect ontimes1">
-                        <a href="#">In Production</a>
-                      </td>
-                    ) : (
-                      <td
-                        className={
-                          product.productStatus == "delayed"
-                            ? "perfect ontimes1 delayed capitalize"
-                            : product.productStatus == "delivered"
-                            ? "perfect ontimes1 delivered capitalize"
-                            : "perfect ontimes1"
-                        }
-                      >
-                        <a href="#">{product.productStatus}</a>
-                      </td>
-                    )}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div> */}
-          {/* <!-- product detail module --> */}
 
         <div className="row justify-content-between">
           <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9 loggedin-user-dashboard d-flex flex-column">
@@ -486,206 +410,225 @@ class production extends Component {
                           </div>
 
                             <div className="product-track-status">
-                              
-                                <ul>
-                                  <li className="d-flex status-done">
-                                    <div className="status-date">
-                                      <label>July 22nd</label>
-                                    </div>
-                                    <div className="status-message">
-                                      <label>Order Accepted</label>
-                                      <div className="ordermeta">
-                                        Order Date : July 22nd <br />
-                                        Order NO. : #00001 <br />
-                                        EST. Delivery: August 30
+
+                              {this.state.showPack && this.state.showLabel === 'primary' ?
+                                  <ul>
+                                    <li className="d-flex status-done">
+                                      <div className="status-date">
+                                        <label>July 22nd</label>
                                       </div>
-                                    </div>
-                                  </li>
+                                      <div className="status-message">
+                                        <label>Order Accepted</label>
+                                        <div className="ordermeta">
+                                          Order Date : July 22nd <br />
+                                          Order NO. : #00001 <br />
+                                          EST. Delivery: August 30
+                                        </div>
+                                      </div>
+                                    </li>
 
-                                  <li className="d-flex status-done">
-                                    <div className="status-date">
-                                      <label>July 22nd</label>
-                                    </div>
-                                    <div className="status-message">
-                                      <label>Production Begins</label>
-                                    </div>
-                                  </li>
+                                    <li className="d-flex status-done">
+                                      <div className="status-date">
+                                        <label>July 22nd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Production Begins</label>
+                                      </div>
+                                    </li>
 
-                                  <li className="d-flex status-done status-done">
-                                    <div className="status-date">
-                                      <label>July 30th</label>
-                                    </div>
-                                    <div className="status-message">
-                                      <label>Production Complete</label>
-                                    </div>
-                                  </li>
+                                    <li className="d-flex status-done status-done">
+                                      <div className="status-date">
+                                        <label>July 30th</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Production Complete</label>
+                                      </div>
+                                    </li>
 
-                                  <li className="d-flex qa-begins status-done">
-                                    <div className="status-date">
-                                      <label>August 1st</label>
-                                    </div>
-                                    <div className="status-message">
-                                      <label>QA Begins</label>
-                                    </div>
-                                  </li>
+                                    <li className="d-flex qa-begins status-done">
+                                      <div className="status-date">
+                                        <label>August 1st</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>QA Begins</label>
+                                      </div>
+                                    </li>
 
-                                  <li className="d-flex qa-begins status-done">
-                                    <div className="status-date">
-                                      <label>August 2nd</label>
-                                    </div>
-                                    <div className="status-message">
-                                      <label>QA Complete <br />Click to enlarge QA images</label>
-                                      <div className="order-thumbs d-flex align-items-center justify-content-between">
-                                        <Link onClick={() => this.submitImage()}>
-                                          <img src="images/face-serun-60ml.png" alt="face-serun-60ml" />
+                                    <li className="d-flex qa-begins status-done">
+                                      <div className="status-date">
+                                        <label>August 2nd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>QA Complete <br />Click to enlarge QA images</label>
+                                        <div className="order-thumbs d-flex align-items-center justify-content-between">
+                                          <Link onClick={() => this.submitImage()}>
+                                            <img src="images/face-serun-60ml.png" alt="face-serun-60ml" />
                                           </Link>
 
-                                        <Link onClick={() => this.submitImage()}>
-                                          <img src="images/face-serun-60ml.png" alt="face-serun-60ml" />
+                                          <Link onClick={() => this.submitImage()}>
+                                            <img src="images/face-serun-60ml.png" alt="face-serun-60ml" />
+                                          </Link>
+
+                                          <Link onClick={() => this.submitImage()}>
+                                            <img src="images/face-serun-60ml.png" alt="face-serun-60ml" />
+                                          </Link>
+                                        </div>
+                                      </div>
+                                    </li>
+
+                                    <li className="d-flex label-shipped status-done">
+                                      <div className="status-date">
+                                        <label>August 3rd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>labels shipped</label>
+                                        <div className="shipping-thumb">
+                                          <Link onClick={() => this.submitImage()}>
+                                            <img src="images/map.jpg" alt="Labels Shipped Map image" />
+                                          </Link>
+                                        </div>
+                                      </div>
+                                    </li>
+
+                                    <li className="d-flex label-shipped status-done">
+                                      <div className="status-date">
+                                        <label>August 3rd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>labels shipped</label>
+                                      </div>
+                                    </li>
+                                    <li className="d-flex label-shipped status-done">
+                                      <div className="status-date">
+                                        <label>+</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <Link onClick={() => this.submitPost()}>
+                                          click to add post here
                                         </Link>
-
-                                        <Link onClick={() => this.submitImage()}>
-                                          <img src="images/face-serun-60ml.png" alt="face-serun-60ml" />
-                                        </Link>
                                       </div>
-                                    </div>
-                                  </li>
+                                    </li>
+                                  </ul>
+                                  :''}
 
-                                  <li className="d-flex label-shipped status-done">
-                                    <div className="status-date">
-                                      <label>August 3rd</label>
-                                    </div>
-                                    <div className="status-message">
-                                      <label>labels shipped</label>
-                                      <div className="shipping-thumb">
-                                        <Link onClick={() => this.submitImage()}>
-                                          <img src="images/map.jpg" alt="Labels Shipped Map image" />
-                                        </Link>
+                              {this.state.showPack && this.state.showLabel === 'secondary' ?
+                                  <ul>
+                                    <li className="d-flex status-done">
+                                      <div className="status-date">
+                                        <label>July 22nd</label>
                                       </div>
-                                    </div>
-                                  </li>
-
-                                  <li className="d-flex label-shipped status-done">
-                                    <div className="status-date">
-                                      <label>August 3rd</label>
-                                    </div>
-                                    <div className="status-message">
-                                      <label>labels shipped</label>
-                                    </div>
-                                  </li>
-                                </ul>
-                              
-
-                              
-                                <ul>
-                                  <li className="d-flex status-done">
-                                    <div className="status-date">
-                                      <label>July 22nd</label>
-                                    </div>
-                                    <div className="status-message">
-                                      <label>Order Accepted</label>
-                                      <div className="ordermeta">
-                                        Order Date : July 22nd <br />
-                                        Order NO. : #00001 <br />
-                                        EST. Delivery: August 30
+                                      <div className="status-message">
+                                        <label>Order Accepted</label>
+                                        <div className="ordermeta">
+                                          Order Date : July 22nd <br />
+                                          Order NO. : #00001 <br />
+                                          EST. Delivery: August 30
+                                        </div>
                                       </div>
-                                    </div>
-                                  </li>
+                                    </li>
 
-                                  <li className="d-flex status-done">
-                                    <div className="status-date">
-                                      <label>July 22nd</label>
-                                    </div>
-                                    <div className="status-message">
-                                      <label>Production Begins</label>
-                                    </div>
-                                  </li>
-
-                                  <li className="d-flex status-done status-done">
-                                    <div className="status-date">
-                                      <label>July 30th</label>
-                                    </div>
-                                    <div className="status-message">
-                                      <label>Production Complete</label>
-                                    </div>
-                                  </li>
-
-                                  <li className="d-flex qa-begins status-done">
-                                    <div className="status-date">
-                                      <label>August 1st</label>
-                                    </div>
-                                    <div className="status-message">
-                                      <label>QA Begins</label>
-                                    </div>
-                                  </li>
-                                </ul>
-
-                              
-                                <ul>
-                                  <li className="d-flex status-done">
-                                    <div className="status-date">
-                                      <label>July 22nd</label>
-                                    </div>
-                                    <div className="status-message">
-                                      <label>Order Accepted</label>
-                                      <div className="ordermeta">
-                                        Order Date : July 22nd <br />
-                                        Order NO. : #00001 <br />
-                                        EST. Delivery: August 30
+                                    <li className="d-flex status-done">
+                                      <div className="status-date">
+                                        <label>July 22nd</label>
                                       </div>
-                                    </div>
-                                  </li>
-
-                                  <li className="d-flex status-done">
-                                    <div className="status-date">
-                                      <label>July 22nd</label>
-                                    </div>
-                                    <div className="status-message">
-                                      <label>Production Begins</label>
-                                    </div>
-                                  </li>
-                                </ul>
-                              
-
-                              
-                                <ul>
-                                  <li className="d-flex status-done">
-                                    <div className="status-date">
-                                      <label>July 22nd</label>
-                                    </div>
-                                    <div className="status-message">
-                                      <label>Order Accepted</label>
-                                      <div className="ordermeta">
-                                        Order Date : July 22nd <br />
-                                        Order NO. : #00001 <br />
-                                        EST. Delivery: August 30
+                                      <div className="status-message">
+                                        <label>Production Begins</label>
                                       </div>
-                                    </div>
-                                  </li>
+                                    </li>
 
-                                  <li className="d-flex status-done">
-                                    <div className="status-date">
-                                      <label>July 22nd</label>
-                                    </div>
-                                    <div className="status-message">
-                                      <label>Production Begins</label>
-                                    </div>
-                                  </li>
-                                </ul>
+                                    <li className="d-flex status-done status-done">
+                                      <div className="status-date">
+                                        <label>July 30th</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Production Complete</label>
+                                      </div>
+                                    </li>
+
+                                    <li className="d-flex qa-begins status-done">
+                                      <div className="status-date">
+                                        <label>August 1st</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>QA Begins</label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                  :''}
+
+                              {this.state.showPack && this.state.showLabel === 'label' ?
+                                  <ul>
+                                    <li className="d-flex status-done">
+                                      <div className="status-date">
+                                        <label>July 22nd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Order Accepted</label>
+                                        <div className="ordermeta">
+                                          Order Date : July 22nd <br />
+                                          Order NO. : #00001 <br />
+                                          EST. Delivery: August 30
+                                        </div>
+                                      </div>
+                                    </li>
+
+                                    <li className="d-flex status-done">
+                                      <div className="status-date">
+                                        <label>July 22nd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Production Begins</label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                  :''}
+
+                              {this.state.showPack && this.state.showLabel === 'formulation' ?
+                                  <ul>
+                                    <li className="d-flex status-done">
+                                      <div className="status-date">
+                                        <label>July 22nd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Order Accepted</label>
+                                        <div className="ordermeta">
+                                          Order Date : July 22nd <br />
+                                          Order NO. : #00001 <br />
+                                          EST. Delivery: August 30
+                                        </div>
+                                      </div>
+                                    </li>
+
+                                    <li className="d-flex status-done">
+                                      <div className="status-date">
+                                        <label>July 22nd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Production Begins</label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                  :''}
                               
                             </div>
                           </div>
                       </div>
 
                     
-
-                    {/*{this.state.imgModel && ''}
+                    {this.state.imgModel && ''}
                     {this.state.modelOpen && this.state.imgModel && (
                         <Model
                             imgModel={this.state.imgModel}
                             onPressCancelPass={() => this.setState({ modelOpen: false, imgModel:false, })}
                         />
-                    )}*/}
+                    )}
+                      {this.state.postModel && ''}
+                      {this.state.modelOpen && this.state.postModel && (
+                          <Model
+                              postModel={this.state.postModel}
+                              onPressCancelPass={() => this.setState({ modelOpen: false, postModel:false, })}
+                          />
+                      )}
 
                   </div>
 

@@ -115,7 +115,7 @@ class addCustomer extends Component {
                             <div className="popup-form-area">
                               
                               <Formik
-                                initialValues={{ name: "", company: "", email: "", password: "" }}
+                                initialValues={{ name: "", email: "", password: "" }}
                                 validationSchema={validationSchema}
                                 onSubmit={(values, { resetForm }) => {
                                   this.addUser(values);
@@ -130,16 +130,7 @@ class addCustomer extends Component {
                                       <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 customer-detail">
                                         <div className="field-group">
                                           <label>Business</label>
-                                          <input
-                                              type="text"
-                                              name="name"
-                                              placeholder="Insert Company Name Here"
-                                              onChange={handleChange}
-                                              onBlur={handleBlur}
-                                              value={values.name}
-                                              className={touched.name && errors.name ? "form-control has-error" : "form-control"}
-                                            />
-                                          <Error touched={touched.name} message={errors.name} />
+                                          <input className="form-control" type="text" placeholder="Insert Company Name Here" name="" />
                                         </div>
 
                                         <div className="field-group">
@@ -178,7 +169,16 @@ class addCustomer extends Component {
                                   <div className="detail-info customer-login-info">
                                     <div className="field-group">
                                       <label>Contact</label>
-                                      <input className="form-control" type="text" placeholder="Insert Contact Name" name="" />
+                                      <input
+                                              type="text"
+                                              name="name"
+                                              placeholder="Insert Contact Name"
+                                              onChange={handleChange}
+                                              onBlur={handleBlur}
+                                              value={values.name}
+                                              className={touched.name && errors.name ? "form-control has-error" : "form-control"}
+                                            />
+                                      <Error touched={touched.name} message={errors.name} />
                                       
                                       <input
                                         type="email"

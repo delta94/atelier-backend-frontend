@@ -113,7 +113,7 @@ console.log("userList :", userList)
                                       ? user.profilePic
                                       : demothumb
                                   }
-                                  alt="{/*{user.company[0].name}*/}"
+                                  alt="customer-thumb"
                                   width="50"
                                 />
                               </div>

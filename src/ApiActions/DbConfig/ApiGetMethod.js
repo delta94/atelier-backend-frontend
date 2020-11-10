@@ -16,7 +16,7 @@ export const apiGetMethod = (url, token) => {
             .then(res => {
                 resolve(res);
             }).catch(err => {
-                debugger
+                // debugger
                 if (err.response && err.response.status === 400) {
                     window.history.pushState('', '', `login`);
                     setTimeout(() => {
@@ -51,7 +51,7 @@ export const reAuth = (url, headers) => {
                 reject(err);
             })
         }).catch(err => {
-            debugger
+            // debugger
             if (window.location.pathname !== "#/login") {
                 pageRedirect('#/login');
             }

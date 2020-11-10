@@ -3,6 +3,17 @@ import Select from "react-select";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
+import logoawhite from '../../img-new/icon-a-white.svg';
+import "../Product/product-reorder.scss";
+import "./production.scss";
+// dummy images
+import demothumb from '../../images/product-main-thumb.jpg';
+import Model from "../Component/model";
+
+import { Link } from "react-router-dom";
+
+
 import Error from "../../utils/Error";
 // redux
 import { connect } from "react-redux";
@@ -13,33 +24,7 @@ import { showHideLoding } from "../../Redux/Action/Loading";
 import Child from "./ProductionDetails";
 import { GetProduction, UpdateStatus, UpdateDelayStatus, GetProductionDetails } from "../../ApiActions/Production";
 import api from "../../ApiActions/DbConfig/ApiActions";
-// const customStyles = {
-//   option: (provided, state) => ({
-//     ...provided,
-//     margin: 6,
-//     background: "#000",
-//     padding: 15,
-//   }),
-// };
-// const customStyles = {
-//   menu: (provided, state) => ({
-//     ...provided,
-//     width: state.selectProps.width,
-//     borderBottom: "1px dotted pink",
-//     color: state.selectProps.menuColor,
-//   }),
 
-//   control: (_, { selectProps: { width } }) => ({
-//     width: width,
-//   }),
-
-//   singleValue: (provided, state) => {
-//     const opacity = state.isDisabled ? 0.5 : 1;
-//     const transition = "opacity 300ms";
-
-//     return { ...provided, opacity, transition };
-//   },
-// };
 class production extends Component {
   constructor(props) {
     super(props);
@@ -47,6 +32,7 @@ class production extends Component {
     this.state = {
       token: props.token ? props.token.token : "",
       showProductionDetails: false,
+      showProductDetails: false,
       productionList: [],
       productionId: "",
       productName: "",
@@ -75,6 +61,10 @@ class production extends Component {
       reason: "",
       checkStatus: "",
       reasonMessage: "",
+      showPack:false,
+      showLabel:'',
+      imgModel:false,
+      postModel:false
     };
   }
   componentWillMount() {
@@ -94,7 +84,7 @@ class production extends Component {
         //  this.props.showHideLoader(false)
       });
   };
-  showProductDetail = (productDetail) => {
+  showProductDetail = (productDetail, id) => {
     // self.getSavingData.find((obj) => obj.year == self.selectedYear);
     let data = this.state.primaryOptions.find((obj) => obj.id == productDetail.productStatus);
     // alert(data)
@@ -106,6 +96,10 @@ class production extends Component {
       primarySelectedOption: data,
     });
   };
+  showPackg = (text) =>{
+    this.setState({ showPack: true,showLabel:text });
+  }
+
   onChange = (status, type, isStatus) => {
     if (this.state.showMessage) {
       return;
@@ -237,9 +231,20 @@ class production extends Component {
   handle = () => {
     alert(444);
   };
+
+
+  submitImage = () => {
+    this.setState({ modelOpen: true, imgModel:true,  });
+  };
+  submitPost = () => {
+    this.setState({ modelOpen: true, postModel:true,  });
+  };
+
   render() {
+
     const {
       productionList,
+      showProductDetails,
       showProductionDetails,
       productDetail,
       productName,
@@ -302,926 +307,443 @@ class production extends Component {
     if (recordDelayFormulation) {
       shippedSecondObj = recordDelayFormulation.find((obj) => obj.productType == "shipped");
     }
+    console.log('----check--- label',this.state.showPack, this.state.showLabel)
+
+
 
     return (
+
+
       <React.Fragment>
         <ToastContainer />
-        <div className="col-sm-12 col-md-8 col-lg-8 right-content account-panel d-flex production-list">
-          {/* <!-- products module --> */}
-          <div className="oneproduts d-flex">
-            <table className="table secoundtable">
-              <thead>
-                <tr>
-                  <th>
-                    Order
-                    <br />
-                    No.
-                  </th>
-                  <th>
-                    Product
-                    <br />
-                    Name
-                  </th>
-                  <th>
-                    Customer
-                    <br />
-                    ID
-                  </th>
-                  <th className="Status">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {productionList.map((product) => (
-                  <tr
-                    onClick={() => this.showProductDetail(product)}
-                    className={product.productionId == productionId ? "active" : ""}
-                  >
-                    <td className="perfect">
-                      <a href="#">{product.orderId}</a>
-                    </td>
-                    <td className="production-product-thumb">
-                      <a href="#">
-                        <img
-                          src={product.heroImage ? product.heroImage : "images/backend_Product_Image.svg"}
-                          height="60px"
-                          width="60px"
-                        />
-                        <p>{product.name}</p>
-                      </a>
-                    </td>
-                    <td className="perfect">
-                      <a href="#" className="status">
-                        {product.company}
-                      </a>
-                    </td>
-                    {product.productStatus === "inProduction" ? (
-                      <td className="perfect ontimes1">
-                        <a href="#">In Production</a>
-                      </td>
-                    ) : (
-                      <td
-                        className={
-                          product.productStatus == "delayed"
-                            ? "perfect ontimes1 delayed capitalize"
-                            : product.productStatus == "delivered"
-                            ? "perfect ontimes1 delivered capitalize"
-                            : "perfect ontimes1"
-                        }
-                      >
-                        <a href="#">{product.productStatus}</a>
-                      </td>
-                    )}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          {/* <!-- product detail module --> */}
 
-          {/* {showProductionDetails ? <Child ref={instance => { this.child = instance; }} productionId={productDetail.productionId} productDetail={productDetail} /> : null} */}
-          {showProductionDetails ? (
-            <div className="product-details-view1 d-flex flex-column">
-              <div className="ontime">
-                <div className="orderstatus">
-                  <Select
-                    // styles={customStyles}
-                    value={primarySelectedOption}
-                    onChange={this.handleStatus}
-                    options={primaryOptions}
-                  />
-                </div>
-              </div>
-              {/* <!-- packaging item 1 --> */}
-              <div className="Production">
-                <div className="package-item primary-packaging">
-                  <div className="package-name">
-                    <p>
-                      {productName}
-                      <br />
-                      Production Timeline
-                    </p>
-                    <div className="meinsection">
-                      {/* <div className="detail-col2">
-                                            <p className="Primary">Primary<br /> Packaging</p>
-                                            <p className="Shoulder">Production Estimate: 40 Days <span className="Record_Delay">Record Delay</span></p>
-                                        </div> */}
-                      <div className="detail-col">
-                        <div className="detail-col-cont">
-                          <p className="Primary">
-                            Primary
-                            <br /> Packaging
-                          </p>
-                          <p className="Shoulder">
-                            Production Estimate:{" "}
-                            {productDetail.primaryPackaging ? productDetail.primaryPackaging.productionTime : 0} Days
-                          </p>
-                        </div>
-                        <p className="Record_Delay">
-                          <a onClick={() => this.setState({ showDelay: !this.state.showDelay })} href="#">
-                            Record Delay
-                          </a>
-                        </p>
-                      </div>
-                      <div className="twopart">
-                        <div className="firstone">
-                          <div className="onetext">
-                            <div className="plantestest delay-plan">
-                              <div className="delay-recorded">
-                                <label className="delay-recorded">
-                                  <input
-                                    checked={productDetail.primary.isAccepted}
-                                    value={productDetail.primary.isAccepted}
-                                    onChange={(e) => this.onChange("accepted", "primary", e.target.value)}
-                                    type="checkbox"
-                                    className="option-input radio texting"
-                                    name="accepted"
-                                  />
-                                  {acceptedDelayObj ? (
-                                    <span
-                                      className="delay-tooltip"
-                                      onClick={(iteam) => this.showReason(acceptedDelayObj)}
-                                    >
-                                      +{acceptedDelayObj.days} days
-                                    </span>
-                                  ) : null}
-                                </label>
-                              </div>
-                            </div>
-                            <p>
-                              Production
-                              <br /> Accepted
-                            </p>
-                          </div>
-                          <div className="onetext1">
-                            <div className="plantestest delay-plan">
-                              <div className="delay-recorded">
-                                <label className="delay-recorded">
-                                  <input
-                                    checked={productDetail.primary.isBegin}
-                                    value={productDetail.primary.isBegin}
-                                    onChange={(e) => this.onChange("begin", "primary", e.target.value)}
-                                    type="checkbox"
-                                    className="option-input radio texting"
-                                    name="begin"
-                                  />
-                                  {beginDelayObj ? (
-                                    <span className="delay-tooltip" onClick={(iteam) => this.showReason(beginDelayObj)}>
-                                      +{beginDelayObj.days} days
-                                    </span>
-                                  ) : null}
-                                </label>
-                              </div>
-                            </div>
-                            <p>
-                              Production
-                              <br /> Begins
-                            </p>
-                          </div>
-                          <div className="onetext2">
-                            <div className="plantestest delay-plan">
-                              <div className="delay-recorded">
-                                <label className="delay-recorded">
-                                  <input
-                                    checked={productDetail.primary.isCompleted}
-                                    value={productDetail.primary.isCompleted}
-                                    // onClick={this.handle}
-                                    onClick={(e) => this.onChange("completed", "primary", e.target.value)}
-                                    type="checkbox"
-                                    className="option-input radio texting"
-                                    name="completed"
-                                  />
-                                  {completedDelayObj ? (
-                                    <span
-                                      className="delay-tooltip"
-                                      onClick={(iteam) => this.showReason(completedDelayObj)}
-                                    >
-                                      +{completedDelayObj.days} days
-                                    </span>
-                                  ) : null}
-                                </label>
-                              </div>
-                            </div>
-                            <p>
-                              Production
-                              <br /> Completed
-                            </p>
-                          </div>
-                          {/* <div className="onetext3">
-                                                    <p className="plantestest">
-                                                        <label>
-                                                            <input checked={productDetail.primary.isQuality} value={productDetail.primary.isQuality} onChange={(e) => this.onChange("qualityAssurance", "primary", e.target.value)} type="checkbox" className="option-input radio texting" name="qualityAssurance" />
-                                                            
-                                                        </label>
-                                                    </p>
-                                                    <p>Production<br /> Assurance</p>
-                                                </div> */}
-                          <div className="onetext3">
-                            <div className="plantestest delay-plan">
-                              <div className="delay-recorded">
-                                <label className="delay-recorded">
-                                  <input
-                                    checked={productDetail.primary.isQuality}
-                                    value={productDetail.primary.isQuality}
-                                    onChange={(e) => this.onChange("qualityAssurance", "primary", e.target.value)}
-                                    type="checkbox"
-                                    className="option-input radio texting"
-                                    name="qualityAssurance"
-                                  />
-                                  {qualityDelayObj ? (
-                                    <span
-                                      className="delay-tooltip"
-                                      onClick={(iteam) => this.showReason(qualityDelayObj)}
-                                    >
-                                      +{qualityDelayObj.days} days
-                                    </span>
-                                  ) : null}
-                                </label>
-                              </div>
-                            </div>
-                            <p>
-                              Quality
-                              <br /> Assurance
-                            </p>
-                            <div className={showMessage ? "delay-details show" : "delay-details"}>
-                              <div className="delay-msg-wrap">
-                                <div className="delay-thumb">
-                                  <img src="images/admin-thumb.png" />
+        <div className="row justify-content-between">
+          <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9 loggedin-user-dashboard d-flex flex-column">
+            <div className="titlearea">
+                <h3>See how <span>Bear</span>’s products are tracking. Click the <br />drop down for more details.
+                </h3>
+            </div>
+
+            <div className="bodyarea d-flex flex-column">
+              <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div className="row justify-content-between">
+                  <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 d-flex no-padding">
+
+                    <div className="product-listing-dashboard">
+                      <h4>Your Products</h4>
+                        
+                        {/* <!-- products module --> */}
+                        <ul className="product-listing d-flex flex-column">
+                          {productionList.map((product) => (
+                            <li key={product.productionId} className={product.productionId == productionId ? "active" : ""}>
+                              <a href="#">
+                                <div className="product-thumb d-flex align-items-center justify-content-center">
+                                  <img src={product.heroImage ? product.heroImage : "images/backend_Product_Image.svg"} alt="product thumb" />
                                 </div>
-                                <div className="delay-msg">
-                                  <p>
-                                    Nick Benson <br />
-                                    Says
-                                  </p>
-                                  <p>{reasonMessage}</p>
-                                  <p>Apologies :)</p>
 
-                                  <div
-                                    onClick={() => this.setState({ showMessage: !this.state.showMessage })}
-                                    className="update-submit"
-                                  >
-                                    <button type="button" className="btn-module">
-                                      Done
-                                    </button>
+                                <div className="product-title d-flex justify-content-between">
+                                  <div className="product-name">
+                                    {product.name}
+                                  </div>
+                                  <div className="product-qty">
+                                    {product.volume}mL
                                   </div>
                                 </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="onetext4">
-                            <div className="plantestest delay-plan">
-                              <div className="delay-recorded">
-                                <label className="delay-recorded">
-                                  <input
-                                    checked={productDetail.primary.isShipped}
-                                    value={productDetail.primary.isShipped}
-                                    onChange={(e) => this.onChange("shipped", "primary", e.target.value)}
-                                    type="checkbox"
-                                    className="option-input radio texting"
-                                    name="shipped"
-                                  />
-                                  {shippedDelayObj ? (
-                                    <span
-                                      className="delay-tooltip"
-                                      onClick={(iteam) => this.showReason(shippedDelayObj)}
-                                    >
-                                      +{shippedDelayObj.days} days
-                                    </span>
-                                  ) : null}
-                                </label>
-                              </div>
-                            </div>
-                            <p>Shipped</p>
-                          </div>
-                        </div>
-                        {/* <div className="trackshipping">
-                                                <a href="#">Track Shipping</a>
-                                            </div> */}
-                        <div className="trackshipping">
-                          <a
-                            href="#"
-                            onClick={() => this.setState({ showTrack: !this.state.showTrack })}
-                            className={showTrack ? "trigger-add-shipping track-start" : "trigger-add-shipping"}
-                          >
-                            <span className="text-add-ship ">Add Shipping</span>
-                            <span className="text-track-ship">Track Shipping</span>
-
-                            <img src="images/noun_Plane_2137065.svg" height="40px" width="40px" />
-                          </a>
-                        </div>
-                        {/* <!-- add shipping url --> */}
-                        <div className={showTrack ? "track-shipping-pop show" : "track-shipping-pop"}>
-                          <div className="track-shipping-form">
-                            <form>
-                              <div className="field-group">
-                                <label>Paste shipping tracking URL here.</label>
-                                <input
-                                  onChange={(e) => this.setState({ url: e.target.value })}
-                                  type="text"
-                                  name="tracking-url"
-                                />
-                              </div>
-                              <div className="update-submit submit-form">
-                                <button
-                                  onClick={() => this.updateTrack("primary")}
-                                  type="button"
-                                  className="btn-module"
-                                >
-                                  Done
-                                </button>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                        {/* <!-- add shipping url end --> */}
-                      </div>
-                      {/* <!-- record delay popup start --> */}
-                      <div className={showDelay ? "record-delay-popup show" : "record-delay-popup"}>
-                        <div className="record-pop-content">
-                          <form>
-                            <div className="fields-wrap">
-                              <label>At which stage has the delay occured?</label>
-                              <div className="fields-group d-flex">
-                                <div className="reason">
-                                  <label for="production_accepted">
-                                    <input
-                                      onChange={(e) => this.setState({ checkStatus: e.target.value })}
-                                      type="radio"
-                                      id="production_accepted"
-                                      value="accepted"
-                                      name="reason-delay"
-                                      className="option-input radio"
-                                    />{" "}
-                                    <br />
-                                    Production Accepted
-                                  </label>
-                                </div>
-                                <div className="reason">
-                                  <label for="production_begins">
-                                    <input
-                                      onChange={(e) => this.setState({ checkStatus: e.target.value })}
-                                      type="radio"
-                                      id="production_begins"
-                                      value="begin"
-                                      name="reason-delay"
-                                      className="option-input radio"
-                                    />{" "}
-                                    <br />
-                                    Production Begins
-                                  </label>
-                                </div>
-                                <div className="reason">
-                                  <label for="production_completed">
-                                    <input
-                                      onChange={(e) => this.setState({ checkStatus: e.target.value })}
-                                      type="radio"
-                                      id="production_completed"
-                                      value="completed"
-                                      name="reason-delay"
-                                      className="option-input radio"
-                                    />{" "}
-                                    <br />
-                                    Production Completed
-                                  </label>
-                                </div>
-                                <div className="reason">
-                                  <label for="quality_assurance">
-                                    <input
-                                      onChange={(e) => this.setState({ checkStatus: e.target.value })}
-                                      type="radio"
-                                      id="quality_assurance"
-                                      value="qualityAssurance"
-                                      name="reason-delay"
-                                      className="option-input radio"
-                                    />{" "}
-                                    <br />
-                                    Quality Assurance
-                                  </label>
-                                </div>
-                                <div className="reason">
-                                  <label for="shipping">
-                                    <input
-                                      onChange={(e) => this.setState({ checkStatus: e.target.value })}
-                                      type="radio"
-                                      id="shipping"
-                                      value="shipped"
-                                      name="reason-delay"
-                                      className="option-input radio"
-                                    />{" "}
-                                    <br />
-                                    Shipping
-                                  </label>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="fields-wrap">
-                              <label>What is the estimated length of the delay?</label>
-                              <div className="select-delay">
-                                <Select
-                                  value={delayDays}
-                                  onChange={(item) => this.handleDelay(item, "primary")}
-                                  options={delayOptions}
-                                />
-                                {/* <select>
-                                                                <option>+5</option>
-                                                                <option>+10</option>
-                                                                <option>+15</option>
-                                                                <option>+20</option>
-                                                            </select> */}
-                                <span>Days</span>
-                              </div>
-                            </div>
-
-                            <div className="fields-wrap">
-                              <label>What is the reason for the delay?</label>
-                              <input onBlur={(e) => this.setState({ reason: e.target.value })} type="text" name="" />
-                            </div>
-
-                            <div className="update-submit submit-form">
-                              <button onClick={() => this.submitReason("primary")} type="button" className="btn-module">
-                                Done
-                              </button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                      {/* <!-- record delay popup end --> */}
-                      <div className="detail-col1">
-                        <div className="detail-col-cont">
-                          <p className="Primary">
-                            Secondary
-                            <br /> Packaging
-                          </p>
-                          <p className="Shoulder">
-                            <span className="firstdescription">Actual Production: 19 Days</span>
-                            <span className="firstdescription1">
-                              Production Estimate:{" "}
-                              {productDetail.secondaryPackaging ? productDetail.secondaryPackaging.productionTime : 0}{" "}
-                              Days
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-                      <div className="twopart1">
-                        <div className="firstone">
-                          <div className="onetext">
-                            <p className="plantestest">
-                              <label>
-                                <input
-                                  checked={productDetail.secondary.isAccepted}
-                                  value={productDetail.secondary.isAccepted}
-                                  onChange={(e) => this.onChange("accepted", "secondary", e.target.value)}
-                                  type="checkbox"
-                                  className="option-input radio texting"
-                                  name="plant"
-                                />
-                              </label>
-                            </p>
-                            <p>
-                              Production
-                              <br /> Accepted
-                            </p>
-                          </div>
-                          <div className="onetext1">
-                            <p className="plantestest">
-                              <label>
-                                <input
-                                  checked={productDetail.secondary.isBegin}
-                                  value={productDetail.secondary.isBegin}
-                                  onChange={(e) => this.onChange("begin", "secondary", e.target.value)}
-                                  type="checkbox"
-                                  className="option-input radio texting"
-                                  name="plant"
-                                />
-                              </label>
-                            </p>
-                            <p>
-                              Production
-                              <br /> Begins
-                            </p>
-                          </div>
-                          <div className="onetext2">
-                            <p className="plantestest">
-                              <label>
-                                <input
-                                  checked={productDetail.secondary.isCompleted}
-                                  value={productDetail.secondary.isCompleted}
-                                  onChange={(e) => this.onChange("completed", "secondary", e.target.value)}
-                                  type="checkbox"
-                                  className="option-input radio texting"
-                                  name="plant"
-                                />
-                              </label>
-                            </p>
-                            <p>
-                              Production
-                              <br /> Completed
-                            </p>
-                          </div>
-                          <div className="onetext3">
-                            <p className="plantestest">
-                              <label>
-                                <input
-                                  checked={productDetail.secondary.isQuality}
-                                  value={productDetail.secondary.isQuality}
-                                  onChange={(e) => this.onChange("qualityAssurance", "secondary", e.target.value)}
-                                  type="checkbox"
-                                  className="option-input radio texting"
-                                  name="plant"
-                                />
-                              </label>
-                            </p>
-                            <p>
-                              Production
-                              <br /> Assurance
-                            </p>
-                          </div>
-                          <div className="onetext4">
-                            <p className="plantestest">
-                              <label>
-                                <input
-                                  checked={productDetail.secondary.isShipped}
-                                  value={productDetail.secondary.isShipped}
-                                  onChange={(e) => this.onChange("shipped", "secondary", e.target.value)}
-                                  type="checkbox"
-                                  className="option-input radio texting"
-                                  name="plant"
-                                />
-                              </label>
-                            </p>
-                            <p>Shipped</p>
-                          </div>
-                        </div>
-                        {/* <div className="trackshipping1">
-                                                <a href="#">Track Shipping</a>
-                                                <img src="images/noun_Plane_2137065.svg" height="40px" width="40px" />
-                                            </div> */}
-                        <div className="trackshipping">
-                          <a
-                            href="#"
-                            onClick={() => this.setState({ showSecondTrack: !this.state.showSecondTrack })}
-                            className={showSecondTrack ? "trigger-add-shipping track-start" : "trigger-add-shipping"}
-                          >
-                            <span className="text-add-ship ">Add Shipping</span>
-                            <span className="text-track-ship">Track Shipping</span>
-
-                            <img src="images/noun_Plane_2137065.svg" height="40px" width="40px" />
-                          </a>
-                        </div>
-                        {/* <!-- add shipping url --> */}
-                        <div className={showSecondTrack ? "track-shipping-pop show" : "track-shipping-pop"}>
-                          <div className="track-shipping-form">
-                            <form>
-                              <div className="field-group">
-                                <label>Paste shipping tracking URL here.</label>
-                                <input
-                                  onChange={(e) => this.setState({ url: e.target.value })}
-                                  type="text"
-                                  name="tracking-url"
-                                />
-                              </div>
-                              <div className="update-submit submit-form">
-                                <button
-                                  onClick={() => this.updateTrack("secondary")}
-                                  type="button"
-                                  className="btn-module"
-                                >
-                                  Done
-                                </button>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                        {/* <!-- add shipping url end --> */}
-                      </div>
-                      {/* <div className="detail-col2">
-                                            <p className="Primary">Formulation<br /> &Packaging</p>
-                                            <p className="Shoulder2">Production Estimate: 20 Days <span className="Record_Delay">Record Delay</span></p>
-
-                                        </div> */}
-                      <div className="detail-col">
-                        <div className="detail-col-cont">
-                          <p className="Primary">
-                            Formulation
-                            <br /> &Packaging
-                          </p>
-                          <p className="Shoulder">
-                            Production Estimate:{" "}
-                            {productDetail.formulationPackaging ? productDetail.formulationPackaging.productionTime : 0}{" "}
-                            Days
-                          </p>
-                        </div>
-                        <p className="Record_Delay">
-                          <a onClick={() => this.setState({ formulationDelay: !this.state.formulationDelay })} href="#">
-                            Record Delay
-                          </a>
-                        </p>
-                      </div>
-                      <div className="twopart2">
-                        <div className="firstone">
-                          <div className="onetext">
-                            <div className="plantestest delay-plan">
-                              <div className="delay-recorded">
-                                <label class="delay-recorded">
-                                  <input
-                                    checked={productDetail.formulation.isAccepted}
-                                    value={productDetail.formulation.isAccepted}
-                                    onChange={(e) => this.onChange("accepted", "formulation", e.target.value)}
-                                    type="checkbox"
-                                    className="option-input radio texting"
-                                    name="plant"
-                                  />
-                                  {acceptedSecondObj ? (
-                                    <span
-                                      className="delay-tooltip"
-                                      onClick={(iteam) => this.showReason(acceptedSecondObj)}
-                                    >
-                                      +{acceptedSecondObj.days} days
-                                    </span>
-                                  ) : null}
-                                </label>
-                              </div>
-                            </div>{" "}
-                            <p>
-                              Production
-                              <br /> Accepted
-                            </p>
-                          </div>
-                          <div className="onetext1">
-                            <div className="plantestest delay-plan">
-                              <div className="delay-recorded">
-                                <label class="delay-recorded">
-                                  <input
-                                    checked={productDetail.formulation.isBegin}
-                                    value={productDetail.formulation.isBegin}
-                                    onChange={(e) => this.onChange("begin", "formulation", e.target.value)}
-                                    type="checkbox"
-                                    className="option-input radio texting"
-                                    name="plant"
-                                  />
-                                  {beginSecondObj ? (
-                                    <span
-                                      className="delay-tooltip"
-                                      onClick={(iteam) => this.showReason(beginSecondObj)}
-                                    >
-                                      +{beginSecondObj.days} days
-                                    </span>
-                                  ) : null}
-                                </label>
-                              </div>
-                            </div>
-                            <p>
-                              Production
-                              <br /> Begins
-                            </p>
-                          </div>
-                          <div className="onetext2">
-                            <div className="plantestest delay-plan">
-                              <div className="delay-recorded">
-                                <label class="delay-recorded">
-                                  <input
-                                    checked={productDetail.formulation.isCompleted}
-                                    value={productDetail.formulation.isCompleted}
-                                    onChange={(e) => this.onChange("completed", "formulation", e.target.value)}
-                                    type="checkbox"
-                                    className="option-input radio texting"
-                                    name="plant"
-                                  />
-                                  {completedSecondObj ? (
-                                    <span
-                                      className="delay-tooltip"
-                                      onClick={(iteam) => this.showReason(completedSecondObj)}
-                                    >
-                                      +{completedSecondObj.days} days
-                                    </span>
-                                  ) : null}
-                                </label>
-                              </div>
-                            </div>
-                            <p>
-                              Production
-                              <br /> Completed
-                            </p>
-                          </div>
-                          <div className="onetext3">
-                            <div className="plantestest delay-plan">
-                              <div className="delay-recorded">
-                                <label class="delay-recorded">
-                                  <input
-                                    checked={productDetail.formulation.isQuality}
-                                    value={productDetail.formulation.isQuality}
-                                    onChange={(e) => this.onChange("qualityAssurance", "formulation", e.target.value)}
-                                    type="checkbox"
-                                    className="option-input radio texting"
-                                    name="plant"
-                                  />
-                                  {qualitySecondObj ? (
-                                    <span
-                                      className="delay-tooltip"
-                                      onClick={(iteam) => this.showReason(qualitySecondObj)}
-                                    >
-                                      +{qualitySecondObj.days} days
-                                    </span>
-                                  ) : null}
-                                </label>
-                              </div>
-                            </div>
-                            <p>
-                              Production
-                              <br /> Assurance
-                            </p>
-                          </div>
-                          <div className="onetext4">
-                            <div className="plantestest delay-plan">
-                              <div className="delay-recorded">
-                                <label class="delay-recorded">
-                                  <input
-                                    checked={productDetail.formulation.isShipped}
-                                    value={productDetail.formulation.isShipped}
-                                    onChange={(e) => this.onChange("shipped", "formulation", e.target.value)}
-                                    type="checkbox"
-                                    className="option-input radio texting"
-                                    name="plant"
-                                  />
-                                  {shippedSecondObj ? (
-                                    <span
-                                      className="delay-tooltip"
-                                      onClick={(iteam) => this.showReason(shippedSecondObj)}
-                                    >
-                                      +{shippedSecondObj.days} days
-                                    </span>
-                                  ) : null}
-                                </label>
-                              </div>
-                            </div>
-                            <p>Shipped</p>
-                          </div>
-                        </div>
-                        {/* <div className="trackshipping2">
-                                                <a href="#">Track Shipping</a>
-                                            </div> */}
-                        <div className="trackshipping">
-                          <a
-                            href="#"
-                            onClick={() => this.setState({ showFormulationTrack: !this.state.showFormulationTrack })}
-                            className={
-                              showFormulationTrack ? "trigger-add-shipping track-start" : "trigger-add-shipping"
-                            }
-                          >
-                            <span className="text-add-ship ">Add Shipping</span>
-                            <span className="text-track-ship">Track Shipping</span>
-
-                            <img src="images/noun_Plane_2137065.svg" height="40px" width="40px" />
-                          </a>
-                        </div>
-                        {/* <!-- add shipping url --> */}
-                        <div className={showFormulationTrack ? "track-shipping-pop show" : "track-shipping-pop"}>
-                          <div className="track-shipping-form">
-                            <form>
-                              <div className="field-group">
-                                <label>Paste shipping tracking URL here.</label>
-                                <input
-                                  onChange={(e) => this.setState({ url: e.target.value })}
-                                  type="text"
-                                  name="tracking-url"
-                                />
-                              </div>
-                              <div className="update-submit submit-form">
-                                <button
-                                  onClick={() => this.updateTrack("formulation")}
-                                  type="button"
-                                  className="btn-module"
-                                >
-                                  Done
-                                </button>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-                        {/* <!-- add shipping url end --> */}
-                      </div>
-                      {/* <!-- record delay popup start --> */}
-                      <div className={formulationDelay ? "record-delay-popup show" : "record-delay-popup"}>
-                        <div className="record-pop-content">
-                          <form>
-                            <div className="fields-wrap">
-                              <label>At which stage has the delay occured?</label>
-                              <div className="fields-group d-flex">
-                                <div className="reason">
-                                  <label for="production_accepted">
-                                    <input
-                                      onChange={(e) => this.setState({ checkStatus: e.target.value })}
-                                      type="radio"
-                                      id="production_accepted"
-                                      value="accepted"
-                                      name="reason-delay"
-                                      className="option-input radio"
-                                    />{" "}
-                                    <br />
-                                    Production Accepted
-                                  </label>
-                                </div>
-                                <div className="reason">
-                                  <label for="production_begins">
-                                    <input
-                                      onChange={(e) => this.setState({ checkStatus: e.target.value })}
-                                      type="radio"
-                                      id="production_begins"
-                                      value="begin"
-                                      name="reason-delay"
-                                      className="option-input radio"
-                                    />{" "}
-                                    <br />
-                                    Production Begins
-                                  </label>
-                                </div>
-                                <div className="reason">
-                                  <label for="production_completed">
-                                    <input
-                                      onChange={(e) => this.setState({ checkStatus: e.target.value })}
-                                      type="radio"
-                                      id="production_completed"
-                                      value="completed"
-                                      name="reason-delay"
-                                      className="option-input radio"
-                                    />{" "}
-                                    <br />
-                                    Production Completed
-                                  </label>
-                                </div>
-                                <div className="reason">
-                                  <label for="quality_assurance">
-                                    <input
-                                      onChange={(e) => this.setState({ checkStatus: e.target.value })}
-                                      type="radio"
-                                      id="quality_assurance"
-                                      value="qualityAssurance"
-                                      name="reason-delay"
-                                      className="option-input radio"
-                                    />{" "}
-                                    <br />
-                                    Quality Assurance
-                                  </label>
-                                </div>
-                                <div className="reason">
-                                  <label for="shipping">
-                                    <input
-                                      onChange={(e) => this.setState({ checkStatus: e.target.value })}
-                                      type="radio"
-                                      id="shipping"
-                                      value="shipped"
-                                      name="reason-delay"
-                                      className="option-input radio"
-                                    />{" "}
-                                    <br />
-                                    Shipping
-                                  </label>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div className="fields-wrap">
-                              <label>What is the estimated length of the delay?</label>
-                              <div className="select-delay">
-                                <Select
-                                  value={delayDays}
-                                  onChange={(item) => this.handleDelay(item, "formulationDelay")}
-                                  options={delayOptions}
-                                />
-                                {/* <select>
-                                                                <option>+5</option>
-                                                                <option>+10</option>
-                                                                <option>+15</option>
-                                                                <option>+20</option>
-                                                            </select> */}
-                                <span>Days</span>
-                              </div>
-                            </div>
-
-                            <div className="fields-wrap">
-                              <label>What is the reason for the delay?</label>
-                              <input onBlur={(e) => this.setState({ reason: e.target.value })} type="text" name="" />
-                            </div>
-
-                            <div className="update-submit submit-form">
-                              <button
-                                onClick={() => this.submitReason("formulation")}
-                                type="button"
-                                className="btn-module"
-                              >
-                                Done
-                              </button>
-                            </div>
-                          </form>
-                        </div>
-                      </div>
-                      {/* <!-- record delay popup end --> */}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      {/* ))} */}
                     </div>
+
+                    <div className="product-details-wrap d-flex justify-content-between">
+                      <div className="products-tracking">
+                        <h4>Product Tracking: <br />Wonder</h4>
+
+                        <div className="d-flex">
+                          <div className="product-components">
+                            <ul>
+                                  <li className="product-primary">
+                                  <Link onClick={() => this.showPackg('primary')}>Primary Packaging</Link>
+                                    <div className="status-calculate c100 p75 small blue">
+                                        <span>75%</span>
+                                        <div className="slice">
+                                            <div className="bar"></div>
+                                            <div className="fill"></div>
+                                        </div>
+                                    </div>
+                                  </li>
+                                  <li className="product-secondary">
+                                  <Link onClick={() => this.showPackg('secondary')}>Secondary Packaging</Link>
+                                      <div className="status-calculate c100 p75 small blue">
+                                        <span>75%</span>
+                                        <div className="slice">
+                                          <div className="bar"></div>
+                                          <div className="fill"></div>
+                                        </div>
+                                      </div>
+                                  </li>
+                                  <li className="product-label">
+                                  <Link onClick={() => this.showPackg('label')}>Label
+                                     <div className="status-calculate c100 p25 small orange">
+                                        <span>25%</span>
+                                        <div className="slice">
+                                          <div className="bar"></div>
+                                          <div className="fill"></div>
+                                        </div>
+                                      </div>
+                                    </Link>
+                                  </li>
+                                  <li className="product-formulation">
+                                  <Link onClick={() => this.showPackg('formulation')}>Formulation
+                                 <div className="status-calculate c100 p90 small green">
+                                        <span>90%</span>
+                                        <div className="slice">
+                                          <div className="bar"></div>
+                                          <div className="fill"></div>
+                                        </div>
+                                      </div>
+                                  </Link>
+                                 </li>
+                                 </ul>
+                                  
+                          </div>
+
+                            <div className="product-track-status">
+
+                              {this.state.showPack && this.state.showLabel === 'primary' ?
+                                  <ul>
+                                    <li className="d-flex status-done">
+                                      <div className="status-date">
+                                        <label>July 22nd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Order Accepted</label>
+                                        <div className="ordermeta">
+                                          Order Date : July 22nd <br />
+                                          Order NO. : #00001 <br />
+                                          EST. Delivery: August 30
+                                        </div>
+                                      </div>
+                                    </li>
+
+                                    <li className="d-flex status-done">
+                                      <div className="status-date">
+                                        <label>July 22nd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Production Begins</label>
+                                      </div>
+                                    </li>
+
+                                    <li className="d-flex status-done status-done">
+                                      <div className="status-date">
+                                        <label>July 30th</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Production Complete</label>
+                                      </div>
+                                    </li>
+
+                                    <li className="d-flex qa-begins status-done">
+                                      <div className="status-date">
+                                        <label>August 1st</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>QA Begins</label>
+                                      </div>
+                                    </li>
+
+                                    <li className="d-flex qa-begins status-done">
+                                      <div className="status-date">
+                                        <label>August 2nd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>QA Complete <br />Click to enlarge QA images</label>
+                                        <div className="order-thumbs d-flex align-items-center justify-content-between">
+                                          <Link onClick={() => this.submitImage()}>
+                                            <img src="images/face-serun-60ml.png" alt="face-serun-60ml" />
+                                          </Link>
+
+                                          <Link onClick={() => this.submitImage()}>
+                                            <img src="images/face-serun-60ml.png" alt="face-serun-60ml" />
+                                          </Link>
+
+                                          <Link onClick={() => this.submitImage()}>
+                                            <img src="images/face-serun-60ml.png" alt="face-serun-60ml" />
+                                          </Link>
+                                        </div>
+                                      </div>
+                                    </li>
+
+                                    <li className="d-flex label-shipped status-done">
+                                      <div className="status-date">
+                                        <label>August 3rd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>labels shipped</label>
+                                        <div className="shipping-thumb">
+                                          <Link onClick={() => this.submitImage()}>
+                                            <img src="images/map.jpg" alt="Labels Shipped Map image" />
+                                          </Link>
+                                        </div>
+                                      </div>
+                                    </li>
+
+                                    <li className="d-flex label-shipped status-done">
+                                      <div className="status-date">
+                                        <label>August 3rd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>labels shipped</label>
+                                      </div>
+                                    </li>
+                                    <li className="d-flex label-shipped status-done">
+                                      <div className="status-date">
+                                        <label>+</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <Link onClick={() => this.submitPost()}>
+                                          click to add post here
+                                        </Link>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                  :''}
+
+                              {this.state.showPack && this.state.showLabel === 'secondary' ?
+                                  <ul>
+                                    <li className="d-flex status-done">
+                                      <div className="status-date">
+                                        <label>July 22nd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Order Accepted</label>
+                                        <div className="ordermeta">
+                                          Order Date : July 22nd <br />
+                                          Order NO. : #00001 <br />
+                                          EST. Delivery: August 30
+                                        </div>
+                                      </div>
+                                    </li>
+
+                                    <li className="d-flex status-done">
+                                      <div className="status-date">
+                                        <label>July 22nd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Production Begins</label>
+                                      </div>
+                                    </li>
+
+                                    <li className="d-flex status-done status-done">
+                                      <div className="status-date">
+                                        <label>July 30th</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Production Complete</label>
+                                      </div>
+                                    </li>
+
+                                    <li className="d-flex qa-begins status-done">
+                                      <div className="status-date">
+                                        <label>August 1st</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>QA Begins</label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                  :''}
+
+                              {this.state.showPack && this.state.showLabel === 'label' ?
+                                  <ul>
+                                    <li className="d-flex status-done">
+                                      <div className="status-date">
+                                        <label>July 22nd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Order Accepted</label>
+                                        <div className="ordermeta">
+                                          Order Date : July 22nd <br />
+                                          Order NO. : #00001 <br />
+                                          EST. Delivery: August 30
+                                        </div>
+                                      </div>
+                                    </li>
+
+                                    <li className="d-flex status-done">
+                                      <div className="status-date">
+                                        <label>July 22nd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Production Begins</label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                  :''}
+
+                              {this.state.showPack && this.state.showLabel === 'formulation' ?
+                                  <ul>
+                                    <li className="d-flex status-done">
+                                      <div className="status-date">
+                                        <label>July 22nd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Order Accepted</label>
+                                        <div className="ordermeta">
+                                          Order Date : July 22nd <br />
+                                          Order NO. : #00001 <br />
+                                          EST. Delivery: August 30
+                                        </div>
+                                      </div>
+                                    </li>
+
+                                    <li className="d-flex status-done">
+                                      <div className="status-date">
+                                        <label>July 22nd</label>
+                                      </div>
+                                      <div className="status-message">
+                                        <label>Production Begins</label>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                  :''}
+                              
+                            </div>
+                          </div>
+                      </div>
+
+                    
+                    {this.state.imgModel && ''}
+                    {this.state.modelOpen && this.state.imgModel && (
+                        <Model
+                            imgModel={this.state.imgModel}
+                            onPressCancelPass={() => this.setState({ modelOpen: false, imgModel:false, })}
+                        />
+                    )}
+                      {this.state.postModel && ''}
+                      {this.state.modelOpen && this.state.postModel && (
+                          <Model
+                              postModel={this.state.postModel}
+                              onPressCancelPass={() => this.setState({ modelOpen: false, postModel:false, })}
+                          />
+                      )}
+
+                  </div>
+
                   </div>
                 </div>
               </div>
             </div>
-          ) : null}
+
+          </div>
+
+          <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 activity-feed">
+            <div className="activity-title">
+              <span>Activity Feed</span>
+              <img src={logoawhite} alt="alogo" /> 
+            </div>
+
+            <div className="feed-wrapper">
+              <div className="activityfeed">
+                <div className="meta-day">Today</div>
+                  <div className="meta-product-detail">
+                    <label>Wonder</label>
+                    <div className="mta-product-thumb">
+                      <span><img src={demothumb} alt="demothumb" /></span>
+                    </div>
+                    <div className="mta-product-feed">
+                      <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
+                      <div className="feed-track">
+                        <Link>Track Production Here</Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="activityfeed">
+                  <div className="meta-day">Yesterday</div>
+                  <div className="meta-product-detail">
+                    <label>Harmony</label>
+                    <div className="mta-product-thumb">
+                      <span><img src={demothumb} alt="demothumb" /></span>
+                    </div>
+                    <div className="mta-product-feed">
+                      <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
+                      <div className="feed-track">
+                        <Link>Track Production Here</Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="activityfeed">
+                  <div className="meta-day">2 Days Ago</div>
+                  <div className="meta-product-detail">
+                    <label>Perform</label>
+                    <div className="mta-product-thumb">
+                      <span><img src={demothumb} alt="demothumb" /></span>
+                    </div>
+                    <div className="mta-product-feed">
+                      <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
+                      <div className="feed-track">
+                        <Link>Track Production Here</Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div className="activityfeed">
+                  <div className="meta-day">5 Days Ago</div>
+                  <div className="meta-product-detail">
+                    <label>Perform</label>
+                    <div className="mta-product-thumb">
+                      <span><img src={demothumb} alt="demothumb" /></span>
+                    </div>
+                    <div className="mta-product-feed">
+                      <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
+                      <div className="feed-track">
+                        <Link>Track Production Here</Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="activityfeed">
+                  <div className="meta-day">Last Week</div>
+                  <div className="meta-product-detail">
+                    <label>Perform</label>
+                    <div className="mta-product-thumb">
+                      <span><img src={demothumb} alt="demothumb" /></span>
+                    </div>
+                    <div className="mta-product-feed">
+                      <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
+                      <div className="feed-track">
+                        <Link>Track Production Here</Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="activityfeed">
+                  <div className="meta-day">3 Weeks Ago</div>
+                  <div className="meta-product-detail">
+                    <label>Perform</label>
+                    <div className="mta-product-thumb">
+                      <span><img src={demothumb} alt="demothumb" /></span>
+                    </div>
+                    <div className="mta-product-feed">
+                      <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
+                      <div className="feed-track">
+                        <Link>Track Production Here</Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
         </div>
       </React.Fragment>
     );

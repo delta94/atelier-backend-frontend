@@ -1,25 +1,17 @@
 import React, { Component } from "react";
-// import { useDropzone } from 'react-dropzone';
-
 import Dropzone from "react-dropzone";
-// import Dropzone from 'react-dropzone';
-// import Dropzone from '../Component/imageUpload.js';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import "../Component/model.scss";
 import popcross from '../../img-new/small-cross-icon.svg';
-
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Error from "../../utils/Error";
-// redux
 import { connect } from "react-redux";
-// Dispatch
 import { saveLoginUserInfo } from "../../Redux/Action/Login";
 import { showHideLoding } from "../../Redux/Action/Loading";
-//api
 import { signUp } from "../../ApiActions/SignUp";
+
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Must enter product name."),
   company: Yup.string().required("Must enter company."),
@@ -39,12 +31,12 @@ class addCustomer extends Component {
       uploadImage: {}
     };
   }
+
   componentWillMount() {
     this.props.showHideLoding(false);
   }
+  
   addUser = values => {
-    // alert(JSON.stringify(values))
-    // name: "", company: "", email: "", password: ""
     const data = new FormData();
     data.append("email", values.email);
     data.append("name", values.name);
@@ -52,7 +44,7 @@ class addCustomer extends Component {
     data.append("companyName", values.company);
     data.append("image", this.state.uploadImage);
     data.append("userType", "app");
-    // console.log(JSON.stringify())
+    debugger
     this.props.showHideLoding(true);
     signUp(data, this.state.token)
       .then(res => {
@@ -80,6 +72,11 @@ class addCustomer extends Component {
         this.props.showHideLoding(false);
       });
   };
+
+  onPressCancel = () => {
+    this.props.showAddCustomer(false);
+  }
+
   onDrop = acceptedFiles => {
     this.setState({ imageName: acceptedFiles[0].name });
     console.log(acceptedFiles);
@@ -125,19 +122,20 @@ class addCustomer extends Component {
                             <h3>Customer Details</h3>
                             <div className="popup-form-area">
                               
-                              <Formik initialValues={{ name: "", company: "", email: "", password: "" }}
-                              validationSchema={validationSchema}
-                              onSubmit={(values, { resetForm }) => {
-                                this.addUser(values);
-                                resetForm();
-                              }}
-                            >
+                              <Formik
+                                initialValues={{ name: "", company: "", email: "", password: "" }}
+                                validationSchema={validationSchema}
+                                onSubmit={(values, { resetForm }) => {
+                                  this.addUser(values);
+                                  resetForm();
+                                }}
+                              >
                               {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
                               <form onSubmit={handleSubmit}>
                                 <div className="add-customer">
                                   <div className="detail-info business-detail">
-                                    <div class="row">
-                                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 customer-detail">
+                                    <div className="row">
+                                      <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 customer-detail">
                                         <div className="field-group">
                                           <label>Business</label>
                                           <input
@@ -161,7 +159,7 @@ class addCustomer extends Component {
                                         </div>
                                       </div>
 
-                                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 customer-logo">
+                                      <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 customer-logo">
                                         <label>Client Logo</label>
                                         <div className="upload-field">
                                           <div className="Dropzone">
@@ -191,14 +189,14 @@ class addCustomer extends Component {
                                       <input className="form-control" type="text" placeholder="Insert Contact Name" name="" />
                                       
                                       <input
-                                            type="email"
-                                            name="email"
-                                            placeholder="Email Address"
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            value={values.email}
-                                            className={touched.email && errors.email ? "form-control has-error" : "form-control"}
-                                          />
+                                        type="email"
+                                        name="email"
+                                        placeholder="Email Address"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.email}
+                                        className={touched.email && errors.email ? "form-control has-error" : "form-control"}
+                                      />
                                       <Error touched={touched.email} message={errors.email} />
 
                                       <input
@@ -297,9 +295,8 @@ class addCustomer extends Component {
                                   </div>
 
                                   <div className="add-product-submit">
-                                    <button type="submit" className="btn-module">
-                                      Done
-                                    </button>
+                                    {/* <input type="submit" className="btn-module" Done /> */}
+                                    <input type="submit" className="btn-module" name="" value="Done" />
                                   </div>
                                 </div>
                               </form>

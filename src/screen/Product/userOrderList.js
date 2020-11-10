@@ -1,14 +1,24 @@
 import React, { Component } from "react";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import "./order-details.scss";
+import "../activity-feed.scss";
+
+// dummy images
+import logoawhite from "../../img-new/icon-a-white.svg";
+import demothumb from '../../images/product-main-thumb.jpg';
+
 import Error from "../../utils/Error";
+
 // redux
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+
 // Dispatch
 import { saveLoginUserInfo } from "../../Redux/Action/Login";
 import { showHideLoding } from "../../Redux/Action/Loading";
+
 //api
 import { GetCartUserList } from "../../ApiActions/Product";
 
@@ -98,304 +108,184 @@ class order extends Component {
     return (
       // <div className="row">
       <React.Fragment>
-        <div className="col-sm-12 col-md-5 col-lg-5 your-order ml-15">
-          <div className="order-table-wrap">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Order#</th>
-                  <th>Date Ordered</th>
-                  <th>Status</th>
-                  <th>Order Value</th>
-                </tr>
-              </thead>
-              <tbody>
-                {cartList.map((order, index) => (
-                  <tr onClick={() => this.orderDetail(order)} className={order.cartId == active ? "active" : ""}>
-                    <td>
-                      <a href="#">
-                        {order.status == "pending" ? <span className="numbertime">1</span> : null}
-                        {order.orderId}
-                      </a>
-                    </td>
-                    <td>
-                      <a href="#">{order.insertDate}</a>
-                    </td>
-                    <td>
-                      <a href="#" className="status capitalize">
-                        {order.status}
-                      </a>
-                    </td>
-                    <td>
-                      <a href="#">
-                        $
-                        {this.addValue(
-                          order.carbonAmount
-                            ? order.carbonAmount + order.totalAmount - order.discount
-                            : order.discount
-                            ? order.totalAmount - order.discount
-                            : order.totalAmount
-                        )}{" "}
-                        AUD
-                      </a>
-                    </td>
-                  </tr>
-                ))}
-                {/* {cartList.length > 0?null:<tr>No Records Found</tr>} */}
-              </tbody>
-            </table>
-          </div>
-        </div>
-        {showPop ? (
-          <div class="order-details-popup">
-            <div class="col-sm-12 col-md-6 col-lg-6 order-last order-detail-frontend">
-              <div class="orderstatus">
-                <a class="capitalize" href="#">
-                  Order Status: {orderDetails.productStatus}
-                </a>
-                <span>Not Yet Paid</span>
-              </div>
-              <div class="Orderstestings">
-                <a onClick={() => this.setState({ showPop: !this.state.showPop })} href="#" class="trigger-close-pop">
-                  x
-                </a>
-                <h3>Orders #{orderDetails.orderId}</h3>
-                <div class="sectionone">
-                  <div class="Product_Details">
-                    <p>Product Details</p>
-                    <div class="thumb">
-                      <a href="#">
-                        <img
-                          src={orderDetails.heroImage ? orderDetails.heroImage : "images/face-serun-60ml.png"}
-                          alt="package-thumb1"
-                        />
-                      </a>
-                    </div>
-                  </div>
-                  <div class="product-meta-detail">
-                    <div class="Product Name">
-                      <p>Product Name</p>
-                      <p>{orderDetails.name}</p>
-                    </div>
-                    <div class="Quantity">
-                      <p>Quantity</p>
-                      <p>{this.addValue(orderDetails.quantity)}</p>
-                    </div>
-                    <div class="Amount">
-                      <p>Amount</p>
-                      <p class="price">
-                        $
-                        {this.addValue(
-                          orderDetails.carbonAmount
-                            ? orderDetails.carbonAmount + orderDetails.totalAmount - discount
-                            : discount
-                            ? orderDetails.totalAmount - discount
-                            : orderDetails.totalAmount
-                        )}{" "}
-                        AUD
-                      </p>
+        <div className="row justify-content-between your-orders">
+          <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9 loggedin-user-dashboard d-flex flex-column showProductInfo">
+            <div className="titlearea">
+              <h3>
+                Customer's Current Order
+              </h3>
+            </div>
+
+            <div className="bodyarea d-flex flex-column">
+              <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div className="row justify-content-between">
+                  <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 no-padding">
+                    <h4>Your Orders</h4>
+                    <div className="products-order-module">
+                      <ul className="row flex-column">
+                        <li className="d-flex row-header">
+                          <div className="col">Order No.</div>
+                          <div className="col">Date</div>
+                          <div className="col product">Product</div>
+                          <div className="col amount">Amount</div>
+                          <div className="col status">Status</div>
+                        </li>
+                        {cartList.map((order, index) => (
+                          <li
+                            onClick={() => this.orderDetail(order)}
+                            className={order.cartId == active ? "d-flex row-content active"
+                              : "d-flex row-content"
+                            }
+                            key={index}
+                            >
+
+                              <div className="col">{order.orderId}</div>
+                              <div className="col">{order.insertDate}</div>
+                              <div className="col product">{order.name}</div>
+                              <div className="col amount">
+                                $
+                                {this.addValue(
+                                  order.carbonAmount
+                                    ? order.carbonAmount +
+                                        order.totalAmount -
+                                        order.discount
+                                    : order.discount
+                                    ? order.totalAmount - order.discount
+                                    : order.totalAmount
+                                )}{" "}
+                                AUD
+                              </div>
+                              <div className="col status">
+                                <span
+                                  className={
+                                    order.status === "pending"
+                                      ? "status-pending"
+                                      : order.status === "inProduction"
+                                      ? "status-inproduction"
+                                      : "status-complete"
+                                  }
+                                >
+                                  {order.status}
+                                </span>
+                              </div>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
                 </div>
-                <div class="sectiononetwo">
-                  <div class="Production-wrap">
-                    <h4>
-                      Production <br /> Timeline
-                    </h4>
-                    <div class="Production1">
-                      <p>Primary Packaging</p>
-                      <p>Secoundary Packaging</p>
-                      <p>Formulation Packaging</p>
-                    </div>
-                  </div>
-                  <div class="Product days">
-                    <h4>{productionTime} days</h4>
-                    <div class="Product_days1">
-                      <p> {orderDetails.primaryPackaging ? orderDetails.primaryPackaging.productionTime : 0} days</p>
-                      <p>{orderDetails.secondaryPackaging ? orderDetails.secondaryPackaging.productionTime : 0} days</p>
-                      <p>
-                        {" "}
-                        {orderDetails.formulationPackaging ? orderDetails.formulationPackaging.productionTime : 0} days
-                      </p>
-                    </div>
-                  </div>
-                  <div class="imagestop">
-                    <div class="thumb imagestop">
-                      <a href="#">
-                        <img src="https://ateli-front.herokuapp.com/images/alert-icon.svg" alt="package-thumb1" />
-                      </a>
-                    </div>
-                    <p>
-                      If you order
-                      <br /> now your {orderDetails.bottleName} will
-                      <br /> land in your
-                      <br /> warehouse by
-                      <br /> november 15th
-                    </p>
-                  </div>
-                  <div class="Shipping">
-                    <h4>
-                      Shipping <br /> Address
-                    </h4>
-                    <p>{shippingData.length > 0 ? shippingData[0].warehouseAddress : ""}</p>
-                  </div>
-                </div>
-                <div class="sectiononethree">
-                  {/* <div class="ProductionTimeline">
-                                <h4>Payment <br/> Terms</h4>
-                                  <label>
-                                    <input type="radio" class="option-input radio" name="example" value="0"/>
-                                      <span>50% deposit, 50% before delivery</span>
-                                  </label>
-                                  <label>
-                                    <input type="radio" class="option-input radio texting" name="example" value="126500"/>
-                                      <span class="radio-text">Upfront with a 5% discount<br/> Save {(orderDetails.totalAmount * 5) / 100} AUD </span>
-                                  </label>
-                                </div> */}
-                  <div className="ProductionTimeline">
-                    <h4>
-                      Payment <br /> Terms
-                    </h4>
-                    <label>
-                      {orderDetails.status === "submitted" ? (
-                        <input
-                          disabled
-                          checked={this.state.discount == 0 || orderDetails.discount == 0 ? true : false}
-                          value="0"
-                          type="radio"
-                          className="option-input radio"
-                          name="example"
-                        />
-                      ) : (
-                        <input
-                          disabled
-                          checked={this.state.discount == 0 || orderDetails.discount == 0 ? true : false}
-                          value="0"
-                          type="radio"
-                          className="option-input radio"
-                          name="example"
-                          // onChange={e => this.getDiscount(e.target.value)}
-                        />
-                      )}
-                      <span>50% deposit, 50% before delivery</span>
-                    </label>
-                    <label>
-                      {orderDetails.status === "submitted" ? (
-                        <input
-                          disabled
-                          checked={this.state.discount > 0 || orderDetails.discount > 0 ? true : false}
-                          value={(orderDetails.totalAmount * 5) / 100}
-                          type="radio"
-                          className="option-input radio texting"
-                          name="example"
-                        />
-                      ) : (
-                        <input
-                          disabled
-                          checked={this.state.discount > 0 || orderDetails.discount > 0 ? true : false}
-                          value={(orderDetails.totalAmount * 5) / 100}
-                          type="radio"
-                          className="option-input radio texting"
-                          name="example"
-                          // onChange={e => this.getDiscount(e.target.value)}
-                        />
-                      )}
-                      <span className="radio-text">
-                        Upfront with a 5% discount
-                        <br /> Save {(orderDetails.totalAmount * 5) / 100} AUD{" "}
-                      </span>
-                    </label>
-                  </div>
-                  <div class="Productdayss">
-                    <h4>
-                      Payment <br /> Method
-                    </h4>
-                    <p>Standard Chartered</p>
-                    <a href="#">
-                      <img src="images/round.png" alt="package-thumb1" />
-                    </a>
-                    <span>ending 4444</span>
-                  </div>
-                  <div class="ShippingAddress">
-                    <h4>
-                      Billing <br /> Address
-                    </h4>
-                    <div class="ShippingWilliam">
-                      <p>Rajdhani Enclave, Kharar</p>
-                    </div>
-                  </div>
-                </div>
-                {/* <div class="plant_tress">
-                                    <div class="plant_tress1">
-                                      <h2>Plant Trees</h2>
-                                        <p> If you select this 495 Tress will be planted, thanks to you.<label>
-                                          <input type="radio" class="option-input radio texting" name="donation1" value="plant1"/>
-                                          </label>
-                                        </p>
-                                  </div>
-                              </div> */}
-                {orderDetails.status == "submitted" && orderDetails.donationCard == "" ? null : (
-                  <div className="plant_tress">
-                    {!orderDetails.donationCard || orderDetails.donationCard == "plant" ? (
-                      <div className="plant_tress1">
-                        <h2>Plant Trees</h2>
-                        <p>
-                          {" "}
-                          If you select this 495 Tress will be planted, thanks to you.
-                          <label>
-                            <input
-                              disabled
-                              type="radio"
-                              value="plant1"
-                              className="option-input radio texting"
-                              name="donation1"
-                            />
-                          </label>
-                        </p>
-                      </div>
-                    ) : null}
-                    {!orderDetails.donationCard || orderDetails.donationCard == "plastic" ? (
-                      <div className="harvest">
-                        <h2>Harvest Ocean Plastic </h2>
-                        <p>
-                          {" "}
-                          If you select this, 1.0 tonne of ocean plastic will be harvested thanks to you.
-                          <label>
-                            <input
-                              disabled
-                              value="plastic1"
-                              type="radio"
-                              className="option-input radio texting"
-                              name="donation1"
-                            />
-                          </label>
-                        </p>
-                      </div>
-                    ) : null}
-                    {!orderDetails.donationCard || orderDetails.donationCard == "housing" ? (
-                      <div className="housing">
-                        <h2>Sustainable Housing</h2>
-                        <p>
-                          {" "}
-                          If you select this $450 will be donated to New House.
-                          <label>
-                            <input
-                              disabled
-                              for="housing1"
-                              type="radio"
-                              className="option-input radio texting"
-                              name="donation1"
-                            />
-                          </label>
-                        </p>
-                      </div>
-                    ) : null}
-                  </div>
-                )}
               </div>
             </div>
           </div>
-        ) : null}
+
+          <div className="col-xs-12 col-sm-12 col-md-3 col-lg-3 activity-feed">
+            <div className="activity-title">
+              <span>Activity Feed</span>
+              <img src={logoawhite} alt="alogo" /> 
+            </div>
+
+            <div className="feed-wrapper">
+
+              <div className="activityfeed">
+                <div className="meta-day">Today</div>
+                <div className="meta-product-detail">
+                  <label>Wonder</label>
+                  <div className="mta-product-thumb">
+                    <span><img src={demothumb} alt="demothumb" /></span>
+                  </div>
+                  <div className="mta-product-feed">
+                    <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
+                    <div className="feed-track">
+                      <Link to='/production'>Track Production Here</Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="activityfeed">
+                <div className="meta-day">Yesterday</div>
+                <div className="meta-product-detail">
+                  <label>Harmony</label>
+                  <div className="mta-product-thumb">
+                    <span><img src={demothumb} alt="demothumb" /></span>
+                  </div>
+                  <div className="mta-product-feed">
+                    <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
+                    <div className="feed-track">
+                      <Link to='/production'>Track Production Here</Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="activityfeed">
+                <div className="meta-day">2 Days Ago</div>
+                <div className="meta-product-detail">
+                  <label>Perform</label>
+                  <div className="mta-product-thumb">
+                    <span><img src={demothumb} alt="demothumb" /></span>
+                  </div>
+                  <div className="mta-product-feed">
+                    <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
+                    <div className="feed-track">
+                      <Link to='/production'>Track Production Here</Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div className="activityfeed">
+                <div className="meta-day">5 Days Ago</div>
+                <div className="meta-product-detail">
+                  <label>Perform</label>
+                  <div className="mta-product-thumb">
+                    <span><img src={demothumb} alt="demothumb" /></span>
+                  </div>
+                  <div className="mta-product-feed">
+                    <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
+                    <div className="feed-track">
+                      <Link to='/production'>Track Production Here</Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="activityfeed">
+                <div className="meta-day">Last Week</div>
+                <div className="meta-product-detail">
+                  <label>Perform</label>
+                  <div className="mta-product-thumb">
+                    <span><img src={demothumb} alt="demothumb" /></span>
+                  </div>
+                  <div className="mta-product-feed">
+                    <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
+                    <div className="feed-track">
+                      <Link to='/production'>Track Production Here</Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="activityfeed">
+                <div className="meta-day">3 Weeks Ago</div>
+                <div className="meta-product-detail">
+                  <label>Perform</label>
+                  <div className="mta-product-thumb">
+                    <span><img src={demothumb} alt="demothumb" /></span>
+                  </div>
+                  <div className="mta-product-feed">
+                    <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
+                    <div className="feed-track">
+                      <Link to='/production'>Track Production Here</Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
       </React.Fragment>
       // {/* </div> */}
     );

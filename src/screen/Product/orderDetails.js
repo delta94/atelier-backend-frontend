@@ -139,23 +139,23 @@ class order extends Component {
         </div>
         {/* // <!-- order details popup start here --> */}
         {showPop ? (
-          <div class="order-details-popup">
-            <div class="col-sm-12 col-md-6 col-lg-6 order-last order-detail-frontend">
-              <div class="orderstatus">
-                <a class="capitalize" href="#">
+          <div className="order-details-popup">
+            <div className="col-sm-12 col-md-6 col-lg-6 order-last order-detail-frontend">
+              <div className="orderstatus">
+                <a className="capitalize" href="#">
                   Order Status: {orderDetails.productStatus}
                 </a>
                 <span>Not Yet Paid</span>
               </div>
-              <div class="Orderstestings">
-                <a onClick={() => this.setState({ showPop: !this.state.showPop })} href="#" class="trigger-close-pop">
+              <div className="Orderstestings">
+                <a onClick={() => this.setState({ showPop: !this.state.showPop })} href="#" className="trigger-close-pop">
                   x
                 </a>
                 <h3>Orders #{orderDetails.orderId}</h3>
-                <div class="sectionone">
-                  <div class="Product_Details">
+                <div className="sectionone">
+                  <div className="Product_Details">
                     <p>Product Details</p>
-                    <div class="thumb">
+                    <div className="thumb">
                       <a href="#">
                         <img
                           src={orderDetails.heroImage ? orderDetails.heroImage : "images/face-serun-60ml.png"}
@@ -164,18 +164,18 @@ class order extends Component {
                       </a>
                     </div>
                   </div>
-                  <div class="product-meta-detail">
-                    <div class="Product Name">
+                  <div className="product-meta-detail">
+                    <div className="Product Name">
                       <p>Product Name</p>
                       <p>{orderDetails.name}</p>
                     </div>
-                    <div class="Quantity">
+                    <div className="Quantity">
                       <p>Quantity</p>
                       <p>{this.addValue(orderDetails.quantity)}</p>
                     </div>
-                    <div class="Amount">
+                    <div className="Amount">
                       <p>Amount</p>
-                      <p class="price">
+                      <p className="price">
                         $
                         {this.addValue(
                           orderDetails.carbonAmount
@@ -189,20 +189,20 @@ class order extends Component {
                     </div>
                   </div>
                 </div>
-                <div class="sectiononetwo">
-                  <div class="Production-wrap">
+                <div className="sectiononetwo">
+                  <div className="Production-wrap">
                     <h4>
                       Production <br /> Timeline
                     </h4>
-                    <div class="Production1">
+                    <div className="Production1">
                       <p>Primary Packaging</p>
                       <p>Secoundary Packaging</p>
                       <p>Formulation Packaging</p>
                     </div>
                   </div>
-                  <div class="Product days">
+                  <div className="Product days">
                     <h4>{productionTime} days</h4>
-                    <div class="Product_days1">
+                    <div className="Product_days1">
                       <p> {orderDetails.primaryPackaging ? orderDetails.primaryPackaging.productionTime : 0} days</p>
                       <p>{orderDetails.secondaryPackaging ? orderDetails.secondaryPackaging.productionTime : 0} days</p>
                       <p>
@@ -211,8 +211,8 @@ class order extends Component {
                       </p>
                     </div>
                   </div>
-                  <div class="imagestop">
-                    <div class="thumb imagestop">
+                  <div className="imagestop">
+                    <div className="thumb imagestop">
                       <a href="#">
                         <img src="https://ateli-front.herokuapp.com/images/alert-icon.svg" alt="package-thumb1" />
                       </a>
@@ -225,23 +225,23 @@ class order extends Component {
                       <br /> november 15th
                     </p>
                   </div>
-                  <div class="Shipping">
+                  <div className="Shipping">
                     <h4>
                       Shipping <br /> Address
                     </h4>
                     <p>{shippingData.length > 0 ? shippingData[0].warehouseAddress : ""}</p>
                   </div>
                 </div>
-                <div class="sectiononethree">
-                  {/* <div class="ProductionTimeline">
+                <div className="sectiononethree">
+                  {/* <div className="ProductionTimeline">
                                 <h4>Payment <br/> Terms</h4>
                                   <label>
-                                    <input type="radio" class="option-input radio" name="example" value="0"/>
+                                    <input type="radio" className="option-input radio" name="example" value="0"/>
                                       <span>50% deposit, 50% before delivery</span>
                                   </label>
                                   <label>
-                                    <input type="radio" class="option-input radio texting" name="example" value="126500"/>
-                                      <span class="radio-text">Upfront with a 5% discount<br/> Save {(orderDetails.totalAmount * 5) / 100} AUD </span>
+                                    <input type="radio" className="option-input radio texting" name="example" value="126500"/>
+                                      <span className="radio-text">Upfront with a 5% discount<br/> Save {(orderDetails.totalAmount * 5) / 100} AUD </span>
                                   </label>
                                 </div> */}
                   <div className="ProductionTimeline">
@@ -298,7 +298,7 @@ class order extends Component {
                       </span>
                     </label>
                   </div>
-                  <div class="Productdayss">
+                  <div className="Productdayss">
                     <h4>
                       Payment <br /> Method
                     </h4>
@@ -308,20 +308,20 @@ class order extends Component {
                     </a>
                     <span>ending 4444</span>
                   </div>
-                  <div class="ShippingAddress">
+                  <div className="ShippingAddress">
                     <h4>
                       Billing <br /> Address
                     </h4>
-                    <div class="ShippingWilliam">
+                    <div className="ShippingWilliam">
                       <p>Rajdhani Enclave, Kharar</p>
                     </div>
                   </div>
                 </div>
-                {/* <div class="plant_tress">
-                                    <div class="plant_tress1">
+                {/* <div className="plant_tress">
+                                    <div className="plant_tress1">
                                       <h2>Plant Trees</h2>
                                         <p> If you select this 495 Tress will be planted, thanks to you.<label>
-                                          <input type="radio" class="option-input radio texting" name="donation1" value="plant1"/>
+                                          <input type="radio" className="option-input radio texting" name="donation1" value="plant1"/>
                                           </label>
                                         </p>
                                   </div>

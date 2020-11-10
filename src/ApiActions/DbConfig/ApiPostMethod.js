@@ -14,10 +14,10 @@ export const apiPostMethod = (url, data, token) => {
         }
 
         axios.post(url, data, { headers }).then(res => {
-            debugger
+            // debugger
             resolve(res)
         }).catch(err => {
-            debugger
+            // debugger
             //reject(err.response)
             console.log('err', err)
             err.response ?
@@ -47,7 +47,7 @@ export const reAuth = (url, headers) => {
                 reject(err);
             })
         }).catch(err => {
-            debugger
+            // debugger
             if (window.location.pathname !== "#/login") {
                 pageRedirect('#/login');
             }

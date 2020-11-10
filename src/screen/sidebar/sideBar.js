@@ -1,17 +1,14 @@
 import React, { Component } from "react";
-// redux
 import { connect } from "react-redux";
-
-// stylesheet
-import "./sidebar.scss";
-
-// Dispatch
+import { NavLink } from "react-router-dom";
 import { apiCommonParams } from "../../ApiActions/DbConfig/ApiBaseUrl";
-
+import { saveCustomerInfo, saveLoginUserInfo } from "../../Redux/Action/Login";
+import "./sidebar.scss";
 // import { GetCount } from '../../ApiActions/Product';
 // import { saveOrderCount, saveProductioCount } from '../../Redux/Action/Product'
 import { saveLoginUserInfo, saveToken } from "../../Redux/Action/Login";
 // import { saveLoginUserInfo } from '../../Redux/Action/Login'
+
 class SideBar extends Component {
   constructor(props) {
     super(props);
@@ -20,32 +17,27 @@ class SideBar extends Component {
     };
   }
   componentWillReceiveProps(nextProps) {
-    // alert(nextProps)
   }
+
   logout = () => {
-    // alert(JSON.stringify(this.props.loginUserInfo))
-    // let data = {}
-    // this.props.saveLoginUserInfo(data);
     let data = {};
     this.props.saveLoginUserInfo(data);
     this.props.saveToken(data);
     let reduxData = JSON.parse(localStorage.getItem(`persist:${apiCommonParams.REDUX_STORE_KEY}`));
-    debugger;
     let authReducer = JSON.parse(reduxData.login);
     authReducer.loginUserInfo.access_token = "";
     authReducer.access_token = "";
-    // authReducer = ""
-    console.log(JSON.stringify(authReducer));
     reduxData.login = JSON.stringify(authReducer);
     localStorage.setItem(`persist:${apiCommonParams.REDUX_STORE_KEY}`, JSON.stringify(reduxData));
   };
+
   handleClick = link => {
     window.location.href = "productList";
   };
+
   render() {
-    console.log(window.location.pathname);
-    // const { userInfo } = this.state;
-    let active = window.location.pathname;
+    const active = window.location.pathname;
+
     return (
       <div className="col-sm-3 col-md-3 col-lg-2 left-content d-flex flex-column justify-content-between">
         <div className="left-content-header">
@@ -63,25 +55,22 @@ class SideBar extends Component {
           <div className="platform-nav">
             <ul>
               <li>
-                <a className={active === "/company" ? "active" : ""} href="company">
-                  Your Customers
-                </a>
+                <NavLink to="/company">Your Customers</NavLink>
               </li>
-              
-              <li>
-                <a href="#">Dashboard</a>
-              </li>
-
-              <li>
-                <a href="#">All Products</a>
-              </li>
-              <li>
-                <a href="#">In Production</a>
-              </li>
-              <li>
-                <a href="#">Customer Orders</a>
-              </li>
-              
+              {this.props.isCustomerLoaded && <div>
+                <li>
+                  <NavLink to="/dashboard">Dashboard</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/products">All Products</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/production">In Production</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/orders">Customer Orders</NavLink>
+                </li>
+              </div>}
             </ul>
           </div>
         </div>
@@ -99,18 +88,20 @@ class SideBar extends Component {
   }
 }
 
-// export default SideBar dasda
 const mapStateToProps = state => {
   return {
-    loginUserInfo: state.login
+    loginUserInfo: state.login,
+    isCustomerLoaded: state.login.isCustomerLoaded
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     saveLoginUserInfo: data => dispatch(saveLoginUserInfo(data)),
+    saveCustomerInfo: data => dispatch(saveCustomerInfo(data)),
     saveToken: data => dispatch(saveToken(data))
     // showHideLoding: (data) => dispatch(showHideLoding(data))
   };
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

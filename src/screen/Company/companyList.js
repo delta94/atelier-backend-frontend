@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import logoawhite from "../../img-new/icon-a-purple.svg";
 import demothumb from "../../images/customer-thumb.png";
@@ -7,7 +6,7 @@ import "../userdashboard.scss";
 import "./customers.scss";
 import Error from "../../utils/Error";
 import { connect } from "react-redux";
-import { saveLoginUserInfo } from "../../Redux/Action/Login";
+import { saveLoginUserInfo, saveCustomerInfo } from "../../Redux/Action/Login";
 import { showHideLoding } from "../../Redux/Action/Loading";
 import Product from "../Product/productList";
 import AddCustomer from "./addCustomer";
@@ -31,8 +30,10 @@ class customer extends Component {
       shippingData: []
     };
   }
+
   componentWillMount() {
     this.props.showHideLoding(false);
+    this.props.saveCustomerInfo(false);
     this.GetUserList();
   }
 
@@ -42,13 +43,25 @@ class customer extends Component {
       .then(response => {
         this.props.showHideLoding(false);
         this.setState({ userList: response.data.data.userList });
-        console.log("userList :" + JSON.stringify(this.state.userList));
+        // console.log("userList :" + JSON.stringify(this.state.userList));
       })
       .catch(err => {
         this.props.showHideLoding(false);
-        //  this.props.showHideLoader(false)
       });
   };
+
+  selectCustomer = (value) => {
+    this.props.saveCustomerInfo(true);
+    this.setState({
+      companyDetails: !this.state.companyDetails,
+      active: value.userId,
+      showProduct: false,
+      userOrder: false,
+      userProduction: false,
+      shippingData: value.shippingData
+    });
+    this.props.history.push("/dashboard");
+  }
 
   createCustomer = () => {
     this.setState({
@@ -58,6 +71,12 @@ class customer extends Component {
       userProduction: false
     });
   };
+
+  showAddCustomerToast = (ev) => {
+    this.setState({
+      showAddCustomer: false
+    })
+  }
 
   render() {
     const {
@@ -70,7 +89,7 @@ class customer extends Component {
       showAddCustomer,
       shippingData
     } = this.state;
-    // alert(showProduct);
+
     return (
       <React.Fragment>
         <div className="row justify-content-between">
@@ -90,18 +109,9 @@ class customer extends Component {
                     <div className="customers-listing">
                       <ul className="customer-lists d-flex flex-wrap">
                         {userList.map(user => (
-                          <li className="customer-wrap">
+                          <li className="customer-wrap" key={user.userId}>
                             <a
-                              onClick={() =>
-                                this.setState({
-                                  companyDetails: !this.state.companyDetails,
-                                  active: user.userId,
-                                  showProduct: false,
-                                  userOrder: false,
-                                  userProduction: false,
-                                  shippingData: user.shippingData
-                                })
-                              }
+                              onClick={() => this.selectCustomer(user)}
                               href="#"
                             >
                               <div className="customer-thumb">
@@ -152,7 +162,7 @@ class customer extends Component {
                   </div>
 
                   {userList.map(user => (
-                    <div>
+                    <div key={user.userId}>
                       {companyDetails && user.userId == active ? (
                         <ul className="child-list">
                           <li>
@@ -208,7 +218,7 @@ class customer extends Component {
                     </div>
                   ))}
 
-                  {showAddCustomer ? <AddCustomer /> : null}
+                  {showAddCustomer ? <AddCustomer showAddCustomer={this.showAddCustomerToast}/> : null}
                   {showProduct ? (
                     <Product userId={active} shippingData={shippingData} />
                   ) : null}
@@ -239,6 +249,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     saveLoginUserInfo: data => dispatch(saveLoginUserInfo(data)),
+    saveCustomerInfo: data => dispatch(saveCustomerInfo(data)),
     showHideLoding: data => dispatch(showHideLoding(data))
   };
 };

@@ -178,18 +178,18 @@ class production extends Component {
                                             <p className="Primary">Primary<br /> Packaging</p>
                                             <p className="Shoulder">Production Estimate: 40 Days <span className="Record_Delay">Record Delay</span></p>
                                         </div> */}
-                      <div class="detail-col">
-                        <div class="detail-col-cont">
-                          <p class="Primary">
+                      <div className="detail-col">
+                        <div className="detail-col-cont">
+                          <p className="Primary">
                             Primary
                             <br /> Packaging
                           </p>
-                          <p class="Shoulder">
+                          <p className="Shoulder">
                             Production Estimate:{" "}
                             {productDetail.primaryPackaging ? productDetail.primaryPackaging.productionTime : 0} Days
                           </p>
                         </div>
-                        <p class="Record_Delay">
+                        <p className="Record_Delay">
                           <a onClick={() => this.setState({ showDelay: !this.state.showDelay })} href="#">
                             Record Delay
                           </a>
@@ -260,9 +260,9 @@ class production extends Component {
                                                     </p>
                                                     <p>Production<br /> Assurance</p>
                                                 </div> */}
-                          <div class="onetext3">
-                            <p class="plantestest">
-                              <label class="delay-recorded">
+                          <div className="onetext3">
+                            <p className="plantestest">
+                              <label className="delay-recorded">
                                 <input
                                   checked={productDetail.primary.isQuality}
                                   value={productDetail.primary.isQuality}
@@ -272,7 +272,7 @@ class production extends Component {
                                   name="qualityAssurance"
                                 />
                                 <span
-                                  class="delay-tooltip"
+                                  className="delay-tooltip"
                                   onClick={() => this.setState({ showMessage: !this.state.showMessage })}
                                 >
                                   +5 days
@@ -283,12 +283,12 @@ class production extends Component {
                               Quality
                               <br /> Assurance
                             </p>
-                            <div class={showMessage ? "delay-details show" : "delay-details"}>
-                              <div class="delay-msg-wrap">
-                                <div class="delay-thumb">
+                            <div className={showMessage ? "delay-details show" : "delay-details"}>
+                              <div className="delay-msg-wrap">
+                                <div className="delay-thumb">
                                   <img src="images/admin-thumb.png" />
                                 </div>
-                                <div class="delay-msg">
+                                <div className="delay-msg">
                                   <p>
                                     Nick Benson <br />
                                     Says
@@ -299,10 +299,10 @@ class production extends Component {
                                   </p>
                                   <p>Apologies :)</p>
 
-                                  <div class="update-submit">
+                                  <div className="update-submit">
                                     <button
                                       onClick={() => this.setState({ showMessage: !this.state.showMessage })}
-                                      class="btn-module"
+                                      className="btn-module"
                                     >
                                       Done
                                     </button>
@@ -330,30 +330,30 @@ class production extends Component {
                         {/* <div className="trackshipping">
                                                 <a href="#">Track Shipping</a>
                                             </div> */}
-                        <div class="trackshipping">
+                        <div className="trackshipping">
                           <a
                             href="#"
                             onClick={() => this.setState({ showTrack: !this.state.showTrack })}
-                            class={showTrack ? "trigger-add-shipping track-start" : "trigger-add-shipping"}
+                            className={showTrack ? "trigger-add-shipping track-start" : "trigger-add-shipping"}
                           >
-                            <span class="text-add-ship ">Add Shipping</span>
-                            <span class="text-track-ship">Track Shipping</span>
+                            <span className="text-add-ship ">Add Shipping</span>
+                            <span className="text-track-ship">Track Shipping</span>
 
                             <img src="images/noun_Plane_2137065.svg" height="40px" width="40px" />
                           </a>
                         </div>
                         {/* <!-- add shipping url --> */}
-                        <div class={showTrack ? "track-shipping-pop show" : "track-shipping-pop"}>
-                          <div class="track-shipping-form">
+                        <div className={showTrack ? "track-shipping-pop show" : "track-shipping-pop"}>
+                          <div className="track-shipping-form">
                             <form>
-                              <div class="field-group">
+                              <div className="field-group">
                                 <label>Paste shipping tracking URL here.</label>
                                 <input type="text" name="tracking-url" />
                               </div>
-                              <div class="update-submit submit-form">
+                              <div className="update-submit submit-form">
                                 <button
                                   onClick={() => this.setState({ showTrack: !this.state.showTrack })}
-                                  class="btn-module"
+                                  className="btn-module"
                                 >
                                   Done
                                 </button>
@@ -364,72 +364,72 @@ class production extends Component {
                         {/* <!-- add shipping url end --> */}
                       </div>
                       {/* <!-- record delay popup start --> */}
-                      <div class={showDelay ? "record-delay-popup show" : "record-delay-popup"}>
-                        <div class="record-pop-content">
+                      <div className={showDelay ? "record-delay-popup show" : "record-delay-popup"}>
+                        <div className="record-pop-content">
                           <form>
-                            <div class="fields-wrap">
+                            <div className="fields-wrap">
                               <label>At which stage has the delay occured?</label>
-                              <div class="fields-group d-flex">
-                                <div class="reason">
+                              <div className="fields-group d-flex">
+                                <div className="reason">
                                   <label for="production_accepted">
                                     <input
                                       type="radio"
                                       id="production_accepted"
                                       value="Production Accepted"
                                       name="reason-delay"
-                                      class="option-input radio"
+                                      className="option-input radio"
                                     />{" "}
                                     <br />
                                     Production Accepted
                                   </label>
                                 </div>
-                                <div class="reason">
+                                <div className="reason">
                                   <label for="production_begins">
                                     <input
                                       type="radio"
                                       id="production_begins"
                                       value="Production Begins"
                                       name="reason-delay"
-                                      class="option-input radio"
+                                      className="option-input radio"
                                     />{" "}
                                     <br />
                                     Production Begins
                                   </label>
                                 </div>
-                                <div class="reason">
+                                <div className="reason">
                                   <label for="production_completed">
                                     <input
                                       type="radio"
                                       id="production_completed"
                                       value="Production Completed"
                                       name="reason-delay"
-                                      class="option-input radio"
+                                      className="option-input radio"
                                     />{" "}
                                     <br />
                                     Production Completed
                                   </label>
                                 </div>
-                                <div class="reason">
+                                <div className="reason">
                                   <label for="quality_assurance">
                                     <input
                                       type="radio"
                                       id="quality_assurance"
                                       value="Quality Assurance"
                                       name="reason-delay"
-                                      class="option-input radio"
+                                      className="option-input radio"
                                     />{" "}
                                     <br />
                                     Quality Assurance
                                   </label>
                                 </div>
-                                <div class="reason">
+                                <div className="reason">
                                   <label for="shipping">
                                     <input
                                       type="radio"
                                       id="shipping"
                                       value="Shipping"
                                       name="reason-delay"
-                                      class="option-input radio"
+                                      className="option-input radio"
                                     />{" "}
                                     <br />
                                     Shipping
@@ -438,9 +438,9 @@ class production extends Component {
                               </div>
                             </div>
 
-                            <div class="fields-wrap">
+                            <div className="fields-wrap">
                               <label>What is the estimated length of the delay?</label>
-                              <div class="select-delay">
+                              <div className="select-delay">
                                 <select>
                                   <option>+5</option>
                                   <option>+10</option>
@@ -451,16 +451,16 @@ class production extends Component {
                               </div>
                             </div>
 
-                            <div class="fields-wrap">
+                            <div className="fields-wrap">
                               <label>What is the reason for the delay?</label>
                               <input type="text" name="" />
                             </div>
 
-                            <div class="update-submit submit-form">
+                            <div className="update-submit submit-form">
                               <button
                                 onClick={() => this.setState({ showDelay: !this.state.showDelay })}
                                 type="submit"
-                                class="btn-module"
+                                className="btn-module"
                               >
                                 Done
                               </button>
@@ -469,19 +469,19 @@ class production extends Component {
                         </div>
                       </div>
                       {/* <!-- record delay popup end --> */}
-                      <div class="detail-col1">
-                        <div class="detail-col-cont">
-                          <p class="Primary">
+                      <div className="detail-col1">
+                        <div className="detail-col-cont">
+                          <p className="Primary">
                             Secondary
                             <br /> Packaging
                           </p>
-                          <p class="Shoulder">
-                            <span class="firstdescription">
+                          <p className="Shoulder">
+                            <span className="firstdescription">
                               Actual Prodyction:{" "}
                               {productDetail.secondaryPackaging ? productDetail.secondaryPackaging.productionTime : 0}{" "}
                               Days
                             </span>
-                            <span class="firstdescription1">Production Estimate: 30 Days</span>
+                            <span className="firstdescription1">Production Estimate: 30 Days</span>
                           </p>
                         </div>
                       </div>
@@ -579,30 +579,30 @@ class production extends Component {
                                                 <a href="#">Track Shipping</a>
                                                 <img src="images/noun_Plane_2137065.svg" height="40px" width="40px" />
                                             </div> */}
-                        <div class="trackshipping">
+                        <div className="trackshipping">
                           <a
                             href="#"
                             onClick={() => this.setState({ showSecondTrack: !this.state.showSecondTrack })}
-                            class={showSecondTrack ? "trigger-add-shipping track-start" : "trigger-add-shipping"}
+                            className={showSecondTrack ? "trigger-add-shipping track-start" : "trigger-add-shipping"}
                           >
-                            <span class="text-add-ship ">Add Shipping</span>
-                            <span class="text-track-ship">Track Shipping</span>
+                            <span className="text-add-ship ">Add Shipping</span>
+                            <span className="text-track-ship">Track Shipping</span>
 
                             <img src="images/noun_Plane_2137065.svg" height="40px" width="40px" />
                           </a>
                         </div>
                         {/* <!-- add shipping url --> */}
-                        <div class={showSecondTrack ? "track-shipping-pop show" : "track-shipping-pop"}>
-                          <div class="track-shipping-form">
+                        <div className={showSecondTrack ? "track-shipping-pop show" : "track-shipping-pop"}>
+                          <div className="track-shipping-form">
                             <form>
-                              <div class="field-group">
+                              <div className="field-group">
                                 <label>Paste shipping tracking URL here.</label>
                                 <input type="text" name="tracking-url" />
                               </div>
-                              <div class="update-submit submit-form">
+                              <div className="update-submit submit-form">
                                 <button
                                   onClick={() => this.setState({ showSecondTrack: !this.state.showSecondTrack })}
-                                  class="btn-module"
+                                  className="btn-module"
                                 >
                                   Done
                                 </button>
@@ -617,19 +617,19 @@ class production extends Component {
                                             <p className="Shoulder2">Production Estimate: 20 Days <span className="Record_Delay">Record Delay</span></p>
 
                                         </div> */}
-                      <div class="detail-col">
-                        <div class="detail-col-cont">
-                          <p class="Primary">
+                      <div className="detail-col">
+                        <div className="detail-col-cont">
+                          <p className="Primary">
                             Formulation
                             <br /> &Packaging
                           </p>
-                          <p class="Shoulder">
+                          <p className="Shoulder">
                             Production Estimate:{" "}
                             {productDetail.formulationPackaging ? productDetail.formulationPackaging.productionTime : 0}{" "}
                             Days
                           </p>
                         </div>
-                        <p class="Record_Delay">
+                        <p className="Record_Delay">
                           <a href="#">Record Delay</a>
                         </p>
                       </div>
@@ -726,32 +726,32 @@ class production extends Component {
                         {/* <div className="trackshipping2">
                                                 <a href="#">Track Shipping</a>
                                             </div> */}
-                        <div class="trackshipping">
+                        <div className="trackshipping">
                           <a
                             href="#"
                             onClick={() => this.setState({ showFormulationTrack: !this.state.showFormulationTrack })}
-                            class={showFormulationTrack ? "trigger-add-shipping track-start" : "trigger-add-shipping"}
+                            className={showFormulationTrack ? "trigger-add-shipping track-start" : "trigger-add-shipping"}
                           >
-                            <span class="text-add-ship ">Add Shipping</span>
-                            <span class="text-track-ship">Track Shipping</span>
+                            <span className="text-add-ship ">Add Shipping</span>
+                            <span className="text-track-ship">Track Shipping</span>
 
                             <img src="images/noun_Plane_2137065.svg" height="40px" width="40px" />
                           </a>
                         </div>
                         {/* <!-- add shipping url --> */}
-                        <div class={showFormulationTrack ? "track-shipping-pop show" : "track-shipping-pop"}>
-                          <div class="track-shipping-form">
+                        <div className={showFormulationTrack ? "track-shipping-pop show" : "track-shipping-pop"}>
+                          <div className="track-shipping-form">
                             <form>
-                              <div class="field-group">
+                              <div className="field-group">
                                 <label>Paste shipping tracking URL here.</label>
                                 <input type="text" name="tracking-url" />
                               </div>
-                              <div class="update-submit submit-form">
+                              <div className="update-submit submit-form">
                                 <button
                                   onClick={() =>
                                     this.setState({ showFormulationTrack: !this.state.showFormulationTrack })
                                   }
-                                  class="btn-module"
+                                  className="btn-module"
                                 >
                                   Done
                                 </button>

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import "./sidebar.scss";
+import { NavLink } from "react-router-dom";
 import { apiCommonParams } from "../../ApiActions/DbConfig/ApiBaseUrl";
-import { saveLoginUserInfo } from "../../Redux/Action/Login";
+import { saveCustomerInfo, saveLoginUserInfo } from "../../Redux/Action/Login";
+import "./sidebar.scss";
 
 class SideBar extends Component {
   constructor(props) {
@@ -22,7 +22,6 @@ class SideBar extends Component {
     let authReducer = JSON.parse(reduxData.login);
     authReducer.loginUserInfo.access_token = "";
     authReducer.access_token = "";
-    // console.log(JSON.stringify(authReducer));
     reduxData.login = JSON.stringify(authReducer);
     localStorage.setItem(`persist:${apiCommonParams.REDUX_STORE_KEY}`, JSON.stringify(reduxData));
   };
@@ -32,7 +31,7 @@ class SideBar extends Component {
   };
 
   render() {
-    let active = window.location.pathname;
+    const active = window.location.pathname;
 
     return (
       <div className="col-sm-3 col-md-3 col-lg-2 left-content d-flex flex-column justify-content-between">
@@ -51,18 +50,22 @@ class SideBar extends Component {
           <div className="platform-nav">
             <ul>
               <li>
-                <Link to="/company">Your Customers</Link>
+                <NavLink to="/company">Your Customers</NavLink>
               </li>
-              <li>
-                <Link to="/products">All Products</Link>
-              </li>
-              <li>
-                <Link to="/production">In Production</Link>
-              </li>
-              <li>
-                <Link to="/orders">Customer Orders</Link>
-              </li>
-              
+              {this.props.isCustomerLoaded && <div>
+                <li>
+                  <NavLink to="/dashboard">Dashboard</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/products">All Products</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/production">In Production</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/orders">Customer Orders</NavLink>
+                </li>
+              </div>}
             </ul>
           </div>
         </div>
@@ -80,17 +83,18 @@ class SideBar extends Component {
   }
 }
 
-// export default SideBar
 const mapStateToProps = state => {
   return {
-    loginUserInfo: state.login
+    loginUserInfo: state.login,
+    isCustomerLoaded: state.login.isCustomerLoaded
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    saveLoginUserInfo: data => dispatch(saveLoginUserInfo(data))
-    // showHideLoding: (data) => dispatch(showHideLoding(data))
+    saveLoginUserInfo: data => dispatch(saveLoginUserInfo(data)),
+    saveCustomerInfo: data => dispatch(saveCustomerInfo(data)),
   };
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

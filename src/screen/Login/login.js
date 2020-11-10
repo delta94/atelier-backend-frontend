@@ -70,7 +70,14 @@ class loginUser extends Component {
                 <Alogo />
 
                 <ToastContainer />
-                <Formik initialValues={{ password: "", email: "" }} validationSchema={validationSchema} onSubmit={(values, { resetForm }) => { this.loginUser(values); resetForm(); }}>
+                <Formik
+                    initialValues={{ password: "", email: "" }}
+                    validationSchema={validationSchema}
+                    onSubmit={(values, { resetForm }) => {
+                        this.loginUser(values);
+                        resetForm(); 
+                    }}
+                >
                     {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
 
                         <div className="login-wrapper">

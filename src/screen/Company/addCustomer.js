@@ -37,8 +37,6 @@ class addCustomer extends Component {
   }
   
   addUser = values => {
-    // alert(JSON.stringify(values))
-    // name: "", company: "", email: "", password: ""
     const data = new FormData();
     data.append("email", values.email);
     data.append("name", values.name);
@@ -46,7 +44,7 @@ class addCustomer extends Component {
     data.append("companyName", values.company);
     data.append("image", this.state.uploadImage);
     data.append("userType", "app");
-    // console.log(JSON.stringify())
+    debugger
     this.props.showHideLoding(true);
     signUp(data, this.state.token)
       .then(res => {
@@ -74,6 +72,11 @@ class addCustomer extends Component {
         this.props.showHideLoding(false);
       });
   };
+
+  onPressCancel = () => {
+    this.props.showAddCustomer(false);
+  }
+
   onDrop = acceptedFiles => {
     this.setState({ imageName: acceptedFiles[0].name });
     console.log(acceptedFiles);
@@ -119,13 +122,14 @@ class addCustomer extends Component {
                             <h3>Customer Details</h3>
                             <div className="popup-form-area">
                               
-                              <Formik initialValues={{ name: "", company: "", email: "", password: "" }}
-                              validationSchema={validationSchema}
-                              onSubmit={(values, { resetForm }) => {
-                                this.addUser(values);
-                                resetForm();
-                              }}
-                            >
+                              <Formik
+                                initialValues={{ name: "", company: "", email: "", password: "" }}
+                                validationSchema={validationSchema}
+                                onSubmit={(values, { resetForm }) => {
+                                  this.addUser(values);
+                                  resetForm();
+                                }}
+                              >
                               {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
                               <form onSubmit={handleSubmit}>
                                 <div className="add-customer">
@@ -185,14 +189,14 @@ class addCustomer extends Component {
                                       <input className="form-control" type="text" placeholder="Insert Contact Name" name="" />
                                       
                                       <input
-                                            type="email"
-                                            name="email"
-                                            placeholder="Email Address"
-                                            onChange={handleChange}
-                                            onBlur={handleBlur}
-                                            value={values.email}
-                                            className={touched.email && errors.email ? "form-control has-error" : "form-control"}
-                                          />
+                                        type="email"
+                                        name="email"
+                                        placeholder="Email Address"
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        value={values.email}
+                                        className={touched.email && errors.email ? "form-control has-error" : "form-control"}
+                                      />
                                       <Error touched={touched.email} message={errors.email} />
 
                                       <input
@@ -291,9 +295,8 @@ class addCustomer extends Component {
                                   </div>
 
                                   <div className="add-product-submit">
-                                    <button type="submit" className="btn-module">
-                                      Done
-                                    </button>
+                                    {/* <input type="submit" className="btn-module" Done /> */}
+                                    <input type="submit" className="btn-module" name="" value="Done" />
                                   </div>
                                 </div>
                               </form>

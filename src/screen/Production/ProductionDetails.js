@@ -103,7 +103,7 @@ class Child extends Component {
               </a>
             </div>
           </div> */}
-          <div class="ontime">
+          <div className="ontime">
           <Select
             value={primarySelectedOption}
             onChange={this.handleStatus}

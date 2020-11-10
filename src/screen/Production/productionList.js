@@ -321,6 +321,77 @@ class production extends Component {
 
       <React.Fragment>
         <ToastContainer />
+        {/* <div className="col-sm-12 col-md-8 col-lg-8 right-content account-panel d-flex production-list">
+          <div className="oneproduts d-flex">
+            <table className="table secoundtable">
+              <thead>
+                <tr>
+                  <th>
+                    Order
+                    <br />
+                    No.
+                  </th>
+                  <th>
+                    Product
+                    <br />
+                    Name
+                  </th>
+                  <th>
+                    Customer
+                    <br />
+                    ID
+                  </th>
+                  <th className="Status">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {productionList.map((product) => (
+                  <tr
+                    onClick={() => this.showProductDetail(product)}
+                    key={product.id}
+                    className={product.productionId == productionId ? "active" : ""}
+                  >
+                    <td className="perfect">
+                      <a href="#">{product.orderId}</a>
+                    </td>
+                    <td className="production-product-thumb">
+                      <a href="#">
+                        <img
+                          src={product.heroImage ? product.heroImage : "images/backend_Product_Image.svg"}
+                          height="60px"
+                          width="60px"
+                        />
+                        <p>{product.name}</p>
+                      </a>
+                    </td>
+                    <td className="perfect">
+                      <a href="#" className="status">
+                        {product.company}
+                      </a>
+                    </td>
+                    {product.productStatus === "inProduction" ? (
+                      <td className="perfect ontimes1">
+                        <a href="#">In Production</a>
+                      </td>
+                    ) : (
+                      <td
+                        className={
+                          product.productStatus == "delayed"
+                            ? "perfect ontimes1 delayed capitalize"
+                            : product.productStatus == "delivered"
+                            ? "perfect ontimes1 delivered capitalize"
+                            : "perfect ontimes1"
+                        }
+                      >
+                        <a href="#">{product.productStatus}</a>
+                      </td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div> */}
+          {/* <!-- product detail module --> */}
 
         <div className="row justify-content-between">
           <div className="col-xs-12 col-sm-12 col-md-9 col-lg-9 loggedin-user-dashboard d-flex flex-column">
@@ -358,7 +429,7 @@ class production extends Component {
                             </li>
                           ))}
                         </ul>
-                      ))}
+                      {/* ))} */}
                     </div>
 
                     <div className="product-details-wrap d-flex justify-content-between">

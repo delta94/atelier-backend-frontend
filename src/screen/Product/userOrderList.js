@@ -124,21 +124,25 @@ class order extends Component {
                     <div className="products-order-module">
                       <ul className="row flex-column">
                         <li className="d-flex row-header">
-                          <div class="col">Order No.</div>
-                          <div class="col">Date</div>
-                          <div class="col product">Product</div>
-                          <div class="col amount">Amount</div>
-                          <div class="col status">Status</div>
+                          <div className="col">Order No.</div>
+                          <div className="col">Date</div>
+                          <div className="col product">Product</div>
+                          <div className="col amount">Amount</div>
+                          <div className="col status">Status</div>
                         </li>
                         {cartList.map((order, index) => (
-                          <li onClick={() => this.orderDetail(order)} className={order.cartId == active ? "d-flex row-content active"
-                                  : "d-flex row-content"
-                              }>
+                          <li
+                            onClick={() => this.orderDetail(order)}
+                            className={order.cartId == active ? "d-flex row-content active"
+                              : "d-flex row-content"
+                            }
+                            key={index}
+                            >
 
-                              <div class="col">{order.orderId}</div>
-                              <div class="col">{order.insertDate}</div>
-                              <div class="col product">{order.name}</div>
-                              <div class="col amount">
+                              <div className="col">{order.orderId}</div>
+                              <div className="col">{order.insertDate}</div>
+                              <div className="col product">{order.name}</div>
+                              <div className="col amount">
                                 $
                                 {this.addValue(
                                   order.carbonAmount
@@ -151,9 +155,9 @@ class order extends Component {
                                 )}{" "}
                                 AUD
                               </div>
-                              <div class="col status">
+                              <div className="col status">
                                 <span
-                                  class={
+                                  className={
                                     order.status === "pending"
                                       ? "status-pending"
                                       : order.status === "inProduction"
@@ -192,7 +196,7 @@ class order extends Component {
                   <div className="mta-product-feed">
                     <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
                     <div className="feed-track">
-                      <Link>Track Production Here</Link>
+                      <Link to='/production'>Track Production Here</Link>
                     </div>
                   </div>
                 </div>
@@ -208,7 +212,7 @@ class order extends Component {
                   <div className="mta-product-feed">
                     <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
                     <div className="feed-track">
-                      <Link>Track Production Here</Link>
+                      <Link to='/production'>Track Production Here</Link>
                     </div>
                   </div>
                 </div>
@@ -224,7 +228,7 @@ class order extends Component {
                   <div className="mta-product-feed">
                     <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
                     <div className="feed-track">
-                      <Link>Track Production Here</Link>
+                      <Link to='/production'>Track Production Here</Link>
                     </div>
                   </div>
                 </div>
@@ -241,7 +245,7 @@ class order extends Component {
                   <div className="mta-product-feed">
                     <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
                     <div className="feed-track">
-                      <Link>Track Production Here</Link>
+                      <Link to='/production'>Track Production Here</Link>
                     </div>
                   </div>
                 </div>
@@ -257,7 +261,7 @@ class order extends Component {
                   <div className="mta-product-feed">
                     <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
                     <div className="feed-track">
-                      <Link>Track Production Here</Link>
+                      <Link to='/production'>Track Production Here</Link>
                     </div>
                   </div>
                 </div>
@@ -273,7 +277,7 @@ class order extends Component {
                   <div className="mta-product-feed">
                     <p>Production on all components has been accepted on wonder. Your product is in full production.</p>
                     <div className="feed-track">
-                      <Link>Track Production Here</Link>
+                      <Link to='/production'>Track Production Here</Link>
                     </div>
                   </div>
                 </div>

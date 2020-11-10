@@ -2,11 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { apiCommonParams } from "../../ApiActions/DbConfig/ApiBaseUrl";
-import { saveCustomerInfo, saveLoginUserInfo } from "../../Redux/Action/Login";
+import { saveCustomerInfo, saveLoginUserInfo, saveToken } from "../../Redux/Action/Login";
 import "./sidebar.scss";
 // import { GetCount } from '../../ApiActions/Product';
 // import { saveOrderCount, saveProductioCount } from '../../Redux/Action/Product'
-import { saveLoginUserInfo, saveToken } from "../../Redux/Action/Login";
 // import { saveLoginUserInfo } from '../../Redux/Action/Login'
 
 class SideBar extends Component {

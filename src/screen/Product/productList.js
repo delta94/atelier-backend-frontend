@@ -146,7 +146,7 @@ class product extends Component {
                       </ul>
                     </div>
 
-                    <div className="product-details-wrap">
+                    {this.state.showAddProduct === false ? <div className="product-details-wrap">
                       <div className="product-detail d-flex flex-column">
                         <h4>Product Overview</h4>
 
@@ -378,7 +378,8 @@ class product extends Component {
                           </ul>
                         </div>
                       </div>
-                    </div>
+                    </div>:<AddProduct userId={userId} />}
+
                   </div>
                 </div>
               </div>
@@ -464,9 +465,6 @@ class product extends Component {
             </div>
           </div>
         </div>
-
-
-        {showAddProduct ? <AddProduct userId={userId} /> : null}
         {showProductDetails ? (
           <ProductDetails productDetail={productDetail} userId={userId} shippingData={shippingData} />
         ) : null}

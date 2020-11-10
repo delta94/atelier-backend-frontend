@@ -44,7 +44,7 @@ class productUpdate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      token: props.loginUserInfo ? props.loginUserInfo.access_token : "",
+      token: props.token ? props.token.token : "",
       companyDetails: false,
       editable: false,
       productDetail: this.props.productDetail
@@ -403,7 +403,8 @@ class productUpdate extends Component {
 }
 const mapStateToProps = state => {
   return {
-    loginUserInfo: state.login
+    loginUserInfo: state.login,
+    token: state.login.token
   };
 };
 

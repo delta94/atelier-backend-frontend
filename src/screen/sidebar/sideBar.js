@@ -4,6 +4,10 @@ import { NavLink } from "react-router-dom";
 import { apiCommonParams } from "../../ApiActions/DbConfig/ApiBaseUrl";
 import { saveCustomerInfo, saveLoginUserInfo } from "../../Redux/Action/Login";
 import "./sidebar.scss";
+// import { GetCount } from '../../ApiActions/Product';
+// import { saveOrderCount, saveProductioCount } from '../../Redux/Action/Product'
+import { saveLoginUserInfo, saveToken } from "../../Redux/Action/Login";
+// import { saveLoginUserInfo } from '../../Redux/Action/Login'
 
 class SideBar extends Component {
   constructor(props) {
@@ -18,6 +22,7 @@ class SideBar extends Component {
   logout = () => {
     let data = {};
     this.props.saveLoginUserInfo(data);
+    this.props.saveToken(data);
     let reduxData = JSON.parse(localStorage.getItem(`persist:${apiCommonParams.REDUX_STORE_KEY}`));
     let authReducer = JSON.parse(reduxData.login);
     authReducer.loginUserInfo.access_token = "";
@@ -94,6 +99,8 @@ const mapDispatchToProps = dispatch => {
   return {
     saveLoginUserInfo: data => dispatch(saveLoginUserInfo(data)),
     saveCustomerInfo: data => dispatch(saveCustomerInfo(data)),
+    saveToken: data => dispatch(saveToken(data))
+    // showHideLoding: (data) => dispatch(showHideLoding(data))
   };
 };
 

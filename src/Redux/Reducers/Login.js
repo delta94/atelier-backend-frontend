@@ -1,19 +1,22 @@
 import {
 	SAVE_LOGIN_USERINFO,
 	UPDATE_USERINFO,
-	SAVE_CUSTOMER_INFO
+	SAVE_CUSTOMER_INFO,
+  ACCESS_TOKEN
 } from '../Action/ActionTypes';
 
 const INITIAL_STATE = {
 	updatedUserInfo: {},
 	loginUserInfo: {},
 	isCustomerLoaded: false,
+  token: {}
 }
 
 export default function login(state = {
 	updatedUserInfo: {},
 	loginUserInfo: {},
 	isCustomerLoaded: false,
+  token: {}
 }, action) {
 
 	switch (action.type) {
@@ -32,6 +35,10 @@ export default function login(state = {
 				isCustomerLoaded: action.payload
 			})
 		}
+      case ACCESS_TOKEN: {
+                return Object.assign({}, state, { token: action.payload })
+                // return (state, { access_token: action.payload })
+            }
 		default: {
 			return state
 		}

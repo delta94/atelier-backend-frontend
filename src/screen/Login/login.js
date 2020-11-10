@@ -10,7 +10,7 @@ import Error from '../../utils/Error'
 // redux
 import { connect } from 'react-redux';
 // Dispatch 
-import { saveLoginUserInfo } from '../../Redux/Action/Login'
+import { saveLoginUserInfo, saveToken } from '../../Redux/Action/Login'
 import { showHideLoding } from '../../Redux/Action/Loading'
 //api 
 import { login } from '../../ApiActions/Login'
@@ -45,6 +45,10 @@ class loginUser extends Component {
             this.props.saveLoginUserInfo(res.data.data);
             this.props.showHideLoding(false)
             if (res.data.statusCode === 200) {
+                let data = {
+                    token : res.headers.authorization
+                  }
+                 this.props.saveToken(data);
                 setTimeout(() => {
                     let reduxData = JSON.parse(localStorage.getItem(`persist:${apiCommonParams.REDUX_STORE_KEY}`));
                     let authReducer = JSON.parse(reduxData.login);
@@ -143,8 +147,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         saveLoginUserInfo: (data) => dispatch(saveLoginUserInfo(data)),
-        showHideLoding: (data) => dispatch(showHideLoding(data))
-
+        showHideLoding: (data) => dispatch(showHideLoding(data)),
+        saveToken: (data) => dispatch(saveToken(data)),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(loginUser)

@@ -14,6 +14,7 @@ import UserOrderList from "../Product/userOrderList";
 import UserProductionList from "../Production/userProductionList";
 import { GetUser } from "../../ApiActions/SignUp";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 class customer extends Component {
   constructor(props) {
@@ -27,7 +28,8 @@ class customer extends Component {
       showAddCustomer: false,
       active: "",
       userList: [],
-      shippingData: []
+      shippingData: [],
+      isCustomerCreated: false
     };
   }
 
@@ -43,7 +45,7 @@ class customer extends Component {
       .then(response => {
         this.props.showHideLoding(false);
         this.setState({ userList: response.data.data.userList });
-        // console.log("userList :" + JSON.stringify(this.state.userList));
+        console.log("--------------------", this.state.userList[0]);
       })
       .catch(err => {
         this.props.showHideLoding(false);
@@ -75,12 +77,24 @@ class customer extends Component {
   showAddCustomerToast = (ev) => {
     this.setState({
       showAddCustomer: false
-    })
+    });
+    if(this.state.isCustomerCreated) {
+      toast.success("Customer add successfully.");
+      this.GetUserList();
+      this.setState({
+        isCustomerCreated: false
+      });
+    }
+  }
+
+  checkCustomerCreated = (ev) => {
+    this.setState({
+      isCustomerCreated: true
+    });
   }
 
   render() {
     const { userList, active, companyDetails, showProduct, userOrder, userProduction, showAddCustomer, shippingData } = this.state;
-console.log("userList :", userList)
     return (
       <React.Fragment>
         <div className="row justify-content-between">
@@ -101,10 +115,6 @@ console.log("userList :", userList)
                       <ul className="customer-lists d-flex flex-wrap">
                         {userList.map(user => (
                           <li className="customer-wrap" key={user.userId}>
-                            {/* <a
-                              onClick={() => this.selectCustomer(user)}
-                              href="#"
-                            > */}
                             <Link to={{ state: { params: { user: user, id: user.userId } } }} onClick={() => this.selectCustomer(user)} >
                               <div className="customer-thumb">
                                 <img
@@ -118,13 +128,12 @@ console.log("userList :", userList)
                                 />
                               </div>
                               <div className="customername">
-                                <span>{user.company.length > 0? user.company[0].name:''}</span>
+                                <span>{user.company.length > 0 ? user.company[0].name : ''}</span>
                                 <span className="del">
                                   <i className="icon-del"></i>
                                 </span>
                               </div>
-                              </Link>
-                            {/* </a> */}
+                            </Link>
                             <div className="total-product-counter">
                               <span>10{/*{user.productData.length}*/}</span>
                             </div>
@@ -211,7 +220,7 @@ console.log("userList :", userList)
                     </div>
                   ))}
 
-                  {showAddCustomer ? <AddCustomer showAddCustomer={this.showAddCustomerToast}/> : null}
+                  {showAddCustomer ? <AddCustomer showAddCustomer={this.showAddCustomerToast} isCustomerCreated={this.checkCustomerCreated}/> : null}
                   {showProduct ? (
                     <Product userId={active} shippingData={shippingData} />
                   ) : null}

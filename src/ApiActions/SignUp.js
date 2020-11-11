@@ -16,8 +16,6 @@ export const signUp = (data, token) => {
 }
 export const GetUser = (token) => {
     return new Promise((resolve, reject) => {
-
-        console.log(JSON.stringify(token))
         let url = Api.USER_LIST,
         headers = {};
         // if (token) {

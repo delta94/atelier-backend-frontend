@@ -104,6 +104,14 @@
     overflow: initial !important;
 }
 
+.customer-logo{
+    .Dropzone{
+        div{
+            pointer-events: none;
+        }
+    }
+}
+
 .add-customer{
     .detail-info{
         margin-bottom: 30px;
